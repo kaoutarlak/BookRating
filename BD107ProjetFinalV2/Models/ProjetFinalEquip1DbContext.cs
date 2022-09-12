@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BD107ProjetFinal.Models
+namespace BD107ProjetFinalV2.Models
 {
-    public class ProjetFinalEquip1DbContext : DbContext
+    public class ProjetFinalEquip1DbContext:IdentityDbContext
     {
         public ProjetFinalEquip1DbContext(DbContextOptions<ProjetFinalEquip1DbContext> options) : base()
         {
