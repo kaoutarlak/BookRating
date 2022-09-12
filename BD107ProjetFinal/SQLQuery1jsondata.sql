@@ -2,10 +2,10 @@
 GO
 
 if OBJECT_ID('Livres','U') is not null
-	drop table Livres;
+	drop table Categorie;
 Go
 
-create table Livres(
+create table Categorie(
 	id int primary key,
 	categorie varchar(100),
 	titre varchar(100),
