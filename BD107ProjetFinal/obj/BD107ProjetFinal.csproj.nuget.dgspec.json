@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {}
+    "C:\\Users\\Ary\\Desktop\\Cegep\\Creation Site Web - Serveur\\ProjetFinal\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {}
   },
   "projects": {
-    "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {
+    "C:\\Users\\Ary\\Desktop\\Cegep\\Creation Site Web - Serveur\\ProjetFinal\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
+        "projectUniqueName": "C:\\Users\\Ary\\Desktop\\Cegep\\Creation Site Web - Serveur\\ProjetFinal\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
         "projectName": "BD107ProjetFinal",
-        "projectPath": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
-        "packagesPath": "C:\\Users\\sen88\\.nuget\\packages\\",
-        "outputPath": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\obj\\",
+        "projectPath": "C:\\Users\\Ary\\Desktop\\Cegep\\Creation Site Web - Serveur\\ProjetFinal\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
+        "packagesPath": "C:\\Users\\Ary\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ary\\Desktop\\Cegep\\Creation Site Web - Serveur\\ProjetFinal\\Projet-final-107\\BD107ProjetFinal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sen88\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ary\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
         }
       }
     }
