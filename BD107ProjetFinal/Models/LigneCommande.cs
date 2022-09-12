@@ -9,7 +9,9 @@ namespace BD107ProjetFinal.Models
     public class LigneCommande
     {
         [Required]
-        public int Id { get; set; }
+        [Key]
+
+        public int LigneCommandeId { get; set; }
         [Required]
         public int Quantite { get; set; }
         [Required]

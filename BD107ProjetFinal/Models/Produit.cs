@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,8 @@ namespace BD107ProjetFinal.Models
 {
     public class Produit
     {
-        public int Id { get; set; }
+        [Key]
+        public int ProduitId { get; set; }
         public string Titre { get; set; }
         public string Auteur { get; set; }
         public double Prix { get; set; }
