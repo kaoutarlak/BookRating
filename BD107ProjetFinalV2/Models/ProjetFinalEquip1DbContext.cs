@@ -15,9 +15,9 @@ namespace BD107ProjetFinalV2.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("Server =(localdb)\\mssqllocaldb; Database=BDWPojetFinalEquipe1;Trusted_Connection=True;");
+            //optionsBuilder.UseSqlServer("Server =(localdb)\\mssqllocaldb; Database=BDWPojetFinalEquipe1;Trusted_Connection=True;");
             //optionsBuilder.UseSqlServer("Server =tcp:424sql.cgodin.qc.ca,5433;Database=BDWPojetFinalEquipe1;Trusted_Connection=True;");
-            //optionsBuilder.UseSqlServer("Server=tcp:424sql.cgodin.qc.ca,5433;Database=BDWPojetFinalEquipe1;User Id=E22equipe1;Password=Secret16113");
+            optionsBuilder.UseSqlServer("Server=tcp:424sql.cgodin.qc.ca,5433;Database=BDWPojetFinalEquipe1;User Id=E22equipe1;Password=Secret16113");
             //"Equipe1Connection": "Server=tcp:424sql.cgodin.qc.ca,5433;Database=BDWPojetFinalEquipe1;User Id=E22equipe1;Password=Secret16113"
             //optionsBuilder.UseSqlServer("Data Source=tcp:424sql.cgodin.qc.ca,5433;Initial Catalog=BDWPojetFinalEquipe1; User ID=E22equipe1; Password =Secret16113");
         }
