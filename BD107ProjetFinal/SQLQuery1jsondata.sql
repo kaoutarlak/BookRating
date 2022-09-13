@@ -39,7 +39,7 @@ if (ISJSON(@Livres)=1)
 	begin 
 		print 'loading file is valid';
 
-		insert into dbo.Livres
+		insert into dbo.Categorie
 		select *
 		from openjson (@Livres, '$.Livres.litterature')
 		with(
