@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {}
+    "E:\\LEA.BU\\02-Session Été 2022\\420-107-GG CRÉATION D'UN SITE WEB SERVEUR\\Projet-final-107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {}
   },
   "projects": {
-    "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {
+    "E:\\LEA.BU\\02-Session Été 2022\\420-107-GG CRÉATION D'UN SITE WEB SERVEUR\\Projet-final-107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
+        "projectUniqueName": "E:\\LEA.BU\\02-Session Été 2022\\420-107-GG CRÉATION D'UN SITE WEB SERVEUR\\Projet-final-107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
         "projectName": "BD107ProjetFinal",
-        "projectPath": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
-        "packagesPath": "C:\\Users\\sen88\\.nuget\\packages\\",
-        "outputPath": "D:\\000 GG Programmation GG\\107  web server 1\\Projet final 107\\Projet-final-107\\BD107ProjetFinal\\obj\\",
+        "projectPath": "E:\\LEA.BU\\02-Session Été 2022\\420-107-GG CRÉATION D'UN SITE WEB SERVEUR\\Projet-final-107\\Projet-final-107\\BD107ProjetFinal\\BD107ProjetFinal.csproj",
+        "packagesPath": "C:\\Users\\KaOuTaR\\.nuget\\packages\\",
+        "outputPath": "E:\\LEA.BU\\02-Session Été 2022\\420-107-GG CRÉATION D'UN SITE WEB SERVEUR\\Projet-final-107\\Projet-final-107\\BD107ProjetFinal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sen88\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\KaOuTaR\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
