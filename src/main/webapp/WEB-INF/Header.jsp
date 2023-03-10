@@ -9,10 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookRating</title>
-    <link rel="stylesheet" href="../base.css">
-    <link rel="stylesheet" href="../home.css">
-    <link rel="stylesheet" href="../base.css">
-    <link rel="stylesheet" href="../listLivres.css">
+<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/CSS/base.css" />" />--%>
+<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/CSS/home.css" />" />--%>
+<%--    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/CSS/connexion.css" />" />--%>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -52,7 +51,7 @@
         <nav class="navbarZone">
             <div id="navWeb">
                 <div class="logo">
-                    <a href="#" onclick="affichageAccueilWeb();"><img src="img/Logo/logoFinal.png"
+                    <a href="#" onclick="affichageAccueilWeb();"><img src="../resources/images/logo.png"
                                                                       id="logoHomeClick"></a>
                 </div>
                 <div class="menuWeb">
