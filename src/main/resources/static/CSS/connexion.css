@@ -1,0 +1,181 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  
+  .containerConnexion {  
+    display: grid; 
+    grid-template-columns: 1fr; 
+    grid-template-rows: 5% 10% 80% 5%;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    width: 100vw;
+    height: 100vh; 
+  }
+  
+  /* -------------CSS Page de connexion Version Web---------------- */
+  @media screen and (min-width:501px){
+    .logoConnexion, .newPasswordSection,.newCompteSection{
+      display: none;
+    }
+    .headerConnexion { 
+      grid-auto-flow: row;
+      grid-area: 1 / 1 / 2 / 2;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      background-color: #BC2CA7;
+      background-image: linear-gradient(#c91caf 30%,#ef61da 95%, #e874d6 30%);
+      color: white;  
+      padding: 5px;
+    }
+    .logoBrouke{
+      grid-area: 2 / 1 / 3 / 2;
+      
+    }
+    .connexion { 
+      grid-area: 3 / 1 / 4 / 2;
+      background-color: #f3e9e9;
+      border: 1px #ddd3d3 solid ;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      width: 80%;
+      height: 95%;
+      margin-left: 10%;
+    }
+    .copyrightConnexion { 
+      grid-area: 4 / 1 / 5 / 2;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      background-color: #BC2CA7;
+      background-image: linear-gradient(#c91caf 30%,#ef61da 95%, #e874d6 30%);
+      color: white;  
+      padding: 6px;
+    }
+   
+    #logoPageConnexion{
+      width: 220px;
+      padding-top: 10px;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #frmNewPassword,#frmNewCompte,#frmConnecter{
+        width: 70%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+  }
+
+   /* -------------CSS Page de connexion Version Mobile---------------- */
+  @media screen and (max-width:500px){
+    
+    .headerConnexion { 
+      grid-auto-flow: row;
+      grid-area: 1 / 1 / 2 / 2;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      background-color: #BC2CA7;
+      background-image: linear-gradient(#c91caf 30%,#ef61da 95%, #e874d6 30%);
+      color: white;  
+      padding: 10px;
+    }
+    .logoBrouke{
+      grid-area: 2 / 1 / 3 / 2;
+      padding: 10px;
+    }
+    .connexion { 
+      grid-area: 3 / 1 / 4 / 2;
+      background-color: #f3e9e9;
+      border: 1px #ddd3d3 solid ;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+      width: 80%;
+      height: 90%;
+      margin-left: 10%;
+    }
+    .copyrightConnexion { 
+      grid-area: 4 / 1 / 5 / 2;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      background-color: #BC2CA7;
+      background-image: linear-gradient(#c91caf 30%,#ef61da 95%, #e874d6 30%);
+      color: white; 
+      padding: 10px; 
+    }
+    .numTelConnexion, .newPasswordSection, .newCompteSection{
+      display: none;
+
+    }
+    #logoPageConnexion{
+      width: 180px;
+      padding-top: 10px;
+      filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); 
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #frmNewPassword,#frmNewCompte,#frmConnecter{
+        width: 80%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+  }
+
+  #ico-logoConnexion{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .titreFrame{
+    color: #1A2F8A;
+    font-weight: bold;
+    text-align: center;
+    font-size: 22px;
+  }
+  
+
+  .line1{
+    border-top: 1px solid rgba(189, 195, 199, 0.42);
+    backdrop-filter: blur(4px);
+  }
+  .line2{
+    width: 10%;
+    text-decoration: line-through;
+    color: #555b77;
+    font-size: 12px;
+  }
+  #lienPassOublie,#lienAnnuler{
+    color: #c91caf;
+    text-decoration: none;
+  }
+
+  .btn-primary{
+    background-color: #c91caf !important;
+    border-color: #c91caf !important;
+    width: 190px;
+  }
+  .btn-primary:hover{
+    background-color: #d96ac9 !important;
+  }
+  .form-control{
+    color: #1A2F8A !important;
+  }
+  .btn-secondary{
+    background-color: #1a2f8a !important;
+    width: 190px;
+  }
+  .btn-secondary:hover{
+    background-color: #465288 !important;
+  }
+  #newUserTitre{
+    color: #0f1b53;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .form-check-label{
+    color: #5c6799 !important;
+  }
+  
+  #messageRevoyerCode{
+    color: #0f1b53;
+  }
+  /* ------------------------------------------------------------- */
