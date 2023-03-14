@@ -25,7 +25,6 @@
             crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
-    <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
 
 </head>
 <body>
@@ -35,10 +34,10 @@
     <div class="container-fluid">
         <div class="row navbarZone ">
             <div class="col-2 logo">
-                <a href="${pageContext.request.contextPath}/Home"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
+                <a href="#"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
             </div>
             <div class="col-10 navMain">
-                <nav class="navbar navbar-expand-lg navbar-dark text-light">
+                <nav class="navbar navbar-expand-lg navbar-dark ">
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +60,15 @@
                                     <a class="dropdown-item" href="#">Géographie</a>
                                 </div>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Livres lus</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Mes Évaluations</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Les Statistiques</a>
                             </li>
@@ -69,29 +77,39 @@
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mr-sm-2" type="search" placeholder="Recherche..."
                                    aria-label="Search">
+                            <%--                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
                             <div class="input-group-append">
                                 <button class="input-group-text search-icon"></button>
                             </div>
-
                         </form>
-
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item ">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/Connexion">
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-login-30.png" width="26px">&nbsp;Se
-                                    connecter
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png" width="30px">
                                 </a>
+                                <div class="dropdown-menu ml-auto dropdown-menu-right"
+                                     aria-labelledby="navbarDropdown2">
+                                    <a class="dropdown-item" href="#">Se Connecter</a>
+                                    <a class="dropdown-item" href="#">Se Déconnecter</a>
+                                </div>
                             </li>
                         </ul>
-
                     </div>
                 </nav>
             </div>
-
         </div>
     </div>
 </header>
 
+<!-- Corps de la page -->
+<div class="container-fluid mt-5">
+    <div class="row corpsPage">
+        <div class="col-md-12">
+            <p>Contenu du corps de la page</p>
+        </div>
+    </div>
+</div>
 
 
 
