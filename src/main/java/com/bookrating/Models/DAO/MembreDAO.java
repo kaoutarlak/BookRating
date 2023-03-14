@@ -110,6 +110,34 @@ public class MembreDAO implements IMembreDAO {
     }
 
     @Override
+    public String membreRole(String login) {
+        String role;
+        try {
+            establichConnection();
+            PreparedStatement stmtAdmin = connection.prepareStatement("SELECT * FROM administrateur WHERE login = ?");
+            stmtAdmin.setString(1, login);
+            ResultSet resultAdmin = stmtAdmin.executeQuery();
+
+            PreparedStatement stmtAuteur = connection.prepareStatement("SELECT * FROM auteur WHERE login = ?");
+            stmtAuteur.setString(1, login);
+            ResultSet resultAuteur = stmtAuteur.executeQuery();
+
+            if (resultAdmin.next()){
+                role="admin";
+            } else if (resultAuteur.next()) {
+                role="auteur";
+            }else {
+                role="membre";
+            }
+            closeConnection();
+            return role;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @Override
     public List<membre> allUtilisateur() {
         return null;
     }

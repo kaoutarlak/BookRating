@@ -1,19 +1,15 @@
 package com.bookrating.Controllers;
 
-import com.bookrating.Models.DAO.CatLivresDAO;
-import com.bookrating.Models.DAO.ICatLivresDAO;
 import com.bookrating.Models.DAO.IMembreDAO;
 import com.bookrating.Models.DAO.MembreDAO;
-import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.membre;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/")
@@ -24,11 +20,21 @@ public class HomeController {
     @RequestMapping(value = "/Home", method = RequestMethod.GET)
     public ModelAndView home(HttpServletRequest request) {
 
-        ModelAndView model = new ModelAndView("Home");
-        ICatLivresDAO catLivresDAO = new CatLivresDAO();
-        List<categorieLivre> categorieLivreList = catLivresDAO.listCatLivres();
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
 
-        model.addObject("categorieLivreList", categorieLivreList);
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ModelAndView model = new ModelAndView("Home");
+        model.addObject("login", login);
+        model.addObject("role", role);
         return model;
     }
 
@@ -47,12 +53,15 @@ public class HomeController {
         IMembreDAO membreDAO = new MembreDAO();
         membre membreLogin = membreDAO.login(membre.getLogin(), membre.getPassword());
         if (membreLogin.getLogin() != null) {
-            ModelAndView homeModel = new ModelAndView("Home");
-            return homeModel;
+            Cookie cookie = new Cookie("login", membre.getLogin());
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+            return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
 
         } else {
             ModelAndView connexionModel = new ModelAndView("Connexion");
-            connexionModel.addObject("error","Login ou mot de passe est incorrect !!");
+            connexionModel.addObject("error", "Login ou mot de passe est incorrect !!");
             return connexionModel;
         }
     }
@@ -93,6 +102,29 @@ public class HomeController {
         ModelAndView confirmationModel = new ModelAndView("Confirmation");
 
         return confirmationModel;
+    }
+
+    @RequestMapping(value = "/Deconnexion", method = RequestMethod.GET)
+    public ModelAndView deconnexion(HttpServletResponse response,HttpServletRequest request) {
+
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie c : cookies) {
+//            if (c.getName().equals("login")) {
+//                c.setValue("");
+//                c.setMaxAge(0);
+//                c.setVersion(2);
+//                response.addCookie(c);
+//            }
+//        }
+
+        Cookie cookieToDelete = new Cookie("login", null);
+        cookieToDelete.setMaxAge(0);
+        cookieToDelete.setPath("/");
+        response.addCookie(cookieToDelete);
+
+        ModelAndView connexionModel = new ModelAndView("Connexion");
+
+        return connexionModel;
     }
 
 }

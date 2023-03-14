@@ -2,13 +2,28 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:include page="Visiteur/Header.jsp"></jsp:include>
+<c:if test="${login == ''}">
+    <jsp:include page="Visiteur/Header.jsp"></jsp:include>
+</c:if>
+<c:if test="${login != ''}">
+    <c:if test="${role=='membre'}">
+        <jsp:include page="Membre/Header.jsp">
+            <jsp:param name="login" value="${login}"/>
+        </jsp:include>
+    </c:if>
 
-<%--<c:set var="cll" value="${categorieLivreList}" />--%>
-<%--<c:import url="Header.jsp" />--%>
+    <c:if test="${role=='admin'}">
+        <jsp:include page="Admin/Header.jsp">
+            <jsp:param name="login" value="${login}"/>
+        </jsp:include>
+    </c:if>
 
-<%--<jsp:include page="Header.jsp">--%>
-<%--    <jsp:param name="categorieLivreList" value="${cll}"/>--%>
-<%--</jsp:include>--%>
+    <c:if test="${role=='auteur'}">
+        <jsp:include page="Auteur/Header.jsp">
+            <jsp:param name="login" value="${login}"/>
+        </jsp:include>
+    </c:if>
+</c:if>
+
 
 <jsp:include page="Footer.jsp"></jsp:include>
