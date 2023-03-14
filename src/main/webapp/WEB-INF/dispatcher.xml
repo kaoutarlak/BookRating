@@ -12,6 +12,7 @@
     <!-- La recherche des controleurs par annotations -->
     <context:component-scan base-package="com.bookrating.Controllers"/>
     <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
     <!-- Aiguilleur de vues par defaut -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"/>

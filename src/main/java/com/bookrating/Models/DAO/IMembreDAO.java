@@ -13,6 +13,8 @@ public interface IMembreDAO {
 
     membre addMembre(membre membre);
 
+    boolean isExistLogin(String login);
+
     membre login(String login, String password);
 
     List<membre> allUtilisateur();
