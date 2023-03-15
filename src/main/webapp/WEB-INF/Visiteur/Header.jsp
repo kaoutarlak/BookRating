@@ -1,6 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    Object catLivreList = request.getAttribute("catLivreList");
+%>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,6 +31,7 @@
 
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
 
 </head>
 <body>
@@ -54,11 +60,16 @@
                                     <span class="sr-only">(current)</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Informatique</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Littérature</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Géographie</a>
+                                    <c:forEach var="c" items="${catLivreList}">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item"
+                                           href="${pageContext.request.contextPath}/Livres/Liste/${c.titre}">${c.titre}</a>
+                                    </c:forEach>
+<%--                                    <a class="dropdown-item" href="#">Informatique</a>--%>
+<%--                                    <div class="dropdown-divider"></div>--%>
+<%--                                    <a class="dropdown-item" href="#">Littérature</a>--%>
+<%--                                    <div class="dropdown-divider"></div>--%>
+<%--                                    <a class="dropdown-item" href="#">Géographie</a>--%>
                                 </div>
                             </li>
                             <li class="nav-item">

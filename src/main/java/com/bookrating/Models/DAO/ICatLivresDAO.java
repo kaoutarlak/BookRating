@@ -15,4 +15,6 @@ public interface ICatLivresDAO {
 
     List<categorieLivre> listCatLivres();
 
+    int foudIdCatLivre(String categorie);
+
 }
