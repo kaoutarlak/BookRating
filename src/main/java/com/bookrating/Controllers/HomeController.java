@@ -38,7 +38,6 @@ public class HomeController {
         }
 
         ModelAndView model = new ModelAndView("Home");
-
         ICatLivresDAO catLivresDAO = new CatLivresDAO();
         List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
 

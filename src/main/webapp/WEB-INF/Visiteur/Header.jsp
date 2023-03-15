@@ -5,7 +5,6 @@
 <%
     Object catLivreList = request.getAttribute("catLivreList");
 %>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

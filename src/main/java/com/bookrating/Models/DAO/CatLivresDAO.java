@@ -1,6 +1,6 @@
 package com.bookrating.Models.DAO;
 
-import com.bookrating.Models.Entities.categorieLivre;
+import com.bookrating.Models.Entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;

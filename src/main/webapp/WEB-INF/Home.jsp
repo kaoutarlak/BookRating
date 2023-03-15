@@ -3,9 +3,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:if test="${login == ''}">
+
     <jsp:include page="Visiteur/Header.jsp">
         <jsp:param name="catLivreList" value="${catLivreList}"/>
     </jsp:include>
+
+    <jsp:include page="Visiteur/Header.jsp"></jsp:include>
 
     <jsp:include page="Visiteur/Header.jsp"></jsp:include>
 

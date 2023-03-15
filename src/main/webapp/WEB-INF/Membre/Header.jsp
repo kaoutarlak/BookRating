@@ -43,8 +43,6 @@
     <div class="container-fluid">
         <div class="row navbarZone ">
             <div class="col-2 logo">
-                <a href="${pageContext.request.contextPath}/Home"><img
-                        src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
 
                 <a href="${pageContext.request.contextPath}/Home"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
             </div>
@@ -64,8 +62,6 @@
 
                                     <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-livre-50.png"
                                          width="26px"> &nbsp;Livres
-
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-livre-50.png" width="26px"> &nbsp;Livres
 
                                     <span class="sr-only">(current)</span>
                                 </a>
@@ -107,8 +103,6 @@
                                     <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png"
                                          width="30px">
 
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png" width="30px">
-
                                 </a>
                                 <div class="dropdown-menu ml-auto dropdown-menu-right"
                                      aria-labelledby="navbarDropdown2">
@@ -116,11 +110,8 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Profil</a>
                                     <div class="dropdown-divider"></div>
-
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se
                                         déconnecter</a>
-
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se déconnecter</a>
 
                                 </div>
                             </li>
