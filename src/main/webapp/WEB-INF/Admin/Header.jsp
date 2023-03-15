@@ -1,6 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    Object login = request.getAttribute("login");
+
+    Object catLivreList = request.getAttribute("catLivreList");
+
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,8 +30,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/JS/livre.js"></script>
 
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
 
 </head>
 <body>
@@ -34,7 +45,9 @@
     <div class="container-fluid">
         <div class="row navbarZone ">
             <div class="col-2 logo">
-                <a href="#"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
+
+                <a href="${pageContext.request.contextPath}/Home"><img
+                        src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
             </div>
             <div class="col-10 navMain">
                 <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -47,51 +60,61 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item dropdown active">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-livre-50.png" width="26px"> &nbsp;Livres
+                                <a class="nav-link dropdown-toggle" href="#"  role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Livres
                                     <span class="sr-only">(current)</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Informatique</a>
+
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/Livres/Liste">Liste livres</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Littérature</a>
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/Livres/Catégories">Catégories livres</a>
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Évaluations
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/Livres/Liste">Liste évaluations</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Géographie</a>
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/Livres/Catégories">Catégories évaluations</a>
+
                                 </div>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Livres lus</a>
+                                <a class="nav-link" href="$#">Membre</a>
                             </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Mes Évaluations</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Les Statistiques</a>
-                            </li>
+                            
 
                         </ul>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Recherche..."
-                                   aria-label="Search">
-                            <%--                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
-                            <div class="input-group-append">
-                                <button class="input-group-text search-icon"></button>
-                            </div>
-                        </form>
+
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png" width="30px">
+
+                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png"
+                                         width="30px">
+
                                 </a>
                                 <div class="dropdown-menu ml-auto dropdown-menu-right"
                                      aria-labelledby="navbarDropdown2">
-                                    <a class="dropdown-item" href="#">Se Connecter</a>
-                                    <a class="dropdown-item" href="#">Se Déconnecter</a>
+                                    <a class="dropdown-item">${login}</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Profil</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se
+                                        déconnecter</a>
+
                                 </div>
                             </li>
                         </ul>
@@ -102,14 +125,7 @@
     </div>
 </header>
 
-<!-- Corps de la page -->
-<div class="container-fluid mt-5">
-    <div class="row corpsPage">
-        <div class="col-md-12">
-            <p>Contenu du corps de la page</p>
-        </div>
-    </div>
-</div>
+
 
 
 
