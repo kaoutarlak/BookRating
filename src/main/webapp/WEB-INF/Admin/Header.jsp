@@ -31,11 +31,17 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/JS/livre.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-EcL7V1GkGs9Xa/ryyC6b+f5NdeCH5dU3oqZ+Ow1NT86VU0FlL9WX7V1R+41zdlJ6gQo0T+w+xWIObG+sAVJlCQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
 
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
-    <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/Admin.css'/>"/>
+
+    <script src="${pageContext.request.contextPath}/resources/JS/admin.js"></script>
 
 </head>
 <body>
@@ -60,17 +66,17 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item dropdown active">
-                                <a class="nav-link dropdown-toggle" href="#"  role="button"
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Livres
                                     <span class="sr-only">(current)</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/Livres/Liste">Liste livres</a>
+                                       href="${pageContext.request.contextPath}">Liste livres</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/Livres/Catégories">Catégories livres</a>
+                                       href="${pageContext.request.contextPath}">Catégories livres</a>
 
                                 </div>
                             </li>
@@ -82,18 +88,19 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/Livres/Liste">Liste évaluations</a>
+                                       href="">Liste évaluations</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/Livres/Catégories">Catégories évaluations</a>
+                                       href="${pageContext.request.contextPath}/Admin/Evaluation/Categorie">Catégories
+                                        évaluations</a>
 
                                 </div>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="$#">Membre</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}">Membre</a>
                             </li>
-                            
+
 
                         </ul>
 
