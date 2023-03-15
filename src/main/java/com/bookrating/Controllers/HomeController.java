@@ -43,6 +43,7 @@ public class HomeController {
         List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
 
         model.addObject("catLivreList", catLivreList);
+
         model.addObject("login", login);
         model.addObject("role", role);
         return model;
@@ -116,6 +117,16 @@ public class HomeController {
 
     @RequestMapping(value = "/Deconnexion", method = RequestMethod.GET)
     public ModelAndView deconnexion(HttpServletResponse response,HttpServletRequest request) {
+
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie c : cookies) {
+//            if (c.getName().equals("login")) {
+//                c.setValue("");
+//                c.setMaxAge(0);
+//                c.setVersion(2);
+//                response.addCookie(c);
+//            }
+//        }
 
         Cookie cookieToDelete = new Cookie("login", null);
         cookieToDelete.setMaxAge(0);

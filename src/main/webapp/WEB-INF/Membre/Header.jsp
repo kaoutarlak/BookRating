@@ -4,7 +4,9 @@
 
 <%
     Object login = request.getAttribute("login");
+
     Object catLivreList = request.getAttribute("catLivreList");
+
 %>
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,6 +45,8 @@
             <div class="col-2 logo">
                 <a href="${pageContext.request.contextPath}/Home"><img
                         src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
+
+                <a href="${pageContext.request.contextPath}/Home"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="w-100 h-100"></a>
             </div>
             <div class="col-10 navMain">
                 <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -57,8 +61,12 @@
                             <li class="nav-item dropdown active">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-livre-50.png"
                                          width="26px"> &nbsp;Livres
+
+                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-livre-50.png" width="26px"> &nbsp;Livres
+
                                     <span class="sr-only">(current)</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -95,8 +103,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
                                     <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png"
                                          width="30px">
+
+                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png" width="30px">
+
                                 </a>
                                 <div class="dropdown-menu ml-auto dropdown-menu-right"
                                      aria-labelledby="navbarDropdown2">
@@ -104,8 +116,12 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Profil</a>
                                     <div class="dropdown-divider"></div>
+
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se
                                         déconnecter</a>
+
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se déconnecter</a>
+
                                 </div>
                             </li>
                         </ul>
