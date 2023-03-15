@@ -13,17 +13,20 @@
         <div class="col-md-12 ">
 
             <div class="framePrincipale">
-                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal1">
                     <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-add-new-24.png">&nbsp;&nbsp;Ajouter</a>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label"
+                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title " id="myModalLabel">Ajouter une nouvelle
-                                    catégorie </h4>
+                                <h5 class="modal-title " id="modal1Label">Ajouter une nouvelle catégorie </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
                             <div class="modal-body">
-                                <form action="Categorie/Add" method="post" >
+                                <form action="Categorie/Add" method="post">
                                     <div class="input-group mb-3">
 
                                         <input type="text" class="form-control" id="description" name="description"
@@ -33,7 +36,7 @@
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                             </div>
                         </div>
                     </div>
@@ -55,11 +58,39 @@
 
                             <td>${element.id}</td>
                             <td>${element.description}</td>
-                            <td><a href="${pageContext.request.contextPath}" data-toggle="modal"
-                                   data-target="#myModalAlter">
+                            <td><a href="" class="btn" data-toggle="modal" data-target="#modal2">
                                 <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                             </a>
-
+                                <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
+                                     aria-labelledby="modal2Label" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modal2Label">Modifier une catégorie</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="Categorie/Alter" method="post">
+                                                    <div class="input-group mb-3">
+                                                        <input type="hidden" name="id" value="${element.id}">
+                                                        <input type="text" class="form-control"
+                                                               name="description"
+                                                               value="${element.description}" required>
+                                                        <input type="submit" value="Modifier" class="btn btn-danger">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Annuler
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>

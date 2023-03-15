@@ -53,11 +53,11 @@ public class CatEvaluationDAO implements ICatEvaluationDAO {
     public void alterCategorieEvaluation(categorieEvaluation categorieEvaluation) {
         try {
             establichConnection();
-            Statement st = connection.createStatement();
-            st.executeUpdate("UPDATE `categorieEvaluation` SET `description`='"+categorieEvaluation.getDescription()+"'");
-
+            PreparedStatement ps = connection.prepareStatement("UPDATE `categorieEvaluation` SET `description`=? WHERE `id`=?");
+            ps.setString(1, categorieEvaluation.getDescription());
+            ps.setInt(2, categorieEvaluation.getId());
+            ps.executeUpdate();
             closeConnection();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

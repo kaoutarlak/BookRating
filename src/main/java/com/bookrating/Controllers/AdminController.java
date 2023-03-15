@@ -50,4 +50,14 @@ public class AdminController {
         return new ModelAndView("redirect:/Admin/Evaluation/Categorie"); // rediriger vers la page list categorie
     }
 
+    @RequestMapping(value = "/Evaluation/Categorie/Alter", method = RequestMethod.POST)
+    public ModelAndView alterCategorieEvaluation(categorieEvaluation newCategorieEvaluation) {
+
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        catEvaluationDAO.alterCategorieEvaluation(newCategorieEvaluation);
+
+        return new ModelAndView("redirect:/Admin/Evaluation/Categorie"); // rediriger vers la page list categorie
+    }
+
 }
