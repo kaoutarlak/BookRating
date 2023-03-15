@@ -1,7 +1,7 @@
 package com.bookrating.Models.DAO;
 
 
-import com.bookrating.Models.Entities.categorieLivre;
+import com.bookrating.Models.Entities.livre;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface ILivreLuDAO {
 
     void addLivreLu(String login,int idLivre);
 
-    List<categorieLivre> getAllLivreLu();
-
+    List<livre> getAllLivreLu(String login);
+    int nbPageLivreLu(String login);
 
 }

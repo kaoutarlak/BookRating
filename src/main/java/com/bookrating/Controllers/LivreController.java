@@ -3,6 +3,7 @@ package com.bookrating.Controllers;
 import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.livre;
+import com.bookrating.Models.Entities.livreLu;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.List;
 public class LivreController {
 
     @RequestMapping(value = "/Liste/{categorie}", method = RequestMethod.GET)
-    public ModelAndView connexion(@PathVariable String categorie, HttpServletRequest request) {
+    public ModelAndView listLivre(@PathVariable String categorie, HttpServletRequest request) {
 
         String login = "";
         String role = "";
@@ -55,5 +56,37 @@ public class LivreController {
         ILivreLuDAO livreLuDAO = new LivreLuDAO();
         livreLuDAO.addLivreLu(login, idLivre);
 
+    }
+
+    @RequestMapping(value = "/LivresLus", method = RequestMethod.GET)
+    public ModelAndView listLivreLu( HttpServletRequest request) {
+
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ILivreLuDAO livreDAO = new LivreLuDAO();
+        int nbPageLivre = livreDAO.nbPageLivreLu(login);
+        List<livre> livres = livreDAO.getAllLivreLu(login);
+
+        ModelAndView listeLivresLusModel = new ModelAndView("listeLivresLus");
+        listeLivresLusModel.addObject("catLivreList", catLivreList);
+        listeLivresLusModel.addObject("login", login);
+        listeLivresLusModel.addObject("role", role);
+        listeLivresLusModel.addObject("nbPageLivre", nbPageLivre);
+        listeLivresLusModel.addObject("livres", livres);
+
+        return listeLivresLusModel;
     }
 }

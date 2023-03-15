@@ -78,7 +78,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Livres lus</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Livres/LivresLus">Livres lus</a>
                             </li>
 
                             <li class="nav-item">

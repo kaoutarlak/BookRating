@@ -1,8 +1,10 @@
 package com.bookrating.Models.DAO;
 
-import com.bookrating.Models.Entities.categorieLivre;
+import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LivreLuDAO implements ILivreLuDAO {
@@ -53,7 +55,53 @@ public class LivreLuDAO implements ILivreLuDAO {
     }
 
     @Override
-    public List<categorieLivre> getAllLivreLu() {
-        return null;
+    public List<livre> getAllLivreLu(String login) {
+        try {
+            establichConnection();
+            Statement st = connection.createStatement();
+            ResultSet result = st.executeQuery("SELECT * FROM `livreLu` JOIN `livre` ON `livreLu`.`idLivre` = `livre`.`id` WHERE login= '" + login + "'");
+            List<livre> livreLuList  = new ArrayList<>();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("livre.id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+
+                livreLuList.add(l);
+            }
+
+            closeConnection();
+            return livreLuList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int nbPageLivreLu(String login) {
+        int nbPageLivre = 0;
+        try {
+            establichConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT ROUND(COUNT(*) / 8) FROM `livreLu` WHERE login = '" + login + "'");
+
+            if (rs.next()) {
+                nbPageLivre = rs.getInt(1);
+            }
+
+            closeConnection();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return nbPageLivre;
     }
 }

@@ -43,16 +43,12 @@
 
         </div>
         <div id="livreInfo">
-          <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="0" end="9">
+          <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="0" end="${livres.size()}">
             <div class="itemProduit">
               <img class="itemImg" src="${pageContext.request.contextPath}${element.image}">
               <div class="itemTitre">${element.titre}</div>
               <div class="itemAuteur">${element.nomAuteur}</div>
               <c:if test="${role=='auteur' || role=='membre'}">
-                <a href="" class="btn text-white itemBtn" onclick="addLivreLu('${login}', '${element.id}')">&nbsp;Livre lu
-                  <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"
-                       width="24">
-                </a>
 
                 <a class="btn text-white itemBtn" >&nbsp;Évaluer
                   <img src="${pageContext.request.contextPath}/resources/images/icones/review.png"
