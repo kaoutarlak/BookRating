@@ -30,6 +30,7 @@
   </c:if>
 </c:if>
 
+
 <!-- Corps de la page -->
 <div class="container-fluid mt-5 ">
   <div class="row ">
@@ -48,17 +49,16 @@
               <div class="itemTitre">${element.titre}</div>
               <div class="itemAuteur">${element.nomAuteur}</div>
               <c:if test="${role=='auteur' || role=='membre'}">
-                <a class="btn text-white itemBtn">&nbsp;Livre lu
+                <a href="" class="btn text-white itemBtn" onclick="addLivreLu('${login}', '${element.id}')">&nbsp;Livre lu
                   <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"
                        width="24">
                 </a>
 
-                <a class="btn text-white itemBtn">&nbsp;Évaluer
+                <a class="btn text-white itemBtn" >&nbsp;Évaluer
                   <img src="${pageContext.request.contextPath}/resources/images/icones/review.png"
                        width="24">
                 </a>
               </c:if>
-
 
             </div>
           </c:forEach>

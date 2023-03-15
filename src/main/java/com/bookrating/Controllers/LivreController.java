@@ -48,4 +48,12 @@ public class LivreController {
         listeLivresModel.addObject("livres", livres);
         return listeLivresModel;
     }
+
+    @RequestMapping(value = "/AddLivreLu/{login}/{idLivre}", method = RequestMethod.GET)
+    public void addLivreLu(@PathVariable String login, @PathVariable int idLivre) {
+
+        ILivreLuDAO livreLuDAO = new LivreLuDAO();
+        livreLuDAO.addLivreLu(login, idLivre);
+
+    }
 }
