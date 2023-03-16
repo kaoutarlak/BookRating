@@ -40,6 +40,65 @@
         </jsp:include>
     </c:if>
 </c:if>
+<section class="mainPrincipal">
+    <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
 
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-target="#myCarousel" data-slide-to="0" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="1" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="2" class="style-indicateur active"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="3" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="4" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="5" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="6" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="7" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="8" class="style-indicateur"></button>
+            <button type="button" data-target="#myCarousel" data-slide-to="9" class="style-indicateur"></button>
+        </div>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-1.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-2.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-3.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-4.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-5.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-6.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-7.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-8.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-9.png">
+            </div>
+            <div class="carousel-item">
+                <img src="${pageContext.request.contextPath}/resources/images/Carousel/Slide-10.png">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+</section>
 
 <jsp:include page="Footer.jsp"></jsp:include>
