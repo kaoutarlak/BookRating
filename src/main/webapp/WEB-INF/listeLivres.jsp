@@ -37,9 +37,9 @@
     <div class="col-md-12 ">
       <div class="zoneListProduit justify-content-center" id="zoneListProduit">
         <div id="numPageProduit">
-          <c:forEach var="i" begin="1" end="${nbPageLivre}" step="${1}">
-            <a href="#" class="numPage">${i} </a>&nbsp; &nbsp;
-          </c:forEach>
+<%--          <c:forEach var="i" begin="1" end="${nbPageLivre}" step="${1}">--%>
+<%--            <a href="#" class="numPage">${i} </a>&nbsp; &nbsp;--%>
+<%--          </c:forEach>--%>
 
         </div>
         <div id="livreInfo">

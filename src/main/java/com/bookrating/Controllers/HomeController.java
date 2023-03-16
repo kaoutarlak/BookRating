@@ -52,7 +52,10 @@ public class HomeController {
     public ModelAndView connexion() {
 
         ModelAndView connexionModel = new ModelAndView("Connexion");
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
 
+        connexionModel.addObject("catLivreList", catLivreList);
         return connexionModel;
     }
 
@@ -117,24 +120,14 @@ public class HomeController {
     @RequestMapping(value = "/Deconnexion", method = RequestMethod.GET)
     public ModelAndView deconnexion(HttpServletResponse response,HttpServletRequest request) {
 
-//        Cookie[] cookies = request.getCookies();
-//        for (Cookie c : cookies) {
-//            if (c.getName().equals("login")) {
-//                c.setValue("");
-//                c.setMaxAge(0);
-//                c.setVersion(2);
-//                response.addCookie(c);
-//            }
-//        }
-
         Cookie cookieToDelete = new Cookie("login", null);
         cookieToDelete.setMaxAge(0);
         cookieToDelete.setPath("/");
         response.addCookie(cookieToDelete);
 
-        ModelAndView connexionModel = new ModelAndView("Connexion");
-
-        return connexionModel;
+//        ModelAndView connexionModel = new ModelAndView("Connexion");
+//        return connexionModel;
+        return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
     }
 
 }

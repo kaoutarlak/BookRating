@@ -8,10 +8,6 @@
         <jsp:param name="catLivreList" value="${catLivreList}"/>
     </jsp:include>
 
-    <jsp:include page="Visiteur/Header.jsp"></jsp:include>
-
-    <jsp:include page="Visiteur/Header.jsp"></jsp:include>
-
 </c:if>
 <c:if test="${login != ''}">
     <c:if test="${role=='membre'}">

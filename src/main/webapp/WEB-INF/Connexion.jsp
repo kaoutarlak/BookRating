@@ -5,7 +5,9 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<jsp:include page="Visiteur/Header.jsp"></jsp:include>
+<jsp:include page="Visiteur/Header.jsp">
+    <jsp:param name="catLivreList" value="${catLivreList}"/>
+</jsp:include>
 
 <!-- Corps de la page -->
 <div class="container-fluid mt-5 ">
