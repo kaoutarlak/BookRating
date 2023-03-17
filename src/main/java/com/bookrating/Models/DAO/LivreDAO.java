@@ -42,7 +42,7 @@ public class LivreDAO implements ILivreDAO {
         try {
             establichConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT ROUND(COUNT(*) / 8) FROM `livre` AS L JOIN `categorieLivre` AS C ON L.idCategorieLivre = C.id WHERE C.titre = '" + categorie + "'");
+            ResultSet rs = stmt.executeQuery("SELECT ROUND(COUNT(*) / 10) FROM `livre` AS L JOIN `categorieLivre` AS C ON L.idCategorieLivre = C.id WHERE C.titre = '" + categorie + "'");
 
             if (rs.next()) {
                 nbPageLivre = rs.getInt(1);

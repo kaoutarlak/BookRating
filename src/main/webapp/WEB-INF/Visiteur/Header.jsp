@@ -36,7 +36,7 @@
 <body>
 
 <!-- Header de la page -->
-<header class="fixed-top">
+<header class="">
     <div class="container-fluid">
         <div class="row navbarZone ">
             <div class="col-2 logo">
@@ -62,13 +62,8 @@
                                     <c:forEach var="c" items="${catLivreList}">
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item"
-                                           href="${pageContext.request.contextPath}/Livres/Liste/${c.titre}">${c.titre}</a>
+                                           href="${pageContext.request.contextPath}/Livres/Liste/${c.titre}/1">${c.titre}</a>
                                     </c:forEach>
-<%--                                    <a class="dropdown-item" href="#">Informatique</a>--%>
-<%--                                    <div class="dropdown-divider"></div>--%>
-<%--                                    <a class="dropdown-item" href="#">Littérature</a>--%>
-<%--                                    <div class="dropdown-divider"></div>--%>
-<%--                                    <a class="dropdown-item" href="#">Géographie</a>--%>
                                 </div>
                             </li>
                             <li class="nav-item">

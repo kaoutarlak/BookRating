@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!-- Footer de la page -->
-<footer class="bg-dark text-light p-3 fixed-bottom MyFooter">
+<footer class="bg-dark text-light p-3 MyFooter">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 border-right">

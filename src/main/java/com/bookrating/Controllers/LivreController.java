@@ -3,7 +3,6 @@ package com.bookrating.Controllers;
 import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.livre;
-import com.bookrating.Models.Entities.livreLu;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -18,8 +17,8 @@ import java.util.List;
 @RequestMapping(value = "/Livres")
 public class LivreController {
 
-    @RequestMapping(value = "/Liste/{categorie}", method = RequestMethod.GET)
-    public ModelAndView listLivre(@PathVariable String categorie, HttpServletRequest request) {
+    @RequestMapping(value = "/Liste/{categorie}/{pagination}", method = RequestMethod.GET)
+    public ModelAndView listLivre(@PathVariable String categorie, @PathVariable int pagination, HttpServletRequest request) {
 
         String login = "";
         String role = "";
@@ -40,6 +39,10 @@ public class LivreController {
         int nbPageLivre = livreDAO.nbPageLivre(categorie);
         List<livre> livres = livreDAO.getlistLivreByCat(categorie);
 
+        int idLivreBegin = (pagination - 1) * 10;
+        int idLivreEnd = idLivreBegin + 9;
+
+
         ModelAndView listeLivresModel = new ModelAndView("listeLivres");
         listeLivresModel.addObject("categorie", categorie);
         listeLivresModel.addObject("catLivreList", catLivreList);
@@ -47,6 +50,9 @@ public class LivreController {
         listeLivresModel.addObject("role", role);
         listeLivresModel.addObject("nbPageLivre", nbPageLivre);
         listeLivresModel.addObject("livres", livres);
+        listeLivresModel.addObject("idLivreBegin", idLivreBegin);
+        listeLivresModel.addObject("idLivreEnd", idLivreEnd);
+        listeLivresModel.addObject("currentPage", pagination);
         return listeLivresModel;
     }
 
@@ -58,8 +64,8 @@ public class LivreController {
 
     }
 
-    @RequestMapping(value = "/LivresLus", method = RequestMethod.GET)
-    public ModelAndView listLivreLu( HttpServletRequest request) {
+    @RequestMapping(value = "/LivresLus/{pagination}", method = RequestMethod.GET)
+    public ModelAndView listLivreLu(@PathVariable int pagination, HttpServletRequest request) {
 
         String login = "";
         String role = "";
@@ -72,6 +78,9 @@ public class LivreController {
                 role = membreDAO.membreRole(login);
             }
         }
+
+        int idLivreBegin = (pagination - 1) * 10;
+        int idLivreEnd = idLivreBegin + 9;
 
         ICatLivresDAO catLivresDAO = new CatLivresDAO();
         List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
@@ -86,7 +95,9 @@ public class LivreController {
         listeLivresLusModel.addObject("role", role);
         listeLivresLusModel.addObject("nbPageLivre", nbPageLivre);
         listeLivresLusModel.addObject("livres", livres);
-
+        listeLivresLusModel.addObject("idLivreBegin", idLivreBegin);
+        listeLivresLusModel.addObject("idLivreEnd", idLivreEnd);
+        listeLivresLusModel.addObject("currentPage", pagination);
         return listeLivresLusModel;
     }
 }

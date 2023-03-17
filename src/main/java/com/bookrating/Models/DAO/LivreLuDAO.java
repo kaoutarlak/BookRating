@@ -90,7 +90,7 @@ public class LivreLuDAO implements ILivreLuDAO {
         try {
             establichConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT ROUND(COUNT(*) / 8) FROM `livreLu` WHERE login = '" + login + "'");
+            ResultSet rs = stmt.executeQuery("SELECT ROUND(COUNT(*) / 10) FROM `livreLu` WHERE login = '" + login + "'");
 
             if (rs.next()) {
                 nbPageLivre = rs.getInt(1);

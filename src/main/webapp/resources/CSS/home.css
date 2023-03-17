@@ -68,6 +68,10 @@ header {
 
 .MyFooter {
     background-image: linear-gradient(#0f1b53,#263b98);
+    position: initial;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 #myCarousel {
     height: 80%;
@@ -81,9 +85,9 @@ header {
 }
 #myCarousel{
     height: 80%;
-    margin-top: calc(57px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    margin-top: calc(-14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
     background-image: linear-gradient(#4e09c4ce,#dfd6ee4a);
-
+    z-index: -1;
 }
 
 .carousel-item{
@@ -120,6 +124,9 @@ carousel-indicators .active {
     background-color: #1d3edfc2 !important;
 }
 
+.mainPrincipal{
+    margin-bottom: 11.4%;
+}
 
 
 

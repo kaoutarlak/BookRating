@@ -5,10 +5,12 @@
 <jsp:include page="Visiteur/Header.jsp"></jsp:include>
 
 <!-- Corps de la page -->
-<div class="container-fluid mt-5 ">
-    <div class="row divConnexion">
-        <div class="col-md-12 ">
+<%--<div class="container-fluid mt-5 ">--%>
+<%--    <div class="col-md-12 ">--%>
+        <div class="divConnexion">
             <div class="newCompteSection" id="newCompteSection">
+                <br/>
+                <p class="titreFrame">Inscription</p>
                 <br>
                 <form action="Inscription" method="post" id="frmNewCompte">
                     <div class="input-group mb-3">
@@ -75,7 +77,7 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
+<%--    </div>--%>
+<%--</div>--%>
 
 <jsp:include page="Footer.jsp"></jsp:include>

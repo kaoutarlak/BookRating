@@ -30,7 +30,7 @@
 <body>
 
 <!-- Header de la page -->
-<header class="fixed-top">
+<header class="">
     <div class="container-fluid">
         <div class="row navbarZone ">
             <div class="col-2 logo">

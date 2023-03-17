@@ -10,9 +10,9 @@
 </jsp:include>
 
 <!-- Corps de la page -->
-<div class="container-fluid mt-5 ">
-    <div class="row divConnexion">
-        <div class="col-md-12 ">
+<%--<div class="container-fluid mt-5 ">--%>
+<%--    <div class="col-md-12 ">--%>
+        <div class="divConnexion">
             <div class="loginSection" id="loginSection">
                 <br/>
                 <p class="titreFrame">Connexion</p>
@@ -56,7 +56,7 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
+<%--    </div>--%>
+<%--</div>--%>
 
 <jsp:include page="Footer.jsp"></jsp:include>

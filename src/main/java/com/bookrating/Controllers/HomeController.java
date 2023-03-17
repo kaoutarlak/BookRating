@@ -30,10 +30,12 @@ public class HomeController {
         IMembreDAO membreDAO = new MembreDAO();
 
         Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies) {
-            if (c.getName().equals("login")) {
-                login = c.getValue();
-                role = membreDAO.membreRole(login);
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("login")) {
+                    login = c.getValue();
+                    role = membreDAO.membreRole(login);
+                }
             }
         }
 
@@ -83,6 +85,12 @@ public class HomeController {
     public ModelAndView inscription() {
 
         ModelAndView inscriptionModel = new ModelAndView("Inscription");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        inscriptionModel.addObject("catLivreList", catLivreList);
+
         return inscriptionModel;
 
     }
