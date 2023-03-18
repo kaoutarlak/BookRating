@@ -16,6 +16,12 @@ public class evaluation {
         this.idAvis = idAvis;
     }
 
+    public evaluation(int note, int idCategorieEvaluation, int idAvis) {
+        this.note = note;
+        this.idCategorieEvaluation = idCategorieEvaluation;
+        this.idAvis = idAvis;
+    }
+
     public int getId() {
         return id;
     }
