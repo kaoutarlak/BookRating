@@ -18,7 +18,7 @@ public interface IEvaluationDAO {
 
     List<evaluation> getAllEvaluationByMember(String login);
 
-    List<evaluation> getAllEvaluationByLivre(int idLivre);
+    List<avis> getAllAvisByLivre(int idLivre);
 
     List<evaluation> getAllEvaluation();
 

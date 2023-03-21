@@ -162,10 +162,12 @@ public class LivreController {
         IEvaluationDAO evaluationDAO =new EvaluationDAO();
         Map<String, Double> moyenneEvaluation = evaluationDAO.moyenNoteByEvaluation(idLivre);
 
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.#");
         String moyenneNote =df.format(evaluationDAO.moyenNoteByLivre(idLivre));
 
         int nombreAvis = evaluationDAO.nbAvisByLivre(idLivre);
+
+        List<avis> listAvis = evaluationDAO.getAllAvisByLivre(idLivre);
 
         ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
         DetailLivreJSP.addObject("livreDetail",livreDetail);
@@ -176,6 +178,7 @@ public class LivreController {
         DetailLivreJSP.addObject("moyenneEvaluation", moyenneEvaluation);
         DetailLivreJSP.addObject("moyenneNote", moyenneNote);
         DetailLivreJSP.addObject("nombreAvis", nombreAvis);
+        DetailLivreJSP.addObject("listAvis", listAvis);
 
         return DetailLivreJSP;
     }

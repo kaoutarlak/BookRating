@@ -224,3 +224,18 @@ svg {
     font-size: 15px;
     font-weight: 500;
 }
+
+.sDateAvis{
+    right: 0;
+    position: absolute;
+    margin-right: 11%;
+}
+
+.sbtnLikeSignal{
+    color: white !important;
+    width: 80px;
+    border-radius: 20px !important;
+}
+.sUnderline{
+    text-decoration: underline;
+}

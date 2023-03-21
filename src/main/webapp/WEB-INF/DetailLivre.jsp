@@ -30,7 +30,7 @@
     </c:if>
 </c:if>
 
-<div class="zoneListProduit justify-content-center">
+<div class="mb-5 justify-content-center">
     <div class="row detailLivre">
         <div class="col-4">
             <div>
@@ -120,7 +120,7 @@
                                 <img src="${pageContext.request.contextPath}/resources/images/icones/${moyenneNote.substring(0, 1)}etoile.png"
                                      class="mr-4">
                             </th>
-                            <th><span class="ml-4 itemAuteurDetail">${nombreAvis} : Avis</span></th>
+                            <th><span class="ml-4 itemAuteurDetail sUnderline">${nombreAvis} : Avis</span></th>
                         </tr>
                         <tr class="spacer">
                             <td colspan="2"></td>
@@ -185,6 +185,23 @@
                     <p class="sDescription">${livreDetail.description}</p>
                 </div>
             </div>
+            <c:forEach var="avis" items="${listAvis}">
+                <div class="itemProduitDetail2">
+                    <div>
+                        <span class="itemAuteurDetail">${avis.login}</span>
+                        <span class="sDescription sDateAvis">Date : ${avis.datePost}</span>
+                    </div>
+                    <br>
+                    <p class="text-info">${avis.commentaire}</p>
+                    <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
+                    <a class="btn btn-secondary sbtnLikeSignal">Signaler</a>
+                    <span class="itemAuteurDetail sDateAvis">
+                            (${avis.nbLikes})
+                        <img class="mb-1" src="${pageContext.request.contextPath}/resources/images/icones/like.png">
+                    </span>
+                </div>
+
+            </c:forEach>
 
         </div>
 
