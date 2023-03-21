@@ -87,5 +87,30 @@ public class LivreDAO implements ILivreDAO {
         }
     }
 
+    @Override
+    public livre getLivre(int idLivre) {
+        livre foundLivre = new livre();
+        try {
+            establichConnection();
+            PreparedStatement ps= connection.prepareStatement("SELECT * FROM livre WHERE id=?");
+            ps.setInt(1,idLivre);
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                foundLivre.setId(result.getInt("id"));
+                foundLivre.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                foundLivre.setTitre(result.getString("titre"));
+                foundLivre.setNomAuteur(result.getString("nomAuteur"));
+                foundLivre.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                foundLivre.setImage(result.getString("image"));
+                foundLivre.setDescription(result.getString("description"));
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }finally {
+            closeConnection();
+        }
+        return foundLivre;
+    }
+
 
 }

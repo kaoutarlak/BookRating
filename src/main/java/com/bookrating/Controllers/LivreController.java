@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -112,7 +113,7 @@ public class LivreController {
 
     @RequestMapping(value = "/AddAvis", method = RequestMethod.POST)
     public ModelAndView addAvis(@RequestParam Map<String, Integer> evaluationData, @RequestParam("commentaire") String commentaire,
-                        @RequestParam("login") String login, @RequestParam("idLivre") int idLivre) {
+                                @RequestParam("login") String login, @RequestParam("idLivre") int idLivre) {
 
         IEvaluationDAO evaluationDAO = new EvaluationDAO();
         //ajouter d'abord un avis :
@@ -130,13 +131,52 @@ public class LivreController {
                 evaluationDAO.addEvaluationByAvis(newEvaluation);
             }
         }
-        return new ModelAndView("redirect:/Livres/Detail/"+idLivre); // rediriger vers la page Détail livre
+        return new ModelAndView("redirect:/Livres/Detail/" + idLivre); // rediriger vers la page Détail livre
 
     }
 
     @RequestMapping(value = "/Detail/{idLivre}", method = RequestMethod.GET)
-    public void detailLivre(@PathVariable int idLivre) {
+    public ModelAndView detailLivre(@PathVariable int idLivre,HttpServletRequest request ) {
 
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
 
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ILivreDAO livreDAO = new LivreDAO();
+        livre livreDetail = livreDAO.getLivre(idLivre);
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+
+        IEvaluationDAO evaluationDAO =new EvaluationDAO();
+        Map<String, Double> moyenneEvaluation = evaluationDAO.moyenNoteByEvaluation(idLivre);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+        String moyenneNote =df.format(evaluationDAO.moyenNoteByLivre(idLivre));
+
+        int nombreAvis = evaluationDAO.nbAvisByLivre(idLivre);
+
+        ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
+        DetailLivreJSP.addObject("livreDetail",livreDetail);
+        DetailLivreJSP.addObject("login",login);
+        DetailLivreJSP.addObject("role",role);
+        DetailLivreJSP.addObject("catEvaluationList", catEvaluationList);
+        DetailLivreJSP.addObject("catLivreList", catLivreList);
+        DetailLivreJSP.addObject("moyenneEvaluation", moyenneEvaluation);
+        DetailLivreJSP.addObject("moyenneNote", moyenneNote);
+        DetailLivreJSP.addObject("nombreAvis", nombreAvis);
+
+        return DetailLivreJSP;
     }
 }

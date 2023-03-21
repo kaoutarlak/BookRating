@@ -42,8 +42,13 @@
     <div class="row tete-ZoneLivre">
         <div class="col-2 zIndex">
             <div class="totalLivre">
-                <span class="itemTitre">Total livres : </span><span
-                    class="itemAuteur">${idLivreEnd+1} / ${livres.size()}</span>
+                <span class="itemTitre">Total livres :  </span>
+                <c:if test="${livres.size() > 10}">
+                    <span class="itemAuteur">${idLivreEnd+1} / ${livres.size()}</span>
+                </c:if>
+                <c:if test="${livres.size() <= 10}">
+                    <span class="itemAuteur">${livres.size()}</span>
+                </c:if>
             </div>
         </div>
         <div class="col-8 text-center">
@@ -93,7 +98,7 @@
         <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="${idLivreBegin}"
                    end="${idLivreEnd}">
             <div class="itemProduit">
-                <img class="itemImg" src="${pageContext.request.contextPath}${element.image}">
+                <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${pageContext.request.contextPath}${element.image}" /></a>
                 <div class="itemTitre">${element.titre}</div>
                 <div class="itemAuteur">${element.nomAuteur}</div>
                 <c:if test="${role=='auteur' || role=='membre'}">
@@ -103,53 +108,62 @@
                              width="24">
                     </a>
 
-                    <a href="#" class="btn text-white itemBtn" data-toggle="modal" data-target="#modal_${loopStatus.index}">&nbsp;Évaluer
+                    <a href="#" class="btn text-white itemBtn" data-toggle="modal"
+                       data-target="#modal_${loopStatus.index}">&nbsp;Évaluer
                         <img src="${pageContext.request.contextPath}/resources/images/icones/review.png"
                              width="24">
                     </a>
-                    <div class="modal fade" id="modal_${loopStatus.index}" tabindex="-1" role="dialog" aria-labelledby="modal1Label"
+                    <div class="modal fade" id="modal_${loopStatus.index}" tabindex="-1" role="dialog"
+                         aria-labelledby="modal1Label"
                          aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title " id="modal1Label">Évaluer livre : <span class="text-danger">${element.titre}</span></h5>
+                                    <h5 class="modal-title " id="modal1Label">Évaluer livre : <span
+                                            class="text-danger">${element.titre}</span></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="${pageContext.request.contextPath}/Livres/AddAvis" method="post">
-                                    <c:forEach items="${catEvaluationList}" var="c">
-                                        <div class="border d-flex align-items-center">
-                                            <span class="itemTitre p-3">${c.description} :</span>
-                                            <div class="container">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_1" value="1" required>
-                                                    <label class="form-check-label" for="${c.id}_1">1</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_2" value="2" required>
-                                                    <label class="form-check-label" for="${c.id}_2">2</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_3" value="3" required>
-                                                    <label class="form-check-label" for="${c.id}_3">3</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_4" value="4" required>
-                                                    <label class="form-check-label" for="${c.id}_4">4</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_5" value="5" required>
-                                                    <label class="form-check-label" for="${c.id}_5">5</label>
+                                        <c:forEach items="${catEvaluationList}" var="c">
+                                            <div class="border d-flex align-items-center">
+                                                <span class="itemTitre p-3">${c.description} :</span>
+                                                <div class="container">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="${c.id}"
+                                                               id="${c.id}_1" value="1" required>
+                                                        <label class="form-check-label" for="${c.id}_1">1</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="${c.id}"
+                                                               id="${c.id}_2" value="2" required>
+                                                        <label class="form-check-label" for="${c.id}_2">2</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="${c.id}"
+                                                               id="${c.id}_3" value="3" required>
+                                                        <label class="form-check-label" for="${c.id}_3">3</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="${c.id}"
+                                                               id="${c.id}_4" value="4" required>
+                                                        <label class="form-check-label" for="${c.id}_4">4</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="${c.id}"
+                                                               id="${c.id}_5" value="5" required>
+                                                        <label class="form-check-label" for="${c.id}_5">5</label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <br>
-                                    </c:forEach>
+                                            <br>
+                                        </c:forEach>
                                         <div class="input-group mb-3">
 
-                                            <textarea type="text" class="form-control" id="commentaire" name="commentaire"
+                                            <textarea type="text" class="form-control" id="commentaire"
+                                                      name="commentaire"
                                                       placeholder="Votre commentaire" rows="6"></textarea>
                                             <input type="hidden" name="login" value="${login}">
                                             <input type="hidden" name="idLivre" value="${element.id}">

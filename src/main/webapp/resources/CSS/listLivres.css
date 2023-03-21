@@ -144,11 +144,80 @@ svg {
 
 }
 
-.zIndex{
+.zIndex {
     z-index: -1;
 }
 
-.activePage{
+.activePage {
     text-decoration: underline;
     font-weight: bold;
+}
+
+.detailLivre {
+    margin: auto;
+    width: 80%;
+    border: 2px solid #7f817d6d;
+    padding: 10px;
+    background-color: #f5eeee;
+    margin-top: 3%;
+    z-index: -1;
+}
+
+.itemProduitDetail {
+    background-color: #ffffff;
+    border: 1px solid #7f817d6d;
+    margin: 20px 0 0 45px;
+    padding: 30px;
+    width: 350px;
+}
+
+.itemImgDetail {
+    border: 1px solid #7f817d6d;
+    margin: auto;
+    width: 280px;
+    height: 320px;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.itemTitreDetail {
+    color: #122886;
+    font-weight: 700;
+    font-size: 16px;
+    margin: auto;
+    margin-bottom: 8px;
+}
+
+.itemAuteurDetail {
+    color: #b12e9d;
+    font-weight: 500;
+    font-size: 15px;
+    margin: auto;
+    margin-bottom: 8px;
+}
+.itemBtnDetail {
+    background-image: linear-gradient(#c91caf 30%, #ef61da 95%, #e874d6 30%);
+    border-radius: 10px;
+    border: 2px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 2px;
+    width: 105px;
+    height: 35px;
+}
+
+.itemProduitDetail2{
+    background-color: #ffffff;
+    border: 1px solid #7f817d6d;
+    margin: 20px 0 0 -50px;
+    padding: 30px;
+    width: 100%;
+}
+
+.sDescription {
+    color: #7b83ab;
+    font-size: 15px;
+    font-weight: 500;
 }

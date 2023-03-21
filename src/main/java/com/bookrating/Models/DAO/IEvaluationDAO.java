@@ -4,6 +4,7 @@ import com.bookrating.Models.Entities.avis;
 import com.bookrating.Models.Entities.evaluation;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IEvaluationDAO {
 
@@ -24,5 +25,11 @@ public interface IEvaluationDAO {
     boolean areadyEvaluate(int idLivre, String login);
 
     int getLastIdAvis();
+
+    Map<String, Double> moyenNoteByEvaluation(int idLivre);
+
+    double moyenNoteByLivre(int idLivre);
+
+    int nbAvisByLivre(int idLivre);
 
 }

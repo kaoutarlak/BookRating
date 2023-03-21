@@ -6,7 +6,10 @@ import com.bookrating.Models.Entities.evaluation;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EvaluationDAO implements IEvaluationDAO {
     public static final String URL = "jdbc:mysql://mysql-kaoutarlak.alwaysdata.net:3306/kaoutarlak_bookrating";
@@ -128,6 +131,69 @@ public class EvaluationDAO implements IEvaluationDAO {
             closeConnection();
         }
         return lastID;
+    }
+
+    @Override
+    public Map<String, Double> moyenNoteByEvaluation(int idLivre) {
+        Map<String, Double> resultMap = new HashMap<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT C.description, AVG(E.note) FROM `evaluation` AS E JOIN `avis` AS A ON E.idAvis=A.id " +
+                    "JOIN `categorieEvaluation` AS C ON E.idCategorieEvaluation=C.id WHERE A.idLivre=? GROUP BY E.idCategorieEvaluation;");
+            ps.setInt(1, idLivre);
+
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                String description = result.getString(1);
+                Double moyenne = result.getDouble(2);
+                resultMap.put(description, moyenne);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return resultMap;
+    }
+
+    @Override
+    public double moyenNoteByLivre(int idLivre) {
+        double moyenne = 0;
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT AVG(E.note) FROM `evaluation` AS E JOIN `avis` AS A ON E.idAvis=A.id WHERE  A.idLivre=? ;");
+            ps.setInt(1, idLivre);
+
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                moyenne = result.getDouble(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return moyenne;
+    }
+
+    @Override
+    public int nbAvisByLivre(int idLivre) {
+        int nombreAvis = 0;
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT count(*) FROM `avis` AS A  WHERE  A.idLivre=? ;");
+            ps.setInt(1, idLivre);
+
+            ResultSet result = ps.executeQuery();
+            if (result.next()) {
+                nombreAvis = result.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return nombreAvis;
     }
 
 }
