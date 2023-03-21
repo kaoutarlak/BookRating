@@ -101,7 +101,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="${pageContext.request.contextPath}/Livres/AddAvis" method="post">
+                                    <form action="${pageContext.request.contextPath}/Evaluation/Add" method="post">
                                         <c:forEach items="${catEvaluationList}" var="c">
                                             <div class="border d-flex align-items-center">
                                                 <span class="itemTitre p-3">${c.description} :</span>

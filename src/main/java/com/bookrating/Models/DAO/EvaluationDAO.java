@@ -80,8 +80,28 @@ public class EvaluationDAO implements IEvaluationDAO {
     }
 
     @Override
-    public List<evaluation> getAllEvaluationByMember(String login) {
-        return null;
+    public List<evaluation> getAllEvaluationByAvis(int idAvis) {
+        List<evaluation> evaluationList = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `evaluations` WHERE idAvis=?; ");
+            ps.setInt(1, idAvis);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                evaluation e = new evaluation();
+                e.setId(rs.getInt("id"));
+                e.setIdCategorieEvaluation(rs.getInt("idCategorieEvaluation"));
+                e.setNote(rs.getInt("note"));
+                e.setIdAvis(rs.getInt("idAvis"));
+
+                evaluationList.add(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return evaluationList;
     }
 
     @Override

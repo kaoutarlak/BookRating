@@ -10,13 +10,13 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendMailConfirmation(String toMail, String loginUser){
-        String confirmationLink = "http://localhost:8080/BookRating_war_exploded/Confirmation?"+loginUser;
+    public void sendMail(String fromoMail, String message){
+
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("kaoutar.lakhal@gmail.com");
-        mailMessage.setTo(toMail);
-        mailMessage.setText("Bienvenue sur notre site "+ loginUser+" . Veuillez cliquer sur ce lien pour confirmer votre indcription :"+confirmationLink);
-        mailMessage.setSubject("Confirmation d'inscription BookRating");
+        mailMessage.setFrom(fromoMail);
+        mailMessage.setTo("kaoutar.lakhal@gmail.com");
+        mailMessage.setText(message);
+        mailMessage.setSubject("Signaler un commentaire");
 
         mailSender.send(mailMessage);
 

@@ -136,7 +136,7 @@ public class LivreController {
     }
 
     @RequestMapping(value = "/Detail/{idLivre}", method = RequestMethod.GET)
-    public ModelAndView detailLivre(@PathVariable int idLivre,HttpServletRequest request ) {
+    public ModelAndView detailLivre(@PathVariable int idLivre, HttpServletRequest request) {
 
         String login = "";
         String role = "";
@@ -159,20 +159,20 @@ public class LivreController {
         ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
         List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
 
-        IEvaluationDAO evaluationDAO =new EvaluationDAO();
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
         Map<String, Double> moyenneEvaluation = evaluationDAO.moyenNoteByEvaluation(idLivre);
 
         DecimalFormat df = new DecimalFormat("#.#");
-        String moyenneNote =df.format(evaluationDAO.moyenNoteByLivre(idLivre));
+        String moyenneNote = df.format(evaluationDAO.moyenNoteByLivre(idLivre));
 
         int nombreAvis = evaluationDAO.nbAvisByLivre(idLivre);
 
         List<avis> listAvis = evaluationDAO.getAllAvisByLivre(idLivre);
 
         ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
-        DetailLivreJSP.addObject("livreDetail",livreDetail);
-        DetailLivreJSP.addObject("login",login);
-        DetailLivreJSP.addObject("role",role);
+        DetailLivreJSP.addObject("livreDetail", livreDetail);
+        DetailLivreJSP.addObject("login", login);
+        DetailLivreJSP.addObject("role", role);
         DetailLivreJSP.addObject("catEvaluationList", catEvaluationList);
         DetailLivreJSP.addObject("catLivreList", catLivreList);
         DetailLivreJSP.addObject("moyenneEvaluation", moyenneEvaluation);
@@ -181,5 +181,59 @@ public class LivreController {
         DetailLivreJSP.addObject("listAvis", listAvis);
 
         return DetailLivreJSP;
+    }
+
+    @RequestMapping(value = "/Detail/{idLivre}/Avis/{idAvis}", method = RequestMethod.GET)
+    public ModelAndView detailLivre(@PathVariable int idLivre, @PathVariable int idAvis, HttpServletRequest request) {
+
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ILivreDAO livreDAO = new LivreDAO();
+        livre livreDetail = livreDAO.getLivre(idLivre);
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        Map<String, Double> moyenneEvaluation = evaluationDAO.moyenNoteByEvaluation(idLivre);
+
+        DecimalFormat df = new DecimalFormat("#.#");
+        String moyenneNote = df.format(evaluationDAO.moyenNoteByLivre(idLivre));
+
+        int nombreAvis = evaluationDAO.nbAvisByLivre(idLivre);
+
+        List<avis> listAvis = evaluationDAO.getAllAvisByLivre(idLivre);
+
+        ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
+        DetailLivreJSP.addObject("livreDetail", livreDetail);
+        DetailLivreJSP.addObject("login", login);
+        DetailLivreJSP.addObject("role", role);
+        DetailLivreJSP.addObject("catEvaluationList", catEvaluationList);
+        DetailLivreJSP.addObject("catLivreList", catLivreList);
+        DetailLivreJSP.addObject("moyenneEvaluation", moyenneEvaluation);
+        DetailLivreJSP.addObject("moyenneNote", moyenneNote);
+        DetailLivreJSP.addObject("nombreAvis", nombreAvis);
+        DetailLivreJSP.addObject("listAvis", listAvis);
+
+        List<evaluation> evaluationList = evaluationDAO.getAllEvaluationByAvis(idAvis);
+        DetailLivreJSP.addObject("evaluationList", evaluationList);
+
+
+        return DetailLivreJSP;
+
+
     }
 }

@@ -60,7 +60,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="${pageContext.request.contextPath}/Livres/AddAvis" method="post">
+                                        <form action="${pageContext.request.contextPath}/Evaluation/Add" method="post">
                                             <c:forEach items="${catEvaluationList}" var="c">
                                                 <div class="border d-flex align-items-center">
                                                     <span class="itemTitre p-3">${c.description} :</span>
@@ -194,7 +194,34 @@
                     <br>
                     <p class="text-info">${avis.commentaire}</p>
                     <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
-                    <a class="btn btn-secondary sbtnLikeSignal">Signaler</a>
+                    <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal" data-target="#modal2">Signaler</a>
+                    <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
+                         aria-labelledby="modal2Label"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " id="modal2Label">Signaler un commentaire :</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="${pageContext.request.contextPath}/Evaluation/Signaler/${avis.idLivre}" method="post">
+                                        <textarea type="text" class="form-control" name="message"
+                                                  placeholder="Votre message" rows="6"></textarea>
+                                        <input type="hidden" name="login" value="${login}">
+                                        <input type="hidden" name="idAvis" value="${avis.id}">
+                                        <input type="submit" value="Envoyer" class="btn btn-primary">
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <span class="itemAuteurDetail sDateAvis">
                             (${avis.nbLikes})
                         <img class="mb-1" src="${pageContext.request.contextPath}/resources/images/icones/like.png">

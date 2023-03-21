@@ -42,7 +42,23 @@
     <link rel="stylesheet" href="<c:url value='/resources/CSS/Admin.css'/>"/>
 
     <script src="${pageContext.request.contextPath}/resources/JS/admin.js"></script>
-
+    <script>
+        // Code JavaScript pour actualiser une div toutes les secondes
+        const mySection = document.querySelector('#my-section');
+        function updateSection() {
+            // Envoi de la requête AJAX pour récupérer les données mises à jour
+            const request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    // Mise à jour de la section de la page avec les données récupérées
+                    mySection.innerHTML = this.responseText;
+                }
+            };
+            request.open('GET', 'ma-page.jsp?miseAJour=1', true);
+            request.send();
+        }
+        setInterval(updateSection, 1000);
+    </script>
 </head>
 <body>
 

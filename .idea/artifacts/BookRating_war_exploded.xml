@@ -43,6 +43,21 @@
           <element id="library" level="project" name="Maven: jakarta.el:jakarta.el-api:4.0.0" />
           <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:3.0.0" />
           <element id="library" level="project" name="Maven: com.sun.activation:jakarta.activation:2.0.0" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-mail:3.0.4" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:3.0.4" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:3.0.4" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:3.0.4" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:3.0.4" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.4.5" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.4.5" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.19.0" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.19.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:2.0.6" />
+          <element id="library" level="project" name="Maven: jakarta.annotation:jakarta.annotation-api:2.1.1" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.33" />
+          <element id="library" level="project" name="Maven: org.eclipse.angus:jakarta.mail:1.0.0" />
+          <element id="library" level="project" name="Maven: jakarta.activation:jakarta.activation-api:2.1.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.angus:angus-activation:1.0.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -16,7 +16,7 @@ public interface IEvaluationDAO {
 
     void addEvaluationByAvis(evaluation newEvaluation);
 
-    List<evaluation> getAllEvaluationByMember(String login);
+    List<evaluation> getAllEvaluationByAvis(int idAvis);
 
     List<avis> getAllAvisByLivre(int idLivre);
 
@@ -31,5 +31,7 @@ public interface IEvaluationDAO {
     double moyenNoteByLivre(int idLivre);
 
     int nbAvisByLivre(int idLivre);
+
+
 
 }
