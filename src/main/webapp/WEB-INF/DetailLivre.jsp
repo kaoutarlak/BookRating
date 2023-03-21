@@ -36,11 +36,9 @@
             <div>
                 <div class="itemProduitDetail">
                     <img class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}">
-<%--                    <div class="itemTitreDetail">${livreDetail.titre}</div>--%>
-<%--                    <div class="itemAuteurDetail">${livreDetail.nomAuteur}</div>--%>
                     <c:if test="${role=='auteur' || role=='membre'}">
                         <a href="" class="btn text-white itemBtnDetail" style="margin-right: 66px;"
-                           onclick="addLivreLu('${login}', '${livreDetail.id}')">&nbsp;Livre lu
+                           onclick="addLivreLu('${login}', '${livreDetail.id}')">&nbsp;&nbsp;Livre lu
                             <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"
                                  width="24">
                         </a>
@@ -172,12 +170,12 @@
         </div>
         <div class="col-8 ">
             <div class="itemProduitDetail2">
-                <div >
+                <div>
                     <span class="itemTitreDetail">Titre : </span>
                     <span class="itemAuteurDetail">&nbsp;${livreDetail.titre}</span>
                 </div>
                 <br/>
-                <div >
+                <div>
                     <span class="itemTitreDetail">Auteur : </span>
                     <span class="itemAuteurDetail">&nbsp;${livreDetail.nomAuteur}</span>
                 </div>
@@ -187,6 +185,7 @@
                     <p class="sDescription">${livreDetail.description}</p>
                 </div>
             </div>
+
         </div>
 
     </div>

@@ -160,7 +160,7 @@ svg {
     padding: 10px;
     background-color: #f5eeee;
     margin-top: 3%;
-    z-index: -1;
+    /*z-index: -1;*/
 }
 
 .itemProduitDetail {
@@ -169,6 +169,7 @@ svg {
     margin: 20px 0 0 45px;
     padding: 30px;
     width: 350px;
+    z-index: 9999;
 }
 
 .itemImgDetail {
@@ -206,6 +207,8 @@ svg {
     padding: 2px;
     width: 105px;
     height: 35px;
+    transition: all 0.5s;
+    cursor: pointer;
 }
 
 .itemProduitDetail2{
