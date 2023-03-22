@@ -11,4 +11,6 @@ public interface IAuteurDAO {
     void closeConnection();
 
     void addAuteur(auteur newAuteur);
+
+    List<livre> getlivreAddByAuteur(String auteur);
 }

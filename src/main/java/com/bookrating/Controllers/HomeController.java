@@ -63,16 +63,28 @@ public class HomeController {
     @RequestMapping(value = "/Connexion", method = RequestMethod.POST)
     public ModelAndView connexion(membre membre, HttpServletResponse response) {
 
-
         IMembreDAO membreDAO = new MembreDAO();
         membre membreLogin = membreDAO.login(membre.getLogin(), membre.getPassword());
+        String role = membreDAO.membreRole(membreLogin.getLogin());
+
         if (membreLogin.getLogin() != null) {
             Cookie cookie = new Cookie("login", membre.getLogin());
             cookie.setPath("/");
             response.addCookie(cookie);
 
-            return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
-
+            switch (role){
+                case "admin":
+                    ModelAndView viewAdmin = new ModelAndView("");
+                    return viewAdmin;
+                case "auteur":
+                    return new ModelAndView("redirect:/Auteur/MesLivres"); // rediriger vers la page Home Auteur
+                case "membre":
+                    return new ModelAndView("redirect:/Home"); // rediriger vers la page Home Membre
+                default:
+                    ModelAndView connexionModel = new ModelAndView("Connexion");
+                    connexionModel.addObject("error", "Login ou mot de passe est incorrect !!");
+                    return connexionModel;
+            }
         } else {
             ModelAndView connexionModel = new ModelAndView("Connexion");
             connexionModel.addObject("error", "Login ou mot de passe est incorrect !!");
@@ -99,15 +111,16 @@ public class HomeController {
 
         ModelAndView inscriptionModel = new ModelAndView();
 
-        if (role.equals("auteur")){
+        if (role.equals("auteur")) {
             inscriptionModel.setViewName("Auteur/Inscription");
-        }else {
+        } else {
             inscriptionModel.setViewName("Inscription");
         }
 
         return inscriptionModel;
 
     }
+
     @RequestMapping(value = "/Inscription", method = RequestMethod.POST)
     public ModelAndView inscription(membre newMembre) {
 
@@ -121,7 +134,8 @@ public class HomeController {
             return connexionModel;
         } else {
             ModelAndView inscriptionModel = new ModelAndView("Inscription");
-            inscriptionModel.addObject("message", "login existe déjà !!! veuillez choisir un autre.");
+            inscriptionModel.addObject("message", "Login existe déjà !!! veuillez choisir un autre.");
+            inscriptionModel.addObject("infoSaisi", newMembre);
             return inscriptionModel;
         }
 
@@ -131,7 +145,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/InscriptionAuteur", method = RequestMethod.POST)
-    public ModelAndView inscriptionAuteut(membre newMembre,@RequestParam("code") String code) {
+    public ModelAndView inscriptionAuteut(membre newMembre, @RequestParam("code") String code) {
         IMembreDAO membreDAO = new MembreDAO();
         IAuteurDAO auteurDAO = new AuteurDAO();
         Boolean existLogin = membreDAO.isExistLogin(newMembre.getLogin());
@@ -145,8 +159,10 @@ public class HomeController {
             connexionModel.addObject("newMembre", newMembre);
             return connexionModel;
         } else {
-            ModelAndView inscriptionModel = new ModelAndView("Inscription");
-            inscriptionModel.addObject("message", "login existe déjà !!! veuillez choisir un autre.");
+            ModelAndView inscriptionModel = new ModelAndView("Auteur/Inscription");
+            inscriptionModel.addObject("message", "Login existe déjà !!! veuillez choisir un autre.");
+            inscriptionModel.addObject("infoSaisi", newMembre);
+            inscriptionModel.addObject("code", code);
             return inscriptionModel;
         }
     }
@@ -160,7 +176,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/Deconnexion", method = RequestMethod.GET)
-    public ModelAndView deconnexion(HttpServletResponse response,HttpServletRequest request) {
+    public ModelAndView deconnexion(HttpServletResponse response, HttpServletRequest request) {
 
         Cookie cookieToDelete = new Cookie("login", null);
         cookieToDelete.setMaxAge(0);

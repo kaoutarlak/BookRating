@@ -2,6 +2,7 @@ package com.bookrating.Models.DAO;
 
 import com.bookrating.Models.Entities.auteur;
 import com.bookrating.Models.Entities.categorieLivre;
+import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -50,5 +51,32 @@ public class AuteurDAO implements IAuteurDAO {
         }
     }
 
+    @Override
+    public List<livre> getlivreAddByAuteur(String auteur) {
+        List<livre> livres = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `livre` WHERE addBy=?;");
+            ps.setString(1, auteur);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                livre l = new livre();
+                l.setId(rs.getInt("id"));
+                l.setIdCategorieLivre(rs.getInt("idCategorieLivre"));
+                l.setTitre(rs.getString("titre"));
+                l.setNomAuteur(rs.getString("nomAuteur"));
+                l.setDateParution(rs.getDate("dateParution").toLocalDate());
+                l.setImage(rs.getString("image"));
+                l.setDescription(rs.getString("description"));
+                l.setAddBy(rs.getString("addBy"));
+                livres.add(l);
+            }
+            return livres;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
 
 }

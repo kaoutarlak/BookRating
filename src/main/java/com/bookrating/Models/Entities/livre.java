@@ -10,11 +10,11 @@ public class livre {
     private LocalDate dateParution;
     private String image;
     private int idCategorieLivre;
-
+    private String addBy;
     public livre() {
     }
 
-    public livre(int id, String titre, String description, String nomAuteur, LocalDate dateParution, String image, int idCategorieLivre) {
+    public livre(int id, String titre, String description, String nomAuteur, LocalDate dateParution, String image, int idCategorieLivre,String addBy) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -22,6 +22,7 @@ public class livre {
         this.dateParution = dateParution;
         this.image = image;
         this.idCategorieLivre = idCategorieLivre;
+        this.addBy = addBy;
     }
 
     public int getId() {
@@ -80,6 +81,14 @@ public class livre {
         this.idCategorieLivre = idCategorieLivre;
     }
 
+    public String getAddBy() {
+        return addBy;
+    }
+
+    public void setAddBy(String addBy) {
+        this.addBy = addBy;
+    }
+
     @Override
     public String toString() {
         return "livre{" +
@@ -90,6 +99,7 @@ public class livre {
                 ", dateParution=" + dateParution +
                 ", image='" + image + '\'' +
                 ", idCategorieLivre=" + idCategorieLivre +
+                ", addBy='" + addBy + '\'' +
                 '}';
     }
 }
