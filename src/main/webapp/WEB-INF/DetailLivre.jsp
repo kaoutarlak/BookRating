@@ -207,17 +207,16 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="${pageContext.request.contextPath}/Evaluation/Signaler/${avis.idLivre}" method="post">
-                                        <textarea type="text" class="form-control" name="message"
+                                    <form action="${pageContext.request.contextPath}/Evaluation/Signaler/${avis.idLivre}"
+                                          method="post">
+                                        <div class="input-group mb-3">
+                                            <textarea type="text" class="form-control" name="message"
                                                   placeholder="Votre message" rows="6"></textarea>
+                                        </div>
                                         <input type="hidden" name="login" value="${login}">
                                         <input type="hidden" name="idAvis" value="${avis.id}">
                                         <input type="submit" value="Envoyer" class="btn btn-primary">
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler
-                                    </button>
                                 </div>
                             </div>
                         </div>

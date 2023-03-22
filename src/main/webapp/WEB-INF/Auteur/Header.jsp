@@ -62,15 +62,15 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Livres lus</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Mes Évaluations</a>
+                                <a class="nav-link" href="#">Mes Livres </a>
                             </li>
 
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Les Statistiques</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Notification</a>
                             </li>
 
                         </ul>

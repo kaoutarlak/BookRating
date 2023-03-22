@@ -42,7 +42,7 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text"><img
                                 src="${pageContext.request.contextPath}/resources/images/icones/icons8-courrier-50.png"
-                                width="30"></span>
+                                width="25"></span>
                         <input type="email" class="form-control" id="adresse" name="adresse"
                                placeholder="Adresse courriel" required>
                     </div>

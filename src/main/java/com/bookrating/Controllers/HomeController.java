@@ -1,9 +1,7 @@
 package com.bookrating.Controllers;
 
-import com.bookrating.Models.DAO.CatLivresDAO;
-import com.bookrating.Models.DAO.ICatLivresDAO;
-import com.bookrating.Models.DAO.IMembreDAO;
-import com.bookrating.Models.DAO.MembreDAO;
+import com.bookrating.Models.DAO.*;
+import com.bookrating.Models.Entities.auteur;
 import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.membre;
 import jakarta.servlet.http.Cookie;
@@ -12,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -95,6 +94,20 @@ public class HomeController {
 
     }
 
+    @RequestMapping(value = "/InscriptionType", method = RequestMethod.POST)
+    public ModelAndView inscriptionType(@RequestParam("role") String role) {
+
+        ModelAndView inscriptionModel = new ModelAndView();
+
+        if (role.equals("auteur")){
+            inscriptionModel.setViewName("Auteur/Inscription");
+        }else {
+            inscriptionModel.setViewName("Inscription");
+        }
+
+        return inscriptionModel;
+
+    }
     @RequestMapping(value = "/Inscription", method = RequestMethod.POST)
     public ModelAndView inscription(membre newMembre) {
 
@@ -115,6 +128,27 @@ public class HomeController {
         //sendMail.sendMailConfirmation(newMembre.getAdresse(),newMembre.getLogin());
 
 
+    }
+
+    @RequestMapping(value = "/InscriptionAuteur", method = RequestMethod.POST)
+    public ModelAndView inscriptionAuteut(membre newMembre,@RequestParam("code") String code) {
+        IMembreDAO membreDAO = new MembreDAO();
+        IAuteurDAO auteurDAO = new AuteurDAO();
+        Boolean existLogin = membreDAO.isExistLogin(newMembre.getLogin());
+        if (!existLogin) {
+            membreDAO.addMembre(newMembre);
+            auteur newAuteur = new auteur();
+            newAuteur.setCode(code);
+            newAuteur.setLogin(newMembre.getLogin());
+            auteurDAO.addAuteur(newAuteur);
+            ModelAndView connexionModel = new ModelAndView("Connexion");
+            connexionModel.addObject("newMembre", newMembre);
+            return connexionModel;
+        } else {
+            ModelAndView inscriptionModel = new ModelAndView("Inscription");
+            inscriptionModel.addObject("message", "login existe déjà !!! veuillez choisir un autre.");
+            return inscriptionModel;
+        }
     }
 
     @RequestMapping(value = "/Confirmation", method = RequestMethod.GET)
