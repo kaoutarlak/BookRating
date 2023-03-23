@@ -52,7 +52,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Mes Livres </a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Auteur/MesLivres">Mes Livres </a>
                                 <span class="sr-only">(current)</span>
                             </li>
                             <li class="nav-item dropdown ">

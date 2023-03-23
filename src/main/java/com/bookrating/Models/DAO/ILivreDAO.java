@@ -14,4 +14,6 @@ public interface ILivreDAO {
     List<livre> getlistLivreByCat(String categorie);
 
     livre getLivre(int idLivre);
+
+    void addLivre(livre l);
 }

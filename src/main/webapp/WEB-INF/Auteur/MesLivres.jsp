@@ -14,7 +14,7 @@
     </a>
     <br/>
     <br/>
-    <table class="table table-bordered text-center">
+    <table class="table table-bordered">
         <thead>
         <tr class="table-danger">
             <th scope="col"></th>
@@ -35,7 +35,7 @@
                         <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                     </a>
                 </td>
-                <td><img src="${pageContext.request.contextPath}${element.image}" width="30" height="30"></td>
+                <td><img src="${element.image}" width="30" height="30"></td>
                 <c:forEach items="${catLivreList}" var="c">
                     <c:if test="${c.id==element.idCategorieLivre}">
                         <td>${c.titre}</td>
@@ -49,6 +49,10 @@
         </c:forEach>
         </tbody>
     </table>
+<%--    <form action="${pageContext.request.contextPath}/Auteur/upload" method="post" >--%>
+<%--        <input type="file" name="file" />--%>
+<%--        <button type="submit">Upload</button>--%>
+<%--    </form>--%>
 </div>
 
 <%--Modal Modifier--%>
@@ -64,7 +68,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="livre/Add" method="post">
+                <form action="${pageContext.request.contextPath}/Auteur/AddLivre" method="POST" >
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Titre :</label>
                         <div class="col-sm-9">
@@ -90,13 +94,15 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Image :</label>
                         <div class="col-sm-9">
-                            <input type="file" class="form-control" name="image" required>
+                            <%--<input type="file" class="form-control" name="file" >--%>
+                                <input type="text" class="form-control" name="image" required>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label >Description :</label>
                         <textarea class="form-control" name="description" rows="4" required></textarea>
                     </div>
+                    <input type="hidden" value="${login}" name="addBy">
                     <input type="submit" value="Enregistrer" class="btn btn-danger">
                 </form>
             </div>
@@ -110,3 +116,4 @@
 </div>
 
 <jsp:include page="../Footer.jsp"></jsp:include>
+

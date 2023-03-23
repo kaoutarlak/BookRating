@@ -5,6 +5,7 @@ import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +76,7 @@ public class LivreDAO implements ILivreDAO {
                 l.setDateParution(LocalDate.parse(result.getString("dateParution")));
                 l.setImage(result.getString("image"));
                 l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
 
                 livreList.add(l);
             }
@@ -110,6 +112,31 @@ public class LivreDAO implements ILivreDAO {
             closeConnection();
         }
         return foundLivre;
+    }
+
+    @Override
+    public void addLivre(livre l) {
+        LocalDate dateParution = l.getDateParution();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateParutionString = dateParution.format(formatter);
+        try {
+            establichConnection();
+            PreparedStatement ps= connection.prepareStatement("INSERT INTO `livre`(`idCategorieLivre`, `titre`, `nomAuteur`, `dateParution`, `image`, `description`, `addBy`)" +
+                    " VALUES (?,?,?,?,?,?,?)");
+            ps.setInt(1,l.getIdCategorieLivre());
+            ps.setString(2,l.getTitre());
+            ps.setString(3,l.getNomAuteur());
+            ps.setString(4,dateParutionString);
+            ps.setString(5,l.getImage());
+            ps.setString(6,l.getDescription());
+            ps.setString(7,l.getAddBy());
+            ps.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }finally {
+            closeConnection();
+        }
     }
 
 

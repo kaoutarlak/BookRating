@@ -13,4 +13,6 @@ public interface IAuteurDAO {
     void addAuteur(auteur newAuteur);
 
     List<livre> getlivreAddByAuteur(String auteur);
+
+    String getNomCompletAuteur(String login);
 }

@@ -12,11 +12,16 @@
     <!-- La recherche des controleurs par annotations -->
     <context:component-scan base-package="com.bookrating.Controllers"/>
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
     <!-- Aiguilleur de vues par defaut -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
 
     </bean>
+<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">-->
+<!--        &lt;!&ndash; Set the maximum allowed size (in bytes) for each file to be uploaded &ndash;&gt;-->
+<!--&lt;!&ndash;        <property name="maxUploadSize" value="10485760" /> &lt;!&ndash; 10 MB &ndash;&gt;&ndash;&gt;-->
+<!--    </bean>-->
+
 </beans>

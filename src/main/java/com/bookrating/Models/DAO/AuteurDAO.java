@@ -1,7 +1,6 @@
 package com.bookrating.Models.DAO;
 
 import com.bookrating.Models.Entities.auteur;
-import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
@@ -59,7 +58,7 @@ public class AuteurDAO implements IAuteurDAO {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM `livre` WHERE addBy=?;");
             ps.setString(1, auteur);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 livre l = new livre();
                 l.setId(rs.getInt("id"));
                 l.setIdCategorieLivre(rs.getInt("idCategorieLivre"));
@@ -72,6 +71,25 @@ public class AuteurDAO implements IAuteurDAO {
                 livres.add(l);
             }
             return livres;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public String getNomCompletAuteur(String login) {
+        String nomComplet = "";
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT nom, prenom FROM `membre` WHERE login=?;");
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                nomComplet = rs.getString(1) + " " + rs.getString(2);
+            }
+            return nomComplet;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
