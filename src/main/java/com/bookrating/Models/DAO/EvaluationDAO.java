@@ -1,7 +1,9 @@
 package com.bookrating.Models.DAO;
 
+import com.bookrating.Models.Entities.AvisEvaluation;
 import com.bookrating.Models.Entities.avis;
 import com.bookrating.Models.Entities.evaluation;
+import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
 import java.text.DecimalFormat;
@@ -134,8 +136,79 @@ public class EvaluationDAO implements IEvaluationDAO {
     }
 
     @Override
-    public List<evaluation> getAllEvaluation() {
-        return null;
+    public List<AvisEvaluation> getAllEvaluationByMember(String login) {
+        List<AvisEvaluation> avisEvaluations = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` WHERE login=? ORDER BY idLivre;");
+            ps.setString(1,login);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                AvisEvaluation AE = new AvisEvaluation();
+                AE.setId(rs.getInt("id"));
+                AE.setDatePost(rs.getDate("datePost").toLocalDate());
+                AE.setCommentaire(rs.getString("commentaire"));
+                AE.setNbLikes(rs.getInt("nbLikes"));
+                AE.setLogin(rs.getString("login"));
+                AE.setIdLivre(rs.getInt("idLivre"));
+
+                List<evaluation> evaluationList = new ArrayList<>();
+                PreparedStatement p = null;
+                try {
+                    p = connection.prepareStatement("SELECT * FROM `evaluation` where idAvis=?;");
+                    p.setInt(1, rs.getInt("id"));
+                    ResultSet r = p.executeQuery();
+                    while (r.next()) {
+                        evaluation e = new evaluation();
+                        e.setId(r.getInt("id"));
+                        e.setIdCategorieEvaluation(r.getInt("idCategorieEvaluation"));
+                        e.setNote(r.getInt("note"));
+                        e.setIdAvis(r.getInt("idAvis"));
+                        evaluationList.add(e);
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                AE.setEvaluationList(evaluationList);
+                avisEvaluations.add(AE);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return avisEvaluations;
+    }
+
+    @Override
+    public List<livre> getAllLivreEvaluerByMember(String login) {
+        List<livre> livreList = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `avis` AS A ON L.id = A.idLivre WHERE A.login=? ORDER BY L.id; ");
+            stm.setString(1,login);
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
     }
 
     @Override

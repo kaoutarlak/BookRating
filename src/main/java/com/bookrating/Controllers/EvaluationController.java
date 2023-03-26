@@ -1,14 +1,7 @@
 package com.bookrating.Controllers;
 
-import com.bookrating.EmailService;
-import com.bookrating.Models.DAO.EvaluationDAO;
-import com.bookrating.Models.DAO.IEvaluationDAO;
-import com.bookrating.Models.DAO.ISignalementDAO;
-import com.bookrating.Models.DAO.SignalementDAO;
-import com.bookrating.Models.Entities.avis;
-import com.bookrating.Models.Entities.evaluation;
-import com.bookrating.Models.Entities.signalement;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bookrating.Models.DAO.*;
+import com.bookrating.Models.Entities.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -50,12 +44,36 @@ public class EvaluationController {
     }
 
     @RequestMapping(value = "/Signaler/{idLivre}", method = RequestMethod.POST)
-    public ModelAndView signaleCommentaire(signalement newSignalement,@PathVariable int idLivre) {
+    public ModelAndView signaleCommentaire(signalement newSignalement, @PathVariable int idLivre) {
 
-       // sendMail.sendMail("marwa.zayane88@gmail.com","signaler l'avis ID:");
+        // sendMail.sendMail("marwa.zayane88@gmail.com","signaler l'avis ID:");
         ISignalementDAO signalementDAO = new SignalementDAO();
         signalementDAO.addSignal(newSignalement);
-        return new ModelAndView("redirect:/Livres/Detail/" +idLivre); // rediriger vers la page Détail livre
+        return new ModelAndView("redirect:/Livres/Detail/" + idLivre); // rediriger vers la page Détail livre
+    }
+
+    @RequestMapping(value = "/Liste/{login}", method = RequestMethod.GET)
+    public ModelAndView mesEvaluations(@PathVariable String login) {
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        List<AvisEvaluation> avisEvaluationList = evaluationDAO.getAllEvaluationByMember(login);
+        List<livre> livres = evaluationDAO.getAllLivreEvaluerByMember(login);
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+
+        ModelAndView mesEvaluationsView = new ModelAndView("Membre/MesEvaluations");
+        mesEvaluationsView.addObject("avisEvaluationList", avisEvaluationList);
+        mesEvaluationsView.addObject("livres", livres);
+        mesEvaluationsView.addObject("catLivreList", catLivreList);
+        mesEvaluationsView.addObject("catEvaluationList", catEvaluationList);
+        mesEvaluationsView.addObject("login", login);
+
+        return mesEvaluationsView;
+
     }
 
 

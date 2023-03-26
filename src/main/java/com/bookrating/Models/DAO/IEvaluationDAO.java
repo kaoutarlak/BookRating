@@ -1,7 +1,9 @@
 package com.bookrating.Models.DAO;
 
+import com.bookrating.Models.Entities.AvisEvaluation;
 import com.bookrating.Models.Entities.avis;
 import com.bookrating.Models.Entities.evaluation;
+import com.bookrating.Models.Entities.livre;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,8 @@ public interface IEvaluationDAO {
 
     List<avis> getAllAvisByLivre(int idLivre);
 
-    List<evaluation> getAllEvaluation();
+    List<AvisEvaluation> getAllEvaluationByMember(String login);
+    List<livre> getAllLivreEvaluerByMember(String login);
 
     boolean areadyEvaluate(int idLivre, String login);
 

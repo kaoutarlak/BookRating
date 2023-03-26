@@ -17,8 +17,8 @@
                         <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img
                                 class="itemImgDetail" src="${livreDetail.image}"></a>
                     </c:if>
-                    <span class="itemTitreDetail">&nbsp;${livreDetail.titre}</span>
-                    <span class="itemAuteurDetail">&nbsp;${livreDetail.nomAuteur}</span>
+                    <p class="itemTitreDetail">&nbsp;${livreDetail.titre}</p>
+                    <p class="itemAuteurDetail">&nbsp;${livreDetail.nomAuteur}</p>
                     <br/>
                     <br/>
                     <table class="ml-2">
