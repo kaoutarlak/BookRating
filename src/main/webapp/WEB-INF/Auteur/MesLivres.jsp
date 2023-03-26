@@ -19,11 +19,10 @@
         <tr class="table-danger">
             <th scope="col"></th>
             <th scope="col">image</th>
-            <%--<th scope="col">ID</th>--%>
             <th scope="col">Catégorie</th>
             <th scope="col">Titre</th>
             <th scope="col">Auteur</th>
-            <th scope="col">Date Parution</th>
+            <th scope="col" >Date Parution</th>
             <th scope="col">Description</th>
         </tr>
         </thead>
@@ -35,7 +34,7 @@
                         <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                     </a>
                 </td>
-                <td><img src="${element.image}" width="30" height="30"></td>
+                <td><a href="${pageContext.request.contextPath}/Auteur/Livre/${element.id}/Avis"><img src="${element.image}" width="40" height="50"></a></td>
                 <c:forEach items="${catLivreList}" var="c">
                     <c:if test="${c.id==element.idCategorieLivre}">
                         <td>${c.titre}</td>
@@ -49,10 +48,7 @@
         </c:forEach>
         </tbody>
     </table>
-<%--    <form action="${pageContext.request.contextPath}/Auteur/upload" method="post" >--%>
-<%--        <input type="file" name="file" />--%>
-<%--        <button type="submit">Upload</button>--%>
-<%--    </form>--%>
+
 </div>
 
 <%--Modal Modifier--%>
@@ -92,7 +88,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Image :</label>
+                        <label class="col-sm-3 col-form-label">URL image :</label>
                         <div class="col-sm-9">
                             <%--<input type="file" class="form-control" name="file" >--%>
                                 <input type="text" class="form-control" name="image" required>

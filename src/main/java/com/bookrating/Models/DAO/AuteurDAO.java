@@ -1,6 +1,8 @@
 package com.bookrating.Models.DAO;
 
+import com.bookrating.Models.Entities.AvisEvaluation;
 import com.bookrating.Models.Entities.auteur;
+import com.bookrating.Models.Entities.evaluation;
 import com.bookrating.Models.Entities.livre;
 
 import java.sql.*;
@@ -95,6 +97,50 @@ public class AuteurDAO implements IAuteurDAO {
         } finally {
             closeConnection();
         }
+    }
+
+    @Override
+    public List<AvisEvaluation> avisLivreAuteur(int idLivre) {
+        List<AvisEvaluation> avisEvaluations = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` WHERE idLivre=?;");
+            ps.setInt(1,idLivre);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                AvisEvaluation AE = new AvisEvaluation();
+                AE.setId(rs.getInt("id"));
+                AE.setDatePost(rs.getDate("datePost").toLocalDate());
+                AE.setCommentaire(rs.getString("commentaire"));
+                AE.setNbLikes(rs.getInt("nbLikes"));
+                AE.setLogin(rs.getString("login"));
+                AE.setIdLivre(rs.getInt("idLivre"));
+
+                List<evaluation> evaluationList = new ArrayList<>();
+                PreparedStatement p = null;
+                try {
+                    p = connection.prepareStatement("SELECT * FROM `evaluation` where idAvis=?;");
+                    p.setInt(1, rs.getInt("id"));
+                    ResultSet r = p.executeQuery();
+                    while (r.next()) {
+                        evaluation e = new evaluation();
+                        e.setId(r.getInt("id"));
+                        e.setIdCategorieEvaluation(r.getInt("idCategorieEvaluation"));
+                        e.setNote(r.getInt("note"));
+                        e.setIdAvis(r.getInt("idAvis"));
+                        evaluationList.add(e);
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                AE.setEvaluationList(evaluationList);
+                avisEvaluations.add(AE);
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return avisEvaluations;
     }
 
 }

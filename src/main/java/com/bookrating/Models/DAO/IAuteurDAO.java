@@ -1,5 +1,6 @@
 package com.bookrating.Models.DAO;
 
+import com.bookrating.Models.Entities.AvisEvaluation;
 import com.bookrating.Models.Entities.auteur;
 import com.bookrating.Models.Entities.livre;
 
@@ -15,4 +16,5 @@ public interface IAuteurDAO {
     List<livre> getlivreAddByAuteur(String auteur);
 
     String getNomCompletAuteur(String login);
+    List<AvisEvaluation> avisLivreAuteur(int idLivre);
 }

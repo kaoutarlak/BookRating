@@ -35,8 +35,14 @@
         <div class="col-4">
             <div>
                 <div class="itemProduitDetail">
-                    <img class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}">
-                    <c:if test="${role=='auteur' || role=='membre'}">
+                    <c:if test='${(element.image).contains("/resources/images/")}'>
+                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}"></a>
+                    </c:if>
+                    <c:if test='${not (element.image).contains("/resources/images/")}'>
+                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImgDetail" src="${livreDetail.image}"></a>
+                    </c:if>
+
+                    <c:if test="${role=='membre'}">
                         <a href="" class="btn text-white itemBtnDetail" style="margin-right: 66px;"
                            onclick="addLivreLu('${login}', '${livreDetail.id}')">&nbsp;&nbsp;Livre lu
                             <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"

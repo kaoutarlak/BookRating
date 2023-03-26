@@ -4,6 +4,7 @@ import com.bookrating.Models.Entities.avis;
 import com.bookrating.Models.Entities.evaluation;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -179,6 +180,7 @@ public class EvaluationDAO implements IEvaluationDAO {
     @Override
     public Map<String, Double> moyenNoteByEvaluation(int idLivre) {
         Map<String, Double> resultMap = new HashMap<>();
+        DecimalFormat df = new DecimalFormat("#.#");
         try {
             establichConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT C.description, AVG(E.note) FROM `evaluation` AS E JOIN `avis` AS A ON E.idAvis=A.id " +
@@ -188,7 +190,8 @@ public class EvaluationDAO implements IEvaluationDAO {
             ResultSet result = ps.executeQuery();
             while (result.next()) {
                 String description = result.getString(1);
-                Double moyenne = result.getDouble(2);
+                String moyenneString = df.format(result.getDouble(2));
+                Double moyenne = Double.parseDouble(moyenneString.replace(",", "."));
                 resultMap.put(description, moyenne);
             }
         } catch (SQLException e) {

@@ -81,7 +81,12 @@
     <div id="livreInfo">
         <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="${idLivreBegin}" end="${idLivreEnd}">
             <div class="itemProduit">
-                <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${pageContext.request.contextPath}${element.image}"></a>
+                <c:if test='${(element.image).contains("/resources/images/")}'>
+                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${pageContext.request.contextPath}${element.image}"></a>
+                </c:if>
+                <c:if test='${not (element.image).contains("/resources/images/")}'>
+                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${element.image}"></a>
+                </c:if>
                 <div class="itemTitre">${element.titre}</div>
                 <div class="itemAuteur">${element.nomAuteur}</div>
                 <c:if test="${role=='auteur' || role=='membre'}">
