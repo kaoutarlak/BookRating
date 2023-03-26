@@ -35,11 +35,11 @@
         <div class="col-4">
             <div>
                 <div class="itemProduitDetail">
-                    <c:if test='${(element.image).contains("/resources/images/")}'>
-                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}"></a>
+                    <c:if test='${(livreDetail.image).contains("/resources/images/")}'>
+                        <img class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}"/>
                     </c:if>
-                    <c:if test='${not (element.image).contains("/resources/images/")}'>
-                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImgDetail" src="${livreDetail.image}"></a>
+                    <c:if test='${not (livreDetail.image).contains("/resources/images/")}'>
+                        <img class="itemImgDetail" src="${livreDetail.image}"/>
                     </c:if>
 
                     <c:if test="${role=='membre'}">
