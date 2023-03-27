@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/auteur.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/statistique.css'/>"/>
 
 </head>
 <body>
@@ -53,7 +54,7 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/Auteur/MesLivres">Mes Livres </a>
-                                <span class="sr-only">(current)</span>
+<%--                                <span class="sr-only">(current)</span>--%>
                             </li>
                             <li class="nav-item dropdown ">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -68,14 +69,13 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Les Statistiques</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Statistique/MesLivres">Mes Statistiques</a>
                             </li>
 
                         </ul>
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mr-sm-2" type="search" placeholder="Recherche..."
                                    aria-label="Search">
-                            <%--                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--%>
                             <div class="input-group-append">
                                 <button class="input-group-text search-icon"></button>
                             </div>
