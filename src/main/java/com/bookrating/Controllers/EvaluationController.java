@@ -2,6 +2,8 @@ package com.bookrating.Controllers;
 
 import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,27 +54,38 @@ public class EvaluationController {
         return new ModelAndView("redirect:/Livres/Detail/" + idLivre); // rediriger vers la page Détail livre
     }
 
-    @RequestMapping(value = "/Liste/{login}", method = RequestMethod.GET)
-    public ModelAndView mesEvaluations(@PathVariable String login) {
+    @RequestMapping(value = "/Liste", method = RequestMethod.GET)
+    public ModelAndView mesEvaluations(HttpServletRequest request) {
 
-        IEvaluationDAO evaluationDAO = new EvaluationDAO();
-        List<AvisEvaluation> avisEvaluationList = evaluationDAO.getAllEvaluationByMember(login);
-        List<livre> livres = evaluationDAO.getAllLivreEvaluerByMember(login);
+        String login = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("login")) {
+                    login = c.getValue();
+                }
+            }
+            IEvaluationDAO evaluationDAO = new EvaluationDAO();
+            List<AvisEvaluation> avisEvaluationList = evaluationDAO.getAllEvaluationByMember(login);
+            List<livre> livres = evaluationDAO.getAllLivreEvaluerByMember(login);
 
-        ICatLivresDAO catLivresDAO = new CatLivresDAO();
-        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+            ICatLivresDAO catLivresDAO = new CatLivresDAO();
+            List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
 
-        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
-        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+            ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+            List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
 
-        ModelAndView mesEvaluationsView = new ModelAndView("Membre/MesEvaluations");
-        mesEvaluationsView.addObject("avisEvaluationList", avisEvaluationList);
-        mesEvaluationsView.addObject("livres", livres);
-        mesEvaluationsView.addObject("catLivreList", catLivreList);
-        mesEvaluationsView.addObject("catEvaluationList", catEvaluationList);
-        mesEvaluationsView.addObject("login", login);
+            ModelAndView mesEvaluationsView = new ModelAndView("Membre/MesEvaluations");
+            mesEvaluationsView.addObject("avisEvaluationList", avisEvaluationList);
+            mesEvaluationsView.addObject("livres", livres);
+            mesEvaluationsView.addObject("catLivreList", catLivreList);
+            mesEvaluationsView.addObject("catEvaluationList", catEvaluationList);
+            mesEvaluationsView.addObject("login", login);
 
-        return mesEvaluationsView;
+            return mesEvaluationsView;
+        }else {
+            return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
+        }
 
     }
 

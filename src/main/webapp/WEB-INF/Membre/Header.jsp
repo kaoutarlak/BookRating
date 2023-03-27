@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/statistique.css'/>"/>
 
 </head>
 <body>
@@ -83,11 +84,11 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/Evaluation/Liste/${login}">Mes Évaluations</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Evaluation/Liste">Mes Évaluations</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Les Statistiques</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Statistique">Les Statistiques</a>
                             </li>
 
                         </ul>

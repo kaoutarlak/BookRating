@@ -140,7 +140,7 @@ public class EvaluationDAO implements IEvaluationDAO {
         List<AvisEvaluation> avisEvaluations = new ArrayList<>();
         try {
             establichConnection();
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` WHERE login=? ORDER BY idLivre;");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` WHERE login=? ORDER BY id;");
             ps.setString(1,login);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -155,7 +155,7 @@ public class EvaluationDAO implements IEvaluationDAO {
                 List<evaluation> evaluationList = new ArrayList<>();
                 PreparedStatement p = null;
                 try {
-                    p = connection.prepareStatement("SELECT * FROM `evaluation` where idAvis=?;");
+                    p = connection.prepareStatement("SELECT * FROM `evaluation` where idAvis=? ORDER BY idAvis;");
                     p.setInt(1, rs.getInt("id"));
                     ResultSet r = p.executeQuery();
                     while (r.next()) {

@@ -60,6 +60,7 @@ svg {
     font-weight: 700;
     font-size: 16px;
     margin: auto;
+    height: 45px;
 }
 
 .itemAuteur {
@@ -187,6 +188,7 @@ svg {
     font-size: 16px;
     margin: auto;
     margin-bottom: 8px;
+    height: 45px;
 }
 
 .itemAuteurDetail {
