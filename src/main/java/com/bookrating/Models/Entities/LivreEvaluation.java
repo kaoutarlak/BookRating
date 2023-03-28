@@ -9,17 +9,19 @@ public class LivreEvaluation {
     private String image;
     private int nombreEvaluation;
     private double noteMoyenne;
+    private int ididCategorieLivre;
 
     public LivreEvaluation() {
     }
 
-    public LivreEvaluation(int id, String titre, String nomAuteur, String image, int nombreEvaluation, double noteMoyenne) {
+    public LivreEvaluation(int id, String titre, String nomAuteur, String image, int nombreEvaluation, double noteMoyenne,int ididCategorieLivre) {
         this.id = id;
         this.titre = titre;
         this.nomAuteur = nomAuteur;
         this.image = image;
         this.nombreEvaluation = nombreEvaluation;
         this.noteMoyenne = noteMoyenne;
+        this.ididCategorieLivre = ididCategorieLivre;
     }
 
     public int getId() {
@@ -68,6 +70,14 @@ public class LivreEvaluation {
 
     public void setNoteMoyenne(double noteMoyenne) {
         this.noteMoyenne = noteMoyenne;
+    }
+
+    public int getIdidCategorieLivre() {
+        return ididCategorieLivre;
+    }
+
+    public void setIdidCategorieLivre(int ididCategorieLivre) {
+        this.ididCategorieLivre = ididCategorieLivre;
     }
 
     @Override

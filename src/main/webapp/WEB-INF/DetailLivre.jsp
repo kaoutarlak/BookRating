@@ -15,12 +15,12 @@
         </jsp:include>
     </c:if>
 
-    <%--    <c:if test="${role=='admin'}">--%>
-    <%--        <jsp:include page="Admin/Header.jsp">--%>
-    <%--            <jsp:param name="login" value="${login}"/>--%>
-    <%--            <jsp:param name="catLivreList" value="${catLivreList}"/>--%>
-    <%--        </jsp:include>--%>
-    <%--    </c:if>--%>
+    <c:if test="${role=='admin'}">
+        <jsp:include page="Admin/Header.jsp">
+            <jsp:param name="login" value="${login}"/>
+            <jsp:param name="catLivreList" value="${catLivreList}"/>
+        </jsp:include>
+    </c:if>
 
     <c:if test="${role=='auteur'}">
         <jsp:include page="Auteur/Header.jsp">

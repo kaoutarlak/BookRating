@@ -26,4 +26,7 @@ public interface IStatistiqueDAO {
     List<livre> livrePlusLuAuteur(String auteur);
     List<livre> livrePlusLuAuteurParCategorie(int idCatLivre,String auteur);
 
+    /*-------------Statistique Admin -----------*/
+    List<LivreEvaluation> statLivreAdmin();
+    List<LivreEvaluation> statLivreAdminParCategorie(int idCatLivre);
 }

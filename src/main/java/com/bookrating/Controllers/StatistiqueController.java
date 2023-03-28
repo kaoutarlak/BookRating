@@ -145,10 +145,10 @@ public class StatistiqueController {
         List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
 
         IStatistiqueDAO statistiqueDAO = new StatistiqueDAO();
-        Map<String, Integer> statMap = statistiqueDAO.statLivresAuteurParCategorie(categorie,login);
+        Map<String, Integer> statMap = statistiqueDAO.statLivresAuteurParCategorie(categorie, login);
 
-        List<LivreEvaluation> livrePlusNote = statistiqueDAO.bestLivreAuteurNoteParCategorie(categorie,login);
-        List<livre> livrePlusLu = statistiqueDAO.livrePlusLuAuteurParCategorie(categorie,login);
+        List<LivreEvaluation> livrePlusNote = statistiqueDAO.bestLivreAuteurNoteParCategorie(categorie, login);
+        List<livre> livrePlusLu = statistiqueDAO.livrePlusLuAuteurParCategorie(categorie, login);
 
         Boolean effaceFiltre = true;
 
@@ -157,6 +157,72 @@ public class StatistiqueController {
         statView.addObject("statMap", statMap);
         statView.addObject("livrePlusNote", livrePlusNote);
         statView.addObject("livrePlusLu", livrePlusLu);
+        statView.addObject("effaceFiltre", effaceFiltre);
+
+        return statView;
+    }
+
+    @RequestMapping(value = "Admin", method = RequestMethod.GET)
+    public ModelAndView satstiqueAdmin(HttpServletRequest request) {
+
+        ModelAndView statView = new ModelAndView("Admin/Statistiques");
+
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IStatistiqueDAO statistiqueDAO = new StatistiqueDAO();
+        Map<String, Integer> statMap = statistiqueDAO.statLivres();
+
+        List<LivreEvaluation> statLivres = statistiqueDAO.statLivreAdmin();
+
+        Boolean effaceFiltre = false;
+
+        statView.addObject("catLivreList", catLivreList);
+        statView.addObject("login", login);
+        statView.addObject("statMap", statMap);
+        statView.addObject("statLivres", statLivres);
+        statView.addObject("effaceFiltre", effaceFiltre);
+
+        return statView;
+    }
+
+    @RequestMapping(value = "Admin/Categorie", method = RequestMethod.POST)
+    public ModelAndView satstiqueAdminParCategorie(HttpServletRequest request, @RequestParam("categorie") int categorie) {
+
+        ModelAndView statView = new ModelAndView("Admin/Statistiques");
+
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IStatistiqueDAO statistiqueDAO = new StatistiqueDAO();
+        Map<String, Integer> statMap = statistiqueDAO.statLivresParCategorie(categorie);
+
+        List<LivreEvaluation> statLivres = statistiqueDAO.statLivreAdminParCategorie(categorie);
+
+        Boolean effaceFiltre = true;
+
+        statView.addObject("catLivreList", catLivreList);
+        statView.addObject("login", login);
+        statView.addObject("statMap", statMap);
+        statView.addObject("statLivres", statLivres);
         statView.addObject("effaceFiltre", effaceFiltre);
 
         return statView;

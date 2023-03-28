@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public class StatistiqueDAO implements IStatistiqueDAO {
+
     public static final String URL = "jdbc:mysql://mysql-kaoutarlak.alwaysdata.net:3306/kaoutarlak_bookrating";
     public static final String USERNAME = "290054_admin";
     public static final String PASSWORD = "Admin@2022";
     Connection connection = null;
-
 
     @Override
     public void establichConnection() {
@@ -397,6 +397,74 @@ public class StatistiqueDAO implements IStatistiqueDAO {
                 l.setNomAuteur(result.getString("nomAuteur"));
                 l.setImage(result.getString("image"));
                 l.setIdCategorieLivre(result.getInt("num_reads"));
+                livreList.add(l);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
+    /*-------------Statistique Admin -----------*/
+    @Override
+    public List<LivreEvaluation> statLivreAdmin() {
+        List<LivreEvaluation> livreList = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.#");
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT livre.*, COUNT(avis.idLivre) AS nb_avis, AVG(avg_scores.note) AS moyenne "
+                    + "FROM livre JOIN avis ON livre.id = avis.idLivre JOIN ( SELECT idAvis, AVG(note) AS note "
+                    + "FROM evaluation GROUP BY idAvis ) AS avg_scores ON avg_scores.idAvis = avis.id "
+                    + "GROUP BY livre.id ORDER BY nb_avis DESC ; ");
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                LivreEvaluation l = new LivreEvaluation();
+                l.setId(result.getInt("id"));
+                l.setIdidCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setImage(result.getString("image"));
+                l.setNombreEvaluation(result.getInt("nb_avis"));
+                String moyenneString = df.format(result.getDouble("moyenne"));
+                Double moyenne = Double.parseDouble(moyenneString.replace(",", "."));
+                l.setNoteMoyenne(moyenne);
+
+                livreList.add(l);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
+    @Override
+    public List<LivreEvaluation> statLivreAdminParCategorie(int idCatLivre) {
+        List<LivreEvaluation> livreList = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.#");
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT livre.*, COUNT(avis.idLivre) AS nb_avis, AVG(avg_scores.note) AS moyenne "
+                    + "FROM livre JOIN avis ON livre.id = avis.idLivre JOIN ( SELECT idAvis, AVG(note) AS note "
+                    + "FROM evaluation GROUP BY idAvis ) AS avg_scores ON avg_scores.idAvis = avis.id WHERE livre.idCategorieLivre = ? "
+                    + "GROUP BY livre.id ORDER BY nb_avis DESC ; ");
+            ps.setInt(1, idCatLivre);
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                LivreEvaluation l = new LivreEvaluation();
+                l.setId(result.getInt("id"));
+                l.setIdidCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setImage(result.getString("image"));
+                l.setNombreEvaluation(result.getInt("nb_avis"));
+                String moyenneString = df.format(result.getDouble("moyenne"));
+                Double moyenne = Double.parseDouble(moyenneString.replace(",", "."));
+                l.setNoteMoyenne(moyenne);
+
                 livreList.add(l);
             }
         } catch (SQLException e) {

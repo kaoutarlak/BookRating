@@ -74,8 +74,7 @@ public class HomeController {
 
             switch (role){
                 case "admin":
-                    ModelAndView viewAdmin = new ModelAndView("");
-                    return viewAdmin;
+                    return new ModelAndView("redirect:/Home"); // rediriger vers la page Home Membre
                 case "auteur":
                     return new ModelAndView("redirect:/Auteur/MesLivres"); // rediriger vers la page Home Auteur
                 case "membre":

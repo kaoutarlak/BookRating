@@ -32,33 +32,31 @@
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-          integrity="sha512-EcL7V1GkGs9Xa/ryyC6b+f5NdeCH5dU3oqZ+Ow1NT86VU0FlL9WX7V1R+41zdlJ6gQo0T+w+xWIObG+sAVJlCQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-
 
     <link rel="stylesheet" href="<c:url value='/resources/CSS/home.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/connexion.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/CSS/Admin.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/listLivres.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/resources/CSS/statistique.css'/>"/>
 
     <script src="${pageContext.request.contextPath}/resources/JS/admin.js"></script>
-    <script>
-        // Code JavaScript pour actualiser une div toutes les secondes
-        const mySection = document.querySelector('#my-section');
-        function updateSection() {
-            // Envoi de la requête AJAX pour récupérer les données mises à jour
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    // Mise à jour de la section de la page avec les données récupérées
-                    mySection.innerHTML = this.responseText;
-                }
-            };
-            request.open('GET', 'ma-page.jsp?miseAJour=1', true);
-            request.send();
-        }
-        setInterval(updateSection, 1000);
-    </script>
+<%--    <script>--%>
+<%--        // Code JavaScript pour actualiser une div toutes les secondes--%>
+<%--        const mySection = document.querySelector('#my-section');--%>
+<%--        function updateSection() {--%>
+<%--            // Envoi de la requête AJAX pour récupérer les données mises à jour--%>
+<%--            const request = new XMLHttpRequest();--%>
+<%--            request.onreadystatechange = function() {--%>
+<%--                if (this.readyState === 4 && this.status === 200) {--%>
+<%--                    // Mise à jour de la section de la page avec les données récupérées--%>
+<%--                    mySection.innerHTML = this.responseText;--%>
+<%--                }--%>
+<%--            };--%>
+<%--            request.open('GET', 'ma-page.jsp?miseAJour=1', true);--%>
+<%--            request.send();--%>
+<%--        }--%>
+<%--        setInterval(updateSection, 1000);--%>
+<%--    </script>--%>
 </head>
 <body>
 
@@ -84,7 +82,6 @@
                             <li class="nav-item dropdown active">
                                 <a class="nav-link dropdown-toggle" href="#" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Livres
-                                    <span class="sr-only">(current)</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
@@ -114,9 +111,12 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}">Membre</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}">Membres</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Statistique/Admin">Statistiques</a>
+                            </li>
 
                         </ul>
 
