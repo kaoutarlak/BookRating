@@ -19,5 +19,6 @@ public interface IMembreDAO {
 
     String membreRole(String login);
     List<membre> allUtilisateur();
+    List<String> getAllMembreMailActive();
 
 }

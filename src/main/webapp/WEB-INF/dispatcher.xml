@@ -14,14 +14,31 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <!-- Aiguilleur de vues par defaut -->
+
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
 
     </bean>
-<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">-->
-<!--        &lt;!&ndash; Set the maximum allowed size (in bytes) for each file to be uploaded &ndash;&gt;-->
-<!--&lt;!&ndash;        <property name="maxUploadSize" value="10485760" /> &lt;!&ndash; 10 MB &ndash;&gt;&ndash;&gt;-->
-<!--    </bean>-->
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="bookrating2023@gmail.com"/>
+<!--        <property name="password" value="jtrxanwzbfsweobo"/>-->
+        <property name="password" value="xrevoxsnwyqngpcp"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="emailService" class="com.bookrating.EmailService">
+        <property name="mailSender" ref="mailSender"/>
+    </bean>
 
 </beans>

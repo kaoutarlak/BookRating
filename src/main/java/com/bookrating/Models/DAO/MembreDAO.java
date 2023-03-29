@@ -5,6 +5,7 @@ import com.bookrating.Models.Entities.membre;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MembreDAO implements IMembreDAO {
@@ -140,6 +141,25 @@ public class MembreDAO implements IMembreDAO {
     @Override
     public List<membre> allUtilisateur() {
         return null;
+    }
+
+    @Override
+    public List<String> getAllMembreMailActive() {
+        List<String> adresseList = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT DISTINCT(adresse) FROM membre WHERE active=1 and login NOT IN (select login from administrateur); ");
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                String adresse = result.getString(1);
+                adresseList.add(adresse);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return adresseList;
     }
 
 
