@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +60,66 @@ public class LivreController {
         listeLivresModel.addObject("idLivreEnd", idLivreEnd);
         listeLivresModel.addObject("currentPage", pagination);
         listeLivresModel.addObject("catEvaluationList", catEvaluationList);
+        return listeLivresModel;
+    }
+
+    @RequestMapping(value = "/Liste/{categorie}/{pagination}", method = RequestMethod.POST)
+    public ModelAndView listLivreFiltre(@PathVariable String categorie, @PathVariable int pagination,
+                                        @RequestParam("numFiltre") int numFiltre, HttpServletRequest request) {
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+
+        ILivreDAO livreDAO = new LivreDAO();
+        int nbPageLivre = 1;
+
+        List<livre> livres = new ArrayList<>();
+        switch (numFiltre){
+            case 1:
+                livres = livreDAO.livreByCatFiltreTitreASC(categorie);
+                break;
+            case 2:
+                livres = livreDAO.livreByCatFiltreTitreDESC(categorie);
+                break;
+            case 3:
+                livres = livreDAO.livreByCatFiltreAuteurASC(categorie);
+                break;
+            case 4:
+                livres = livreDAO.livreByCatFiltreAuteurDESC(categorie);
+                break;
+        }
+
+
+        int idLivreBegin = 0;
+        int idLivreEnd = livres.size()-1;
+
+
+        ModelAndView listeLivresModel = new ModelAndView("listeLivres");
+        listeLivresModel.addObject("categorie", categorie);
+        listeLivresModel.addObject("catLivreList", catLivreList);
+        listeLivresModel.addObject("login", login);
+        listeLivresModel.addObject("role", role);
+        listeLivresModel.addObject("nbPageLivre", nbPageLivre);
+        listeLivresModel.addObject("livres", livres);
+        listeLivresModel.addObject("idLivreBegin", idLivreBegin);
+        listeLivresModel.addObject("idLivreEnd", idLivreEnd);
+        listeLivresModel.addObject("currentPage", pagination);
+        listeLivresModel.addObject("catEvaluationList", catEvaluationList);
+        listeLivresModel.addObject("filtre", "filtre");
         return listeLivresModel;
     }
 

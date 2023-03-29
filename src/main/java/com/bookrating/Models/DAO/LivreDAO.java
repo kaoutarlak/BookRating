@@ -94,8 +94,8 @@ public class LivreDAO implements ILivreDAO {
         livre foundLivre = new livre();
         try {
             establichConnection();
-            PreparedStatement ps= connection.prepareStatement("SELECT * FROM livre WHERE id=?");
-            ps.setInt(1,idLivre);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM livre WHERE id=?");
+            ps.setInt(1, idLivre);
             ResultSet result = ps.executeQuery();
             if (result.next()) {
                 foundLivre.setId(result.getInt("id"));
@@ -106,9 +106,9 @@ public class LivreDAO implements ILivreDAO {
                 foundLivre.setImage(result.getString("image"));
                 foundLivre.setDescription(result.getString("description"));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closeConnection();
         }
         return foundLivre;
@@ -121,22 +121,154 @@ public class LivreDAO implements ILivreDAO {
         String dateParutionString = dateParution.format(formatter);
         try {
             establichConnection();
-            PreparedStatement ps= connection.prepareStatement("INSERT INTO `livre`(`idCategorieLivre`, `titre`, `nomAuteur`, `dateParution`, `image`, `description`, `addBy`)" +
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `livre`(`idCategorieLivre`, `titre`, `nomAuteur`, `dateParution`, `image`, `description`, `addBy`)" +
                     " VALUES (?,?,?,?,?,?,?)");
-            ps.setInt(1,l.getIdCategorieLivre());
-            ps.setString(2,l.getTitre());
-            ps.setString(3,l.getNomAuteur());
-            ps.setString(4,dateParutionString);
-            ps.setString(5,l.getImage());
-            ps.setString(6,l.getDescription());
-            ps.setString(7,l.getAddBy());
+            ps.setInt(1, l.getIdCategorieLivre());
+            ps.setString(2, l.getTitre());
+            ps.setString(3, l.getNomAuteur());
+            ps.setString(4, dateParutionString);
+            ps.setString(5, l.getImage());
+            ps.setString(6, l.getDescription());
+            ps.setString(7, l.getAddBy());
             ps.executeUpdate();
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closeConnection();
         }
+    }
+
+    @Override
+    public List<livre> livreByCatFiltreTitreASC(String categorie) {
+        List<livre> livreList = new ArrayList<livre>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
+                    "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.titre ASC ");
+            stm.setString(1,categorie);
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
+    @Override
+    public List<livre> livreByCatFiltreTitreDESC(String categorie) {
+        List<livre> livreList = new ArrayList<livre>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
+                    "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.titre DESC ");
+            stm.setString(1,categorie);
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
+    @Override
+    public List<livre> livreByCatFiltreAuteurASC(String categorie) {
+        List<livre> livreList = new ArrayList<livre>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
+                    "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.nomAuteur ASC ");
+            stm.setString(1,categorie);
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
+    @Override
+    public List<livre> livreByCatFiltreAuteurDESC(String categorie) {
+        List<livre> livreList = new ArrayList<livre>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
+                    "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.nomAuteur DESC ");
+            stm.setString(1,categorie);
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
     }
 
 

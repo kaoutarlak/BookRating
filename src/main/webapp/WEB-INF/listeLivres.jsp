@@ -30,14 +30,6 @@
     </c:if>
 </c:if>
 
-
-<%
-
-%>
-<!-- Corps de la page -->
-<%--<div class="container-fluid mt-5 ">--%>
-<%--    <div class="row ">--%>
-<%--        <div class="col-md-12 ">--%>
 <div class="zoneListProduit justify-content-center" id="zoneListProduit">
     <div class="row tete-ZoneLivre">
         <div class="col-2 zIndex">
@@ -92,7 +84,23 @@
                 </nav>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2 mt-5">
+            <form action="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1" method="post" id="myFormFiltre">
+                <div class="form-group d-flex align-items-center">
+                    <select class="form-control text-lg flex-grow-1" name="numFiltre" onchange="submitForm()">
+                        <option disabled selected>Trier par</option>
+                        <option value="1">Titre (de A à Z)</option>
+                        <option value="2">Titre (de Z à A)</option>
+                        <option value="3">Auteur (de A à Z)</option>
+                        <option value="4">Auteur (de Z à A)</option>
+                    </select>
+                    <c:if test="${filtre!=null}">
+                        <a href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1"
+                           class="sUnderline text-danger d-inline w-100 ml-2">Effacer le filtre</a>
+                    </c:if>
+                </div>
+            </form>
+        </div>
     </div>
     <div id="livreInfo">
         <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="${idLivreBegin}"
@@ -188,9 +196,11 @@
 
     </div>
 </div>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <jsp:include page="Footer.jsp"></jsp:include>
 
+<script>
+    function submitForm() {
+        document.getElementById("myFormFiltre").submit();
+    }
+</script>

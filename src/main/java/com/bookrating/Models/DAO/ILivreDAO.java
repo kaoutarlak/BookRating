@@ -16,4 +16,12 @@ public interface ILivreDAO {
     livre getLivre(int idLivre);
 
     void addLivre(livre l);
+
+    List<livre> livreByCatFiltreTitreASC(String categorie);
+
+    List<livre> livreByCatFiltreTitreDESC(String categorie);
+
+    List<livre> livreByCatFiltreAuteurASC(String categorie);
+
+    List<livre> livreByCatFiltreAuteurDESC(String categorie);
 }
