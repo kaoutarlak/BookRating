@@ -18,7 +18,12 @@ public interface IMembreDAO {
     membre login(String login, String password);
 
     String membreRole(String login);
+
     List<membre> allUtilisateur();
+
     List<String> getAllMembreMailActive();
+
+    membre getMembre(String login);
+    void alterMember(membre membre);
 
 }

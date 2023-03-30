@@ -41,9 +41,9 @@ public class HomeController {
         ModelAndView model = new ModelAndView("Home");
         ICatLivresDAO catLivresDAO = new CatLivresDAO();
         List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
-
+        membre membre = membreDAO.getMembre(login);
+        model.addObject("membre", membre);
         model.addObject("catLivreList", catLivreList);
-
         model.addObject("login", login);
         model.addObject("role", role);
         return model;
@@ -185,6 +185,43 @@ public class HomeController {
 //        ModelAndView connexionModel = new ModelAndView("Connexion");
 //        return connexionModel;
         return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
+    }
+
+    @RequestMapping(value = "/Profil", method = RequestMethod.GET)
+    public ModelAndView profil(HttpServletRequest request) {
+
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("login")) {
+                    login = c.getValue();
+                    role = membreDAO.membreRole(login);
+                }
+            }
+        }
+
+        ModelAndView model = new ModelAndView("Profil");
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+        membre membre = membreDAO.getMembre(login);
+        model.addObject("membre", membre);
+        model.addObject("catLivreList", catLivreList);
+        model.addObject("login", login);
+        model.addObject("role", role);
+        return model;
+    }
+
+    @RequestMapping(value = "/ModifierProfil", method = RequestMethod.POST)
+    public ModelAndView modifierProfil(membre membre) {
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membreDAO.alterMember(membre);
+        return new ModelAndView("redirect:/Profil");
+
     }
 
 }

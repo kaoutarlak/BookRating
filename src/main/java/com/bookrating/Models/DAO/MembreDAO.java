@@ -89,7 +89,7 @@ public class MembreDAO implements IMembreDAO {
         try {
             establichConnection();
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `membre` WHERE login = '" + login + "' AND password= '" + password + "'");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `membre` WHERE login = '" + login + "' AND password= '" + password + "' AND active=1");
 
             while (rs.next()) {
                 membreConnect.setLogin(rs.getString("login"));
@@ -123,12 +123,12 @@ public class MembreDAO implements IMembreDAO {
             stmtAuteur.setString(1, login);
             ResultSet resultAuteur = stmtAuteur.executeQuery();
 
-            if (resultAdmin.next()){
-                role="admin";
+            if (resultAdmin.next()) {
+                role = "admin";
             } else if (resultAuteur.next()) {
-                role="auteur";
-            }else {
-                role="membre";
+                role = "auteur";
+            } else {
+                role = "membre";
             }
             closeConnection();
             return role;
@@ -160,6 +160,59 @@ public class MembreDAO implements IMembreDAO {
             closeConnection();
         }
         return adresseList;
+    }
+
+    @Override
+    public membre getMembre(String login) {
+        membre m = new membre();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM membre WHERE login=?;");
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                m.setLogin(rs.getString("login"));
+                m.setPassword(rs.getString("password"));
+                m.setNom(rs.getString("nom"));
+                m.setPrenom(rs.getString("prenom"));
+                m.setTelephone(rs.getString("telephone"));
+                m.setAdresse(rs.getString("adresse"));
+                m.setPhoto(rs.getString("photo"));
+                m.setDateNaissance(rs.getDate("dateNaissance").toLocalDate());
+                m.setDateInsscription(rs.getDate("dateInsscription").toLocalDate());
+                m.setActive(rs.getByte("active"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return m;
+    }
+
+    @Override
+    public void alterMember(membre m) {
+        LocalDate dateNaissance = m.getDateNaissance();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateNaissString = dateNaissance.format(formatter);
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `membre` SET `password`=?," +
+                    "`nom`=?,`prenom`=?,`telephone`=?,`dateNaissance`=?,`photo`=? WHERE `login`=?;");
+            ps.setString(1, m.getPassword());
+            ps.setString(2, m.getNom());
+            ps.setString(3, m.getPrenom());
+            ps.setString(4, m.getTelephone());
+            ps.setString(5, dateNaissString);
+            ps.setString(6, m.getPhoto());
+            ps.setString(7, m.getLogin());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
     }
 
 

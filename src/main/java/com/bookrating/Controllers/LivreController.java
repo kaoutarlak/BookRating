@@ -48,6 +48,7 @@ public class LivreController {
         int idLivreBegin = (pagination - 1) * 10;
         int idLivreEnd = idLivreBegin + 9;
 
+        membre membre = membreDAO.getMembre(login);
 
         ModelAndView listeLivresModel = new ModelAndView("listeLivres");
         listeLivresModel.addObject("categorie", categorie);
@@ -60,6 +61,7 @@ public class LivreController {
         listeLivresModel.addObject("idLivreEnd", idLivreEnd);
         listeLivresModel.addObject("currentPage", pagination);
         listeLivresModel.addObject("catEvaluationList", catEvaluationList);
+        listeLivresModel.addObject("membre", membre);
         return listeLivresModel;
     }
 
@@ -88,7 +90,7 @@ public class LivreController {
         int nbPageLivre = 1;
 
         List<livre> livres = new ArrayList<>();
-        switch (numFiltre){
+        switch (numFiltre) {
             case 1:
                 livres = livreDAO.livreByCatFiltreTitreASC(categorie);
                 break;
@@ -105,8 +107,9 @@ public class LivreController {
 
 
         int idLivreBegin = 0;
-        int idLivreEnd = livres.size()-1;
+        int idLivreEnd = livres.size() - 1;
 
+        membre membre = membreDAO.getMembre(login);
 
         ModelAndView listeLivresModel = new ModelAndView("listeLivres");
         listeLivresModel.addObject("categorie", categorie);
@@ -120,6 +123,7 @@ public class LivreController {
         listeLivresModel.addObject("currentPage", pagination);
         listeLivresModel.addObject("catEvaluationList", catEvaluationList);
         listeLivresModel.addObject("filtre", "filtre");
+        listeLivresModel.addObject("membre", membre);
         return listeLivresModel;
     }
 
@@ -159,6 +163,8 @@ public class LivreController {
         int nbPageLivre = livreDAO.nbPageLivreLu(login);
         List<livre> livres = livreDAO.getAllLivreLu(login);
 
+        membre membre = membreDAO.getMembre(login);
+
         ModelAndView listeLivresLusModel = new ModelAndView("listeLivresLus");
         listeLivresLusModel.addObject("catLivreList", catLivreList);
         listeLivresLusModel.addObject("login", login);
@@ -169,6 +175,7 @@ public class LivreController {
         listeLivresLusModel.addObject("idLivreEnd", idLivreEnd);
         listeLivresLusModel.addObject("currentPage", pagination);
         listeLivresLusModel.addObject("catEvaluationList", catEvaluationList);
+        listeLivresLusModel.addObject("membre", membre);
         return listeLivresLusModel;
     }
 
@@ -230,6 +237,8 @@ public class LivreController {
 
         List<avis> listAvis = evaluationDAO.getAllAvisByLivre(idLivre);
 
+        membre membre = membreDAO.getMembre(login);
+
         ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
         DetailLivreJSP.addObject("livreDetail", livreDetail);
         DetailLivreJSP.addObject("login", login);
@@ -240,7 +249,7 @@ public class LivreController {
         DetailLivreJSP.addObject("moyenneNote", moyenneNote);
         DetailLivreJSP.addObject("nombreAvis", nombreAvis);
         DetailLivreJSP.addObject("listAvis", listAvis);
-
+        DetailLivreJSP.addObject("membre", membre);
         return DetailLivreJSP;
     }
 
@@ -278,6 +287,10 @@ public class LivreController {
 
         List<avis> listAvis = evaluationDAO.getAllAvisByLivre(idLivre);
 
+        membre membre = membreDAO.getMembre(login);
+
+        List<evaluation> evaluationList = evaluationDAO.getAllEvaluationByAvis(idAvis);
+
         ModelAndView DetailLivreJSP = new ModelAndView("DetailLivre");
         DetailLivreJSP.addObject("livreDetail", livreDetail);
         DetailLivreJSP.addObject("login", login);
@@ -288,13 +301,10 @@ public class LivreController {
         DetailLivreJSP.addObject("moyenneNote", moyenneNote);
         DetailLivreJSP.addObject("nombreAvis", nombreAvis);
         DetailLivreJSP.addObject("listAvis", listAvis);
-
-        List<evaluation> evaluationList = evaluationDAO.getAllEvaluationByAvis(idAvis);
+        DetailLivreJSP.addObject("membre", membre);
         DetailLivreJSP.addObject("evaluationList", evaluationList);
 
-
         return DetailLivreJSP;
-
 
     }
 }

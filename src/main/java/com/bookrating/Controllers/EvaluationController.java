@@ -75,12 +75,16 @@ public class EvaluationController {
             ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
             List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
 
+            IMembreDAO membreDAO = new MembreDAO();
+            membre membre = membreDAO.getMembre(login);
+
             ModelAndView mesEvaluationsView = new ModelAndView("Membre/MesEvaluations");
             mesEvaluationsView.addObject("avisEvaluationList", avisEvaluationList);
             mesEvaluationsView.addObject("livres", livres);
             mesEvaluationsView.addObject("catLivreList", catLivreList);
             mesEvaluationsView.addObject("catEvaluationList", catEvaluationList);
             mesEvaluationsView.addObject("login", login);
+            mesEvaluationsView.addObject("membre", membre);
 
             return mesEvaluationsView;
         }else {

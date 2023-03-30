@@ -7,6 +7,7 @@ import com.bookrating.Models.DAO.IMembreDAO;
 import com.bookrating.Models.DAO.MembreDAO;
 import com.bookrating.Models.Entities.Mail;
 import com.bookrating.Models.Entities.categorieEvaluation;
+import com.bookrating.Models.Entities.membre;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class AdminController {
         IMembreDAO membreDAO = new MembreDAO();
         List<String> membreMail = membreDAO.getAllMembreMailActive();
         ModelAndView mailView = new ModelAndView("Admin/SendMail");
+        membre membre = membreDAO.getMembre(login);
+
+        mailView.addObject("membre", membre);
         mailView.addObject("login", login);
         mailView.addObject("membreMail", membreMail);
         return mailView;
@@ -65,8 +69,27 @@ public class AdminController {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-        ModelAndView confirmMailView = new ModelAndView("Admin/Confirmation");
-        return confirmMailView;
+
+        return new ModelAndView("redirect:/Admin/Confirmation");
+    }
+
+    @RequestMapping(value = "/Confirmation", method = RequestMethod.GET)
+    public ModelAndView confirmation(HttpServletRequest request) {
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        ModelAndView confirmView = new ModelAndView("Admin/Confirmation");
+        confirmView.addObject("membre", membre);
+        confirmView.addObject("login", login);
+        return confirmView;
     }
 
     @RequestMapping(value = "/Evaluation/Categorie", method = RequestMethod.GET)
@@ -83,11 +106,13 @@ public class AdminController {
 
         ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
         List<categorieEvaluation> categorieEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
 
         ModelAndView CategorieEvaluationJSP = new ModelAndView("Admin/CategorieEvaluation");
         CategorieEvaluationJSP.addObject("login", login);
         CategorieEvaluationJSP.addObject("categorieEvaluationList", categorieEvaluationList);
-
+        CategorieEvaluationJSP.addObject("membre", membre);
         return CategorieEvaluationJSP;
     }
 

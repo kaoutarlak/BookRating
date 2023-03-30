@@ -1,6 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Object login = request.getAttribute("login");
+    Object membre = request.getAttribute("membre");
+    Object catLivreList = request.getAttribute("catLivreList");
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -84,8 +89,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-user-64.png"
-                                         width="30px">
+                                    <img src="${membre.photo}"
+                                         width="35" height="35">
                                 </a>
                                 <div class="dropdown-menu ml-auto dropdown-menu-right"
                                      aria-labelledby="navbarDropdown2">

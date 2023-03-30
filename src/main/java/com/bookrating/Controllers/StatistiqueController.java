@@ -1,12 +1,10 @@
 package com.bookrating.Controllers;
 
-import com.bookrating.Models.DAO.CatLivresDAO;
-import com.bookrating.Models.DAO.ICatLivresDAO;
-import com.bookrating.Models.DAO.IStatistiqueDAO;
-import com.bookrating.Models.DAO.StatistiqueDAO;
+import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.LivreEvaluation;
 import com.bookrating.Models.Entities.categorieLivre;
 import com.bookrating.Models.Entities.livre;
+import com.bookrating.Models.Entities.membre;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
@@ -47,13 +45,16 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = false;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("livrePlusNote", livrePlusNote);
         statView.addObject("livrePlusLu", livrePlusLu);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 
@@ -82,13 +83,16 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = true;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("livrePlusNote", livrePlusNote);
         statView.addObject("livrePlusLu", livrePlusLu);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 
@@ -117,13 +121,16 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = false;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("livrePlusNote", livrePlusNote);
         statView.addObject("livrePlusLu", livrePlusLu);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 
@@ -152,13 +159,16 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = true;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("livrePlusNote", livrePlusNote);
         statView.addObject("livrePlusLu", livrePlusLu);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 
@@ -186,12 +196,15 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = false;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("statLivres", statLivres);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 
@@ -219,12 +232,15 @@ public class StatistiqueController {
 
         Boolean effaceFiltre = true;
 
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
         statView.addObject("catLivreList", catLivreList);
         statView.addObject("login", login);
         statView.addObject("statMap", statMap);
         statView.addObject("statLivres", statLivres);
         statView.addObject("effaceFiltre", effaceFiltre);
-
+        statView.addObject("membre", membre);
         return statView;
     }
 

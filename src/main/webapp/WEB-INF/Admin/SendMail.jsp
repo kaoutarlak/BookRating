@@ -29,14 +29,14 @@
                 <div class="form-group row">
                     <label for="sujet" class="col-sm-2 col-form-label itemAuteurBest">Sujet</label>
                     <div class="col-sm-10">
-                        <input type="text" name="sujet" id="sujet" class="form-control">
+                        <input type="text" name="sujet" id="sujet" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="message" class="col-sm-2 col-form-label itemAuteurBest">Message</label>
                     <div class="col-sm-10">
-                        <textarea name="message" rows="6" class="form-control" id="message"></textarea>
+                        <textarea name="message" rows="6" class="form-control" id="message" required></textarea>
                     </div>
                 </div>
 

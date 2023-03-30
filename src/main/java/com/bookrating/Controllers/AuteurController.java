@@ -38,7 +38,10 @@ public class AuteurController {
 
         IAuteurDAO auteurDAO = new AuteurDAO();
         List<livre> livres = auteurDAO.getlivreAddByAuteur(login);
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
 
+        viewMesLivres.addObject("membre", membre);
         viewMesLivres.addObject("catLivreList", catLivreList);
         viewMesLivres.addObject("login", login);
         viewMesLivres.addObject("livres", livres);
@@ -119,6 +122,8 @@ public class AuteurController {
         IAuteurDAO auteurDAO = new AuteurDAO();
         List<AvisEvaluation> listAvis = auteurDAO.avisLivreAuteur(idLivre);
 
+        membre membre = membreDAO.getMembre(login);
+
         ModelAndView avisLivreView = new ModelAndView("Auteur/AvisParLivre");
         avisLivreView.addObject("livreDetail", livreDetail);
         avisLivreView.addObject("login", login);
@@ -129,7 +134,7 @@ public class AuteurController {
         avisLivreView.addObject("moyenneNote", moyenneNote);
         avisLivreView.addObject("nombreAvis", nombreAvis);
         avisLivreView.addObject("listAvis", listAvis);
-
+        avisLivreView.addObject("membre", membre);
         return avisLivreView;
     }
 
