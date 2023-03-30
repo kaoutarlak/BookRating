@@ -96,7 +96,7 @@
                                      aria-labelledby="navbarDropdown2">
                                     <a class="dropdown-item">${login}</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Profil</a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/Profil">Profil</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/Deconnexion">Se
                                         déconnecter</a>
