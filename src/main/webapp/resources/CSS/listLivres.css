@@ -255,3 +255,15 @@ svg {
     width: 120px;
     border-radius: 20px !important;
 }
+
+.btnAddLivreAdmin{
+    margin-left: 34%;
+    margin-bottom: -19%;
+}
+.ListeLivre{
+    margin: auto;
+    width: 90%;
+    border: 2px solid #7f817d6d;
+    padding: 10px;
+    background-color: #f5eeee;
+}

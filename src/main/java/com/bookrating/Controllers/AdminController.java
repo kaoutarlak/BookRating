@@ -1,19 +1,15 @@
 package com.bookrating.Controllers;
 
 import com.bookrating.EmailService;
-import com.bookrating.Models.DAO.CatEvaluationDAO;
-import com.bookrating.Models.DAO.ICatEvaluationDAO;
-import com.bookrating.Models.DAO.IMembreDAO;
-import com.bookrating.Models.DAO.MembreDAO;
-import com.bookrating.Models.Entities.Mail;
-import com.bookrating.Models.Entities.categorieEvaluation;
-import com.bookrating.Models.Entities.membre;
+import com.bookrating.Models.DAO.*;
+import com.bookrating.Models.Entities.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
@@ -93,7 +89,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/Evaluation/Categorie", method = RequestMethod.GET)
-    public ModelAndView listLivre(HttpServletRequest request) {
+    public ModelAndView listEvaluationCategorie(HttpServletRequest request) {
 
         String login = "";
 
@@ -136,5 +132,72 @@ public class AdminController {
         return new ModelAndView("redirect:/Admin/Evaluation/Categorie"); // rediriger vers la page list categorie
     }
 
+    @RequestMapping(value = "/ListeLivres", method = RequestMethod.GET)
+    public ModelAndView ListeLivres(HttpServletRequest request) {
 
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeLivres");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ILivreDAO livreDAO = new LivreDAO();
+        List<livre> livres = livreDAO.getAllLivres();
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("livres", livres);
+
+        return viewMesLivres;
+    }
+
+    @RequestMapping(value = "/ListeLivres/Categorie", method = RequestMethod.POST)
+    public ModelAndView ListeLivresByCategorie(HttpServletRequest request, @RequestParam("categorie") String categorie) {
+
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeLivres");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ILivreDAO livreDAO = new LivreDAO();
+        List<livre> livres = livreDAO.getlistLivreByCat(categorie);
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("livres", livres);
+        viewMesLivres.addObject("effaceFiltre", 1);
+
+        return viewMesLivres;
+    }
+    @RequestMapping(value = "/AddLivre", method = RequestMethod.POST)
+    public ModelAndView addLivre( livre newLivre)  {
+
+        ILivreDAO livreDAO = new LivreDAO();
+        livreDAO.addLivre(newLivre);
+
+        return new ModelAndView("redirect:/Admin/ListeLivres");
+    }
 }

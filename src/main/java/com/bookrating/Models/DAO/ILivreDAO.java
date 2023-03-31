@@ -24,4 +24,6 @@ public interface ILivreDAO {
     List<livre> livreByCatFiltreAuteurASC(String categorie);
 
     List<livre> livreByCatFiltreAuteurDESC(String categorie);
+
+    List<livre> getAllLivres();
 }

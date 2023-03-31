@@ -69,7 +69,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}">Liste livres</a>
+                                       href="${pageContext.request.contextPath}/Admin/ListeLivres">Liste livres</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
                                        href="${pageContext.request.contextPath}">Catégories livres</a>
