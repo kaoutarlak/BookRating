@@ -200,4 +200,13 @@ public class AdminController {
 
         return new ModelAndView("redirect:/Admin/ListeLivres");
     }
+
+    @RequestMapping(value = "/AlterLivre", method = RequestMethod.POST)
+    public ModelAndView alterLivre( livre newLivre)  {
+
+        ILivreDAO livreDAO = new LivreDAO();
+        livreDAO.alterLivre(newLivre);
+
+        return new ModelAndView("redirect:/Admin/ListeLivres");
+    }
 }

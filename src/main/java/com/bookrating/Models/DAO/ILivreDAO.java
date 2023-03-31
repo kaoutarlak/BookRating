@@ -26,4 +26,6 @@ public interface ILivreDAO {
     List<livre> livreByCatFiltreAuteurDESC(String categorie);
 
     List<livre> getAllLivres();
+
+    void alterLivre(livre l);
 }

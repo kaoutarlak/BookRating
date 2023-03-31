@@ -146,7 +146,7 @@ public class LivreDAO implements ILivreDAO {
             establichConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
                     "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.titre ASC ");
-            stm.setString(1,categorie);
+            stm.setString(1, categorie);
             ResultSet result = stm.executeQuery();
 
             while (result.next()) {
@@ -179,7 +179,7 @@ public class LivreDAO implements ILivreDAO {
             establichConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
                     "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.titre DESC ");
-            stm.setString(1,categorie);
+            stm.setString(1, categorie);
             ResultSet result = stm.executeQuery();
 
             while (result.next()) {
@@ -212,7 +212,7 @@ public class LivreDAO implements ILivreDAO {
             establichConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
                     "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.nomAuteur ASC ");
-            stm.setString(1,categorie);
+            stm.setString(1, categorie);
             ResultSet result = stm.executeQuery();
 
             while (result.next()) {
@@ -245,7 +245,7 @@ public class LivreDAO implements ILivreDAO {
             establichConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `categorieLivre` AS C " +
                     "ON L.idCategorieLivre = C.id WHERE C.titre = ? ORDER BY L.nomAuteur DESC ");
-            stm.setString(1,categorie);
+            stm.setString(1, categorie);
             ResultSet result = stm.executeQuery();
 
             while (result.next()) {
@@ -302,5 +302,29 @@ public class LivreDAO implements ILivreDAO {
         return livreList;
     }
 
+    @Override
+    public void alterLivre(livre l) {
+        LocalDate dateParution = l.getDateParution();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateParutionStr = dateParution.format(formatter);
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `livre` SET `idCategorieLivre`=?, `titre`=?," +
+                    "`nomAuteur`=?,`dateParution`=?,`image`=?,`description`=? WHERE `id`=?");
+            ps.setInt(1, l.getIdCategorieLivre());
+            ps.setString(2, l.getTitre());
+            ps.setString(3, l.getNomAuteur());
+            ps.setString(4, dateParutionStr);
+            ps.setString(5, l.getImage());
+            ps.setString(6, l.getDescription());
+            ps.setInt(7, l.getId());
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
 
 }

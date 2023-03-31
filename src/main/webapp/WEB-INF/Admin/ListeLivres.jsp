@@ -9,11 +9,12 @@
 
 <div class="row mt-5 mr-5">
     <div class="col-2">
-        <a href="#" class="btn btn-primary btnAddLivreAdmin" data-toggle="modal" data-target="#modalModif">
+        <a href="#" class="btn btn-primary btnAddLivreAdmin" data-toggle="modal" data-target="#modalADD">
             <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-add-new-24.png">&nbsp;&nbsp;Ajouter
         </a>
     </div>
-    <form action="${pageContext.request.contextPath}/Admin/ListeLivres/Categorie" method="post" id="myFormFiltre" class="offset-10 col-2 pr-5 mr-5">
+    <form action="${pageContext.request.contextPath}/Admin/ListeLivres/Categorie" method="post" id="myFormFiltre"
+          class="offset-10 col-2 pr-5 mr-5">
         <div class="form-group d-flex align-items-center">
             <select class="form-control text-lg flex-grow-1" name="categorie" onchange="submitForm()">
                 <option disabled selected>Trier par</option>
@@ -49,11 +50,98 @@
         <c:forEach items="${livres}" var="element">
             <tr>
                 <td>
-                    <a href="" class="btn" data-toggle="modal" data-target="#modalModif">
+                    <a href="#" class="btn" data-toggle="modal" data-target="#modalModif_${element.id}">
                         <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                     </a>
+                        <%--Modal ADD Livre--%>
+                    <div class="modal fade" id="modalModif_${element.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="modalModifLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalModifLabel">Modifier un livre</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="${pageContext.request.contextPath}/Admin/AlterLivre" method="POST">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Titre :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="titre"
+                                                       value="${element.titre}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Nom d'auteur :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="nomAuteur"
+                                                       value="${element.nomAuteur}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Catégorie :</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="idCategorieLivre" required>
+                                                    <c:forEach items="${catLivreList}" var="c">
+                                                        <c:if test="${element.idCategorieLivre==c.id}">
+                                                            <option value="${c.id}" selected>${c.titre}</option>
+                                                        </c:if>
+                                                    </c:forEach>
+
+                                                    <c:forEach items="${catLivreList}" var="c">
+                                                        <option value="${c.id}">${c.titre}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Date de parution
+                                                :</label>
+                                            <div class="col-sm-9">
+                                                <input type="date" class="form-control" name="dateParution"
+                                                       value="${element.dateParution}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">URL image :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="image"
+                                                       value="${element.image}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Description :</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" name="description" rows="4"
+                                                          required>${element.description}</textarea>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="${login}" name="addBy">
+                                        <input type="hidden" value="${element.id}" name="id">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <input type="submit" value="Enregistrer" class="btn btn-danger">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Annuler
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
-                <td><a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}" class="h6 sUnderline">${element.id}</a></td>
+                <td><a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"
+                       class="h6 sUnderline">${element.id}</a></td>
                 <td>
                     <c:if test='${(element.image).contains("/resources/images/")}'>
                         <img src="${pageContext.request.contextPath}${element.image}"
@@ -70,7 +158,7 @@
                 </c:forEach>
                 <td class="itemTitreBest">${element.titre}</td>
                 <td class="itemAuteurBest">${element.nomAuteur}</td>
-                <td class="h6 text-info" width="20">${element.dateParution}</td>
+                <td class="h6 text-info">${element.dateParution}</td>
                 <td class="h6">${element.description}</td>
                 <td class="h6 text-primary">${element.addBy}</td>
             </tr>
@@ -82,19 +170,19 @@
 <br/>
 
 <%--Modal ADD Livre--%>
-<div class="modal fade" id="modalModif" tabindex="-1" role="dialog"
-     aria-labelledby="modalModifLabel" aria-hidden="true">
+<div class="modal fade" id="modalADD" tabindex="-1" role="dialog"
+     aria-labelledby="modalADDLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModifLabel">Ajouter un livre</h5>
+                <h5 class="modal-title" id="modalADDLabel">Ajouter un livre</h5>
                 <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="${pageContext.request.contextPath}/Admin/AddLivre" method="POST" >
+                <form action="${pageContext.request.contextPath}/Admin/AddLivre" method="POST">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label itemAuteurBest">Titre :</label>
                         <div class="col-sm-9">
@@ -127,7 +215,7 @@
                         <label class="col-sm-3 col-form-label itemAuteurBest">URL image :</label>
                         <div class="col-sm-9">
                             <%--<input type="file" class="form-control" name="file" >--%>
-                                <input type="text" class="form-control" name="image" required>
+                            <input type="text" class="form-control" name="image" required>
                         </div>
                     </div>
                     <div class="form-group ">
