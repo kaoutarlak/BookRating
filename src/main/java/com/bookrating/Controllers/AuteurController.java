@@ -86,6 +86,15 @@ public class AuteurController {
 
         return new ModelAndView("redirect:/Auteur/MesLivres");
     }
+    @RequestMapping(value = "/AlterLivre", method = RequestMethod.POST)
+    public ModelAndView alterLivre( livre newLivre)  {
+
+        ILivreDAO livreDAO = new LivreDAO();
+        livreDAO.alterLivre(newLivre);
+
+        return new ModelAndView("redirect:/Auteur/MesLivres");
+    }
+
 
     @RequestMapping(value = "/Livre/{idLivre}/Avis", method = RequestMethod.GET)
     public ModelAndView avisLivre(@PathVariable int idLivre, HttpServletRequest request)  {
