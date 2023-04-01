@@ -18,9 +18,6 @@ import java.util.Map;
 @RequestMapping(value = "/Evaluation")
 public class EvaluationController {
 
-//    @Autowired
-//    private EmailService sendMail;
-
     @RequestMapping(value = "/Add", method = RequestMethod.POST)
     public ModelAndView addAvis(@RequestParam Map<String, Integer> evaluationData, @RequestParam("commentaire") String commentaire,
                                 @RequestParam("login") String login, @RequestParam("idLivre") int idLivre) {
@@ -87,11 +84,16 @@ public class EvaluationController {
             mesEvaluationsView.addObject("membre", membre);
 
             return mesEvaluationsView;
-        }else {
+        } else {
             return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
         }
-
     }
 
+    @RequestMapping(value = "/SupprimerAvis/{idAvis}", method = RequestMethod.GET)
+    public ModelAndView supprimerAvis(@PathVariable int idAvis) {
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        evaluationDAO.deleteAvis(idAvis);
+        return new ModelAndView("redirect:/Evaluation/Liste");
+    }
 
 }

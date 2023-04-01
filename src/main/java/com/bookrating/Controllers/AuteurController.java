@@ -2,16 +2,14 @@ package com.bookrating.Controllers;
 
 import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.*;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.Part;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.*;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -47,32 +45,6 @@ public class AuteurController {
         viewMesLivres.addObject("livres", livres);
 
         return viewMesLivres;
-    }
-
-    @RequestMapping(value = "/upload", method = RequestMethod.POST,consumes = { MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-    public ModelAndView upload(HttpServletRequest request, livre newLivre) throws ServletException, IOException {
-
-        Part filePart = request.getPart("file"); // Récupère l'élément <input type="file" name="file">
-        System.out.println("file = " + filePart);
-//        System.out.println("filePart = " + filePart);
-//        String fileName = filePart.getSubmittedFileName();
-//        InputStream fileContent = filePart.getInputStream();
-//
-//        // Crée un nouveau fichier dans le répertoire /images de votre application
-//        String applicationPath = request.getServletContext().getRealPath("");
-//        String imagesPath = applicationPath + "images/";
-//        File file = new File(imagesPath + fileName);
-//
-//        // Écrit le contenu du fichier téléchargé dans le nouveau fichier créé
-//        try (OutputStream out = new FileOutputStream(file)) {
-//            int read;
-//            final byte[] bytes = new byte[1024];
-//            while ((read = fileContent.read(bytes)) != -1) {
-//                out.write(bytes, 0, read);
-//            }
-//        }
-
-        return new ModelAndView("redirect:/Auteur/MesLivres");
     }
 
     @RequestMapping(value = "/AddLivre", method = RequestMethod.POST)

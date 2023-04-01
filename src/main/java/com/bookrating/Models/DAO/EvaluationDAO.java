@@ -119,10 +119,10 @@ public class EvaluationDAO implements IEvaluationDAO {
                 avis a = new avis();
                 a.setId(result1.getInt("id"));
                 a.setDatePost(result1.getDate("datePost").toLocalDate());
-                a.setCommentaire( result1.getString("commentaire"));
-                a.setNbLikes( result1.getInt("nbLikes"));
+                a.setCommentaire(result1.getString("commentaire"));
+                a.setNbLikes(result1.getInt("nbLikes"));
                 a.setLogin(result1.getString("login"));
-                a.setIdLivre( result1.getInt("idLivre"));
+                a.setIdLivre(result1.getInt("idLivre"));
 
                 avisList.add(a);
             }
@@ -141,7 +141,7 @@ public class EvaluationDAO implements IEvaluationDAO {
         try {
             establichConnection();
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` WHERE login=? ORDER BY id;");
-            ps.setString(1,login);
+            ps.setString(1, login);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 AvisEvaluation AE = new AvisEvaluation();
@@ -185,7 +185,7 @@ public class EvaluationDAO implements IEvaluationDAO {
         try {
             establichConnection();
             PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` AS L JOIN `avis` AS A ON L.id = A.idLivre WHERE A.login=? ORDER BY L.id; ");
-            stm.setString(1,login);
+            stm.setString(1, login);
             ResultSet result = stm.executeQuery();
 
             while (result.next()) {
@@ -313,6 +313,20 @@ public class EvaluationDAO implements IEvaluationDAO {
             closeConnection();
         }
         return nombreAvis;
+    }
+
+    @Override
+    public void deleteAvis(int idAvis) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM `avis` WHERE  id=? ;");
+            ps.setInt(1, idAvis);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
     }
 
 }

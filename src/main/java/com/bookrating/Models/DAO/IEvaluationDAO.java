@@ -23,6 +23,7 @@ public interface IEvaluationDAO {
     List<avis> getAllAvisByLivre(int idLivre);
 
     List<AvisEvaluation> getAllEvaluationByMember(String login);
+
     List<livre> getAllLivreEvaluerByMember(String login);
 
     boolean areadyEvaluate(int idLivre, String login);
@@ -35,6 +36,6 @@ public interface IEvaluationDAO {
 
     int nbAvisByLivre(int idLivre);
 
-
+    void deleteAvis(int idAvis);
 
 }

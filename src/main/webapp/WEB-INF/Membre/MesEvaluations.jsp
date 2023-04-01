@@ -40,10 +40,10 @@
                     <br>
                     <p class="text-info">${avis.commentaire}</p>
                     <br>
-                    <a class="btn btn-primary sbtnModif" data-toggle="modal" data-target="#modalModif">
+                    <a  class="btn btn-primary sbtnModif" data-toggle="modal" data-target="#modalModif">
                         <img src="${pageContext.request.contextPath}/resources/images/icones/modifier.png" width="24"
                              height="24"/>Modifier</a>
-                    <a class="text-danger "><img
+                    <a href="${pageContext.request.contextPath}/Evaluation/SupprimerAvis/${avis.id}" class="text-danger pointer pl-3"><img
                             src="${pageContext.request.contextPath}/resources/images/icones/supprimer.png" width="24"
                             height="24">&nbsp;Supprimer</a>
                     <span class="itemAuteurDetail sDateAvis">
