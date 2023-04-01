@@ -227,8 +227,11 @@
             </div>
 
             <div class="input-group row mt-5">
-                <div class="col-sm-10 ">
+                <div class="col-sm-10">
                     <input type="submit" value="Enregistrer" class="btn btn-primary ">
+                </div>
+                <div class="col-sm-2">
+                    <a href="${pageContext.request.contextPath}/DesactiveCompte/${membre.login}" class="btn btn-danger ">Désactiver mon compte</a>
                 </div>
             </div>
 

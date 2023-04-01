@@ -215,5 +215,19 @@ public class MembreDAO implements IMembreDAO {
         }
     }
 
+    @Override
+    public void desactiverCompte(String login) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `membre` SET `active`=0 WHERE `login`=?;");
+            ps.setString(1, login);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
 
 }

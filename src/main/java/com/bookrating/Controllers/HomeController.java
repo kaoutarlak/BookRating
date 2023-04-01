@@ -8,6 +8,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,7 +73,7 @@ public class HomeController {
             cookie.setPath("/");
             response.addCookie(cookie);
 
-            switch (role){
+            switch (role) {
                 case "admin":
                     return new ModelAndView("redirect:/Home"); // rediriger vers la page Home Membre
                 case "auteur":
@@ -85,8 +86,13 @@ public class HomeController {
                     return connexionModel;
             }
         } else {
+            membre m = membreDAO.getMembre(membre.getLogin());
+            String message = "Login ou mot de passe est incorrect !!";
+            if (m.getActive() == 0 && m.getAdresse() != null) {
+                message = "Ce compte est désactivé pour le moment !";
+            }
             ModelAndView connexionModel = new ModelAndView("Connexion");
-            connexionModel.addObject("error", "Login ou mot de passe est incorrect !!");
+            connexionModel.addObject("error", message);
             return connexionModel;
         }
     }
@@ -138,9 +144,6 @@ public class HomeController {
             return inscriptionModel;
         }
 
-        //sendMail.sendMailConfirmation(newMembre.getAdresse(),newMembre.getLogin());
-
-
     }
 
     @RequestMapping(value = "/InscriptionAuteur", method = RequestMethod.POST)
@@ -182,8 +185,6 @@ public class HomeController {
         cookieToDelete.setPath("/");
         response.addCookie(cookieToDelete);
 
-//        ModelAndView connexionModel = new ModelAndView("Connexion");
-//        return connexionModel;
         return new ModelAndView("redirect:/Home"); // rediriger vers la page Home
     }
 
@@ -221,6 +222,15 @@ public class HomeController {
         IMembreDAO membreDAO = new MembreDAO();
         membreDAO.alterMember(membre);
         return new ModelAndView("redirect:/Profil");
+
+    }
+
+    @RequestMapping(value = "/DesactiveCompte/{login}", method = RequestMethod.GET)
+    public ModelAndView desactiveCompte(@PathVariable String login) {
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membreDAO.desactiverCompte(login);
+        return new ModelAndView("redirect:/Connexion");
 
     }
 
