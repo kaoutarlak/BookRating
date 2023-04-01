@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EvaluationDAO implements IEvaluationDAO {
+
     public static final String URL = "jdbc:mysql://mysql-kaoutarlak.alwaysdata.net:3306/kaoutarlak_bookrating";
     public static final String USERNAME = "290054_admin";
     public static final String PASSWORD = "Admin@2022";
@@ -321,6 +322,41 @@ public class EvaluationDAO implements IEvaluationDAO {
             establichConnection();
             PreparedStatement ps = connection.prepareStatement("DELETE FROM `avis` WHERE  id=? ;");
             ps.setInt(1, idAvis);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public void alterAvis(int idAvis, String commentaire) {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateString = date.format(formatter);
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `avis` SET commentaire=? , `datePost`=? WHERE  id=? ;");
+            ps.setString(1, commentaire);
+            ps.setString(2, dateString);
+            ps.setInt(3, idAvis);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public void alterEvaluation(int idCat, int idAvis, int note) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `evaluation` SET `note`=? WHERE `idAvis`=? AND `idCategorieEvaluation`=? ;");
+            ps.setInt(1, note);
+            ps.setInt(2, idAvis);
+            ps.setInt(3, idCat);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

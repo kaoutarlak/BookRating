@@ -38,4 +38,8 @@ public interface IEvaluationDAO {
 
     void deleteAvis(int idAvis);
 
+    void alterAvis(int idAvis, String commentaire);
+
+    void alterEvaluation(int idCat, int idAvis, int note);
+
 }

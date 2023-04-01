@@ -42,6 +42,22 @@ public class EvaluationController {
 
     }
 
+    @RequestMapping(value = "/Alter/{idAvis}", method = RequestMethod.POST)
+    public ModelAndView alterAvis(@RequestParam Map<String, Integer> evaluationData, @RequestParam("commentaire") String commentaire,
+                                  @PathVariable int idAvis) {
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        evaluationDAO.alterAvis(idAvis,commentaire);
+
+        for (Map.Entry<String, Integer> e : evaluationData.entrySet()) {
+            if (!e.getKey().equals("commentaire") ) {
+                evaluationDAO.alterEvaluation(Integer.parseInt(e.getKey()),idAvis,Integer.parseInt(String.valueOf(e.getValue())));
+            }
+        }
+        return new ModelAndView("redirect:/Evaluation/Liste");
+
+    }
+
     @RequestMapping(value = "/Signaler/{idLivre}", method = RequestMethod.POST)
     public ModelAndView signaleCommentaire(signalement newSignalement, @PathVariable int idLivre) {
 
