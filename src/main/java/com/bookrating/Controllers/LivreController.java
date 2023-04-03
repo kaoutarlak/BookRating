@@ -305,6 +305,49 @@ public class LivreController {
         DetailLivreJSP.addObject("evaluationList", evaluationList);
 
         return DetailLivreJSP;
+    }
 
+    @RequestMapping(value = "/LivreTrouver", method = RequestMethod.POST)
+    public ModelAndView listLivreTrouver(@RequestParam("motChercher") String motChercher, HttpServletRequest request) {
+
+        String login = "";
+        String role = "";
+        IMembreDAO membreDAO = new MembreDAO();
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+                role = membreDAO.membreRole(login);
+            }
+        }
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        ICatEvaluationDAO catEvaluationDAO = new CatEvaluationDAO();
+        List<categorieEvaluation> catEvaluationList = catEvaluationDAO.getAllCategoriesEvaluation();
+
+        ILivreDAO livreDAO = new LivreDAO();
+        int nbPageLivre = 1;
+        List<livre> livres = livreDAO.getSearchLivre(motChercher);
+
+        int idLivreBegin = (1 - 1) * 10;
+        int idLivreEnd = idLivreBegin + 9;
+
+        membre membre = membreDAO.getMembre(login);
+
+        ModelAndView listeLivresModel = new ModelAndView("LivresTrouver");
+        listeLivresModel.addObject("catLivreList", catLivreList);
+        listeLivresModel.addObject("login", login);
+        listeLivresModel.addObject("role", role);
+        listeLivresModel.addObject("nbPageLivre", nbPageLivre);
+        listeLivresModel.addObject("livres", livres);
+        listeLivresModel.addObject("idLivreBegin", idLivreBegin);
+        listeLivresModel.addObject("idLivreEnd", idLivreEnd);
+        listeLivresModel.addObject("currentPage", 1);
+        listeLivresModel.addObject("catEvaluationList", catEvaluationList);
+        listeLivresModel.addObject("membre", membre);
+        return listeLivresModel;
     }
 }

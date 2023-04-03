@@ -28,4 +28,6 @@ public interface ILivreDAO {
     List<livre> getAllLivres();
 
     void alterLivre(livre l);
+
+    List<livre> getSearchLivre(String motChercher);
 }

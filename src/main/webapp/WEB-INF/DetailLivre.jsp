@@ -199,8 +199,11 @@
                     </div>
                     <br>
                     <p class="text-info">${avis.commentaire}</p>
-                    <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
-                    <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal" data-target="#modal2">Signaler</a>
+                    <c:if test="${role=='auteur' || role=='membre'}">
+                        <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
+                        <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal" data-target="#modal2">Signaler</a>
+
+
                     <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
                          aria-labelledby="modal2Label"
                          aria-hidden="true">
@@ -231,6 +234,7 @@
                             (${avis.nbLikes})
                         <img class="mb-1" src="${pageContext.request.contextPath}/resources/images/icones/like.png">
                     </span>
+                    </c:if>
                 </div>
 
             </c:forEach>

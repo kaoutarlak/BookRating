@@ -91,11 +91,11 @@
                             </li>
 
                         </ul>
-                        <form class="form-inline my-2 my-lg-0">
+                        <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/Livres/LivreTrouver" method="post">
                             <input class="form-control mr-sm-2" type="search" placeholder="Recherche..."
-                                   aria-label="Search">
+                                   aria-label="Search" name="motChercher">
                             <div class="input-group-append">
-                                <button class="input-group-text search-icon"></button>
+                                <button type="submit" class="input-group-text search-icon"></button>
                             </div>
                         </form>
                         <ul class="navbar-nav ml-auto">

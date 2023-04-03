@@ -327,4 +327,35 @@ public class LivreDAO implements ILivreDAO {
         }
     }
 
+    @Override
+    public List<livre> getSearchLivre(String motChercher) {
+        List<livre> livreList = new ArrayList<livre>();
+        try {
+            establichConnection();
+            PreparedStatement stm = connection.prepareStatement("SELECT * FROM `livre` WHERE titre like '%"+motChercher+"%' OR nomAuteur like '%"+motChercher+"%';");
+            ResultSet result = stm.executeQuery();
+
+            while (result.next()) {
+                livre l = new livre();
+
+                l.setId(result.getInt("id"));
+                l.setIdCategorieLivre(result.getInt("idCategorieLivre"));
+                l.setTitre(result.getString("titre"));
+                l.setNomAuteur(result.getString("nomAuteur"));
+                l.setDateParution(LocalDate.parse(result.getString("dateParution")));
+                l.setImage(result.getString("image"));
+                l.setDescription(result.getString("description"));
+                l.setAddBy(result.getString("addBy"));
+
+                livreList.add(l);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return livreList;
+    }
+
 }

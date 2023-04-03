@@ -22,7 +22,7 @@
             <th scope="col">Catégorie</th>
             <th scope="col">Titre</th>
             <th scope="col">Auteur</th>
-            <th scope="col">Date Parution</th>
+            <th scope="col" style="white-space: nowrap;">Date Parution</th>
             <th scope="col">Description</th>
         </tr>
         </thead>
@@ -118,10 +118,10 @@
                         <td>${c.titre}</td>
                     </c:if>
                 </c:forEach>
-                <td>${element.titre}</td>
-                <td>${element.nomAuteur}</td>
-                <td>${element.dateParution}</td>
-                <td>${element.description}</td>
+                <td class="itemTitreBest">${element.titre}</td>
+                <td class="itemAuteurBest">${element.nomAuteur}</td>
+                <td class="h6 text-info">${element.dateParution}</td>
+                <td class="h6">${element.description}</td>
             </tr>
         </c:forEach>
         </tbody>

@@ -34,13 +34,7 @@
     <div class="row tete-ZoneLivre">
         <div class="col-2 zIndex">
             <div class="totalLivre">
-                <span class="itemTitre">Total livres :  </span>
-                <c:if test="${livres.size() > 10}">
-                    <span class="itemAuteur">${idLivreEnd+1} / ${livres.size()}</span>
-                </c:if>
-                <c:if test="${livres.size() <= 10}">
-                    <span class="itemAuteur">${livres.size()}</span>
-                </c:if>
+                <span class="itemTitre">Total livres trouvés : </span><span class="itemAuteur">${livres.size()}</span>
             </div>
         </div>
         <div class="col-8 text-center">
@@ -50,7 +44,7 @@
                         <c:if test="${currentPage!=1 && nbPageLivre>1}">
                             <li class="page-item">
                                 <a class="page-link border-0"
-                                   href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1"
+                                   href="${pageContext.request.contextPath}/Livres/LivresLus/1"
                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
@@ -58,22 +52,14 @@
                         </c:if>
 
                         <c:forEach var="i" begin="1" end="${nbPageLivre}" step="${1}">
-                            <c:if test="${i==currentPage}">
-                                <li class="page-item"><a class="page-link activePage"
-                                                         href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/${i}">${i}</a>
-                                </li>
-                            </c:if>
-                            <c:if test="${i!=currentPage}">
-                                <li class="page-item"><a class="page-link "
-                                                         href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/${i}">${i}</a>
-                                </li>
-                            </c:if>
-
+                            <li class="page-item"><a class="page-link"
+                                                     href="${pageContext.request.contextPath}/Livres/LivresLus/${i}">${i}</a>
+                            </li>
                         </c:forEach>
                         <c:if test="${currentPage!=nbPageLivre && nbPageLivre>1}">
                             <li class="page-item">
                                 <a class="page-link border-0"
-                                   href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/${nbPageLivre}"
+                                   href="${pageContext.request.contextPath}/Livres/LivresLus/${nbPageLivre}"
                                    aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
@@ -84,27 +70,11 @@
                 </nav>
             </div>
         </div>
-        <div class="col-2 mt-5">
-            <form action="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1" method="post" id="myFormFiltre">
-                <div class="form-group d-flex align-items-center">
-                    <select class="form-control text-lg flex-grow-1" name="numFiltre" onchange="submitForm()">
-                        <option disabled selected>Trier par</option>
-                        <option value="1">Titre (de A à Z)</option>
-                        <option value="2">Titre (de Z à A)</option>
-                        <option value="3">Auteur (de A à Z)</option>
-                        <option value="4">Auteur (de Z à A)</option>
-                    </select>
-                    <c:if test="${filtre!=null}">
-                        <a href="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1"
-                           class="sUnderline text-danger d-inline w-100 ml-2">Effacer le filtre</a>
-                    </c:if>
-                </div>
-            </form>
-        </div>
+        <div class="col-2"></div>
     </div>
+
     <div id="livreInfo">
-        <c:forEach items="${livres}" var="element" varStatus="loopStatus" begin="${idLivreBegin}"
-                   end="${idLivreEnd}">
+        <c:forEach items="${livres}" var="element" varStatus="loopStatus" >
             <div class="itemProduit">
                 <c:if test='${(element.image).contains("/resources/images/")}'>
                     <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${pageContext.request.contextPath}${element.image}"></a>
@@ -123,19 +93,16 @@
                         </a>
                     </c:if>
 
-                    <a href="#" class="btn text-white itemBtn" data-toggle="modal"
-                       data-target="#modal_${loopStatus.index}">&nbsp;Évaluer
+                    <a href="#" class="btn text-white itemBtn" data-toggle="modal" data-target="#modal_${loopStatus.index}">&nbsp;Évaluer
                         <img src="${pageContext.request.contextPath}/resources/images/icones/review.png"
                              width="24">
                     </a>
-                    <div class="modal fade" id="modal_${loopStatus.index}" tabindex="-1" role="dialog"
-                         aria-labelledby="modal1Label"
+                    <div class="modal fade" id="modal_${loopStatus.index}" tabindex="-1" role="dialog" aria-labelledby="modal1Label"
                          aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title " id="modal1Label">Évaluer livre : <span
-                                            class="text-danger">${element.titre}</span></h5>
+                                    <h5 class="modal-title " id="modal1Label">Évaluer livre : <span class="text-danger">${element.titre}</span></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -147,28 +114,23 @@
                                                 <span class="itemTitre p-3">${c.description} :</span>
                                                 <div class="container">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="${c.id}"
-                                                               id="${c.id}_1" value="1" required>
+                                                        <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_1" value="1" required>
                                                         <label class="form-check-label" for="${c.id}_1">1</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="${c.id}"
-                                                               id="${c.id}_2" value="2" required>
+                                                        <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_2" value="2" required>
                                                         <label class="form-check-label" for="${c.id}_2">2</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="${c.id}"
-                                                               id="${c.id}_3" value="3" required>
+                                                        <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_3" value="3" required>
                                                         <label class="form-check-label" for="${c.id}_3">3</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="${c.id}"
-                                                               id="${c.id}_4" value="4" required>
+                                                        <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_4" value="4" required>
                                                         <label class="form-check-label" for="${c.id}_4">4</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="${c.id}"
-                                                               id="${c.id}_5" value="5" required>
+                                                        <input class="form-check-input" type="radio" name="${c.id}" id="${c.id}_5" value="5" required>
                                                         <label class="form-check-label" for="${c.id}_5">5</label>
                                                     </div>
                                                 </div>
@@ -177,8 +139,7 @@
                                         </c:forEach>
                                         <div class="input-group mb-3">
 
-                                            <textarea type="text" class="form-control" id="commentaire"
-                                                      name="commentaire"
+                                            <textarea type="text" class="form-control" id="commentaire" name="commentaire"
                                                       placeholder="Votre commentaire" rows="6"></textarea>
                                             <input type="hidden" name="login" value="${login}">
                                             <input type="hidden" name="idLivre" value="${element.id}">
@@ -200,9 +161,3 @@
 </div>
 
 <jsp:include page="Footer.jsp"></jsp:include>
-
-<script>
-    function submitForm() {
-        document.getElementById("myFormFiltre").submit();
-    }
-</script>
