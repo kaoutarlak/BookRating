@@ -105,6 +105,10 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/Admin/sendEmail">Envoie mail</a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Admin/Signalement">Signalement</a>
+                            </li>
+
                         </ul>
 
                         <ul class="navbar-nav ml-auto">

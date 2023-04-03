@@ -1,9 +1,11 @@
 package com.bookrating.Controllers;
 
+import com.bookrating.EmailService;
 import com.bookrating.Models.DAO.*;
 import com.bookrating.Models.Entities.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,23 +50,36 @@ public class EvaluationController {
                                   @PathVariable int idAvis) {
 
         IEvaluationDAO evaluationDAO = new EvaluationDAO();
-        evaluationDAO.alterAvis(idAvis,commentaire);
+        evaluationDAO.alterAvis(idAvis, commentaire);
 
         for (Map.Entry<String, Integer> e : evaluationData.entrySet()) {
-            if (!e.getKey().equals("commentaire") ) {
-                evaluationDAO.alterEvaluation(Integer.parseInt(e.getKey()),idAvis,Integer.parseInt(String.valueOf(e.getValue())));
+            if (!e.getKey().equals("commentaire")) {
+                evaluationDAO.alterEvaluation(Integer.parseInt(e.getKey()), idAvis, Integer.parseInt(String.valueOf(e.getValue())));
             }
         }
         return new ModelAndView("redirect:/Evaluation/Liste");
 
     }
 
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping(value = "/Signaler/{idLivre}", method = RequestMethod.POST)
     public ModelAndView signaleCommentaire(signalement newSignalement, @PathVariable int idLivre) {
 
-        // sendMail.sendMail("marwa.zayane88@gmail.com","signaler l'avis ID:");
         ISignalementDAO signalementDAO = new SignalementDAO();
         signalementDAO.addSignal(newSignalement);
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre getMembre = membreDAO.getMembre(newSignalement.getLogin());
+
+        String emailFrom = getMembre.getAdresse();
+        String message = newSignalement.getMessage() + "\n Avis ID :" + newSignalement.getIdAvis()+ "\n Livre ID :" + idLivre;
+        try {
+            emailService.sendEmailSignal(emailFrom, message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         return new ModelAndView("redirect:/Livres/Detail/" + idLivre); // rediriger vers la page Détail livre
     }
 

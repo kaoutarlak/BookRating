@@ -57,7 +57,7 @@ public class AdminController {
         IMembreDAO membreDAO = new MembreDAO();
         if (mail.getMembre().equals("All")) {
             adresseList = membreDAO.getAllMembreMailActive();
-        }else{
+        } else {
             adresseList.add(mail.getMembre());
         }
         try {
@@ -192,8 +192,9 @@ public class AdminController {
 
         return viewMesLivres;
     }
+
     @RequestMapping(value = "/AddLivre", method = RequestMethod.POST)
-    public ModelAndView addLivre( livre newLivre)  {
+    public ModelAndView addLivre(livre newLivre) {
 
         ILivreDAO livreDAO = new LivreDAO();
         livreDAO.addLivre(newLivre);
@@ -202,11 +203,48 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/AlterLivre", method = RequestMethod.POST)
-    public ModelAndView alterLivre( livre newLivre)  {
+    public ModelAndView alterLivre(livre newLivre) {
 
         ILivreDAO livreDAO = new LivreDAO();
         livreDAO.alterLivre(newLivre);
 
         return new ModelAndView("redirect:/Admin/ListeLivres");
+    }
+
+    @RequestMapping(value = "/Signalement", method = RequestMethod.GET)
+    public ModelAndView signalementList(HttpServletRequest request) {
+
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeSignal");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        ISignalementDAO signalementDAO = new SignalementDAO();
+        List<signalement> signalementList = signalementDAO.getAllSignal();
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("signalementList", signalementList);
+
+        return viewMesLivres;
+    }
+
+    @RequestMapping(value = "/Regler/Signalement", method = RequestMethod.POST)
+    public ModelAndView signalementRegler(@RequestParam("idSignal") int idSignal) {
+        ISignalementDAO signalementDAO = new SignalementDAO();
+        signalementDAO.verifierSignalement(idSignal);
+        return new ModelAndView("redirect:/Admin/Signalement");
     }
 }

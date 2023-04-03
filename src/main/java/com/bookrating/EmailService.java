@@ -24,14 +24,14 @@ public class EmailService {
         mailSender.send(message);
     }
 
-//    public void sendEmail(List<String> to, String subject, String text) throws MessagingException {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom("sender@example.com");
-//        message.setTo(to.toArray(new String[to.size()]));
-//        message.setSubject(subject);
-//        message.setText(text);
-//        mailSender.send(message);
-//    }
+    public void sendEmailSignal(String from,  String text) throws MessagingException {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo("bookrating2023@gmail.com");
+        message.setSubject("Signaler un commentaire inapproprié");
+        message.setText(text);
+        mailSender.send(message);
+    }
 
     public void setMailSender(JavaMailSenderImpl mailSender) {
     }

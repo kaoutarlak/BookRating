@@ -3,7 +3,6 @@ package com.bookrating.Models.Entities;
 public class signalement {
 
     private int id;
-
     private String message;
     private int verifier;
     private String login;
