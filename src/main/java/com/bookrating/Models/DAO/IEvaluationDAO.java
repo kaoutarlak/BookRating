@@ -42,4 +42,6 @@ public interface IEvaluationDAO {
 
     void alterEvaluation(int idCat, int idAvis, int note);
 
+    List<avis> getAllAvis();
+
 }

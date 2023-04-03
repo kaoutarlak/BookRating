@@ -7,6 +7,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -246,5 +247,43 @@ public class AdminController {
         ISignalementDAO signalementDAO = new SignalementDAO();
         signalementDAO.verifierSignalement(idSignal);
         return new ModelAndView("redirect:/Admin/Signalement");
+    }
+
+    @RequestMapping(value = "/Evaluations", method = RequestMethod.GET)
+    public ModelAndView evaluationList(HttpServletRequest request) {
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeEvaluations");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        List<avis> avisList = evaluationDAO.getAllAvis();
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("avisList", avisList);
+
+        return viewMesLivres;
+    }
+
+    @RequestMapping(value = "/Evaluations/Supprimer/{idAvis}", method = RequestMethod.GET)
+    public ModelAndView evaluationList(@PathVariable int idAvis) {
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        evaluationDAO.deleteAvis(idAvis);
+        return new ModelAndView("redirect:/Admin/Evaluations");
+
     }
 }

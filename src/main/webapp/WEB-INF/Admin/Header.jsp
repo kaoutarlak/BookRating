@@ -84,7 +84,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item"
-                                       href="">Liste évaluations</a>
+                                       href="${pageContext.request.contextPath}/Admin/Evaluations">Liste évaluations</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
                                        href="${pageContext.request.contextPath}/Admin/Evaluation/Categorie">Catégories

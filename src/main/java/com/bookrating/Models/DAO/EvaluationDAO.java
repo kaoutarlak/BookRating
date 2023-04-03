@@ -365,4 +365,30 @@ public class EvaluationDAO implements IEvaluationDAO {
         }
     }
 
+    @Override
+    public List<avis> getAllAvis() {
+        List<avis> avisList = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `avis` ");
+            ResultSet result = ps.executeQuery();
+            while (result.next()) {
+                avis a = new avis();
+                a.setId(result.getInt("id"));
+                a.setDatePost(result.getDate("datePost").toLocalDate());
+                a.setCommentaire(result.getString("commentaire"));
+                a.setNbLikes(result.getInt("nbLikes"));
+                a.setLogin(result.getString("login"));
+                a.setIdLivre(result.getInt("idLivre"));
+
+                avisList.add(a);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return avisList;
+    }
+
 }
