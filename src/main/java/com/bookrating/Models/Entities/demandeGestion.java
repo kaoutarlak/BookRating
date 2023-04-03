@@ -4,19 +4,19 @@ public class demandeGestion {
     private int id ;
     private String message;
     private String etatDemande;
-    private String codeAuteur;
-    private String matriculeAdmin;
+    private String loginAuteur;
+    private String loginAdmin;
     private int idLivre;
 
     public demandeGestion() {
     }
 
-    public demandeGestion(int id, String message, String etatDemande, String codeAuteur, String matriculeAdmin, int idLivre) {
+    public demandeGestion(int id, String message, String etatDemande, String loginAuteur, String loginAdmin, int idLivre) {
         this.id = id;
         this.message = message;
         this.etatDemande = etatDemande;
-        this.codeAuteur = codeAuteur;
-        this.matriculeAdmin = matriculeAdmin;
+        this.loginAuteur = loginAuteur;
+        this.loginAdmin = loginAdmin;
         this.idLivre = idLivre;
     }
 
@@ -44,20 +44,20 @@ public class demandeGestion {
         this.etatDemande = etatDemande;
     }
 
-    public String getCodeAuteur() {
-        return codeAuteur;
+    public String getLoginAuteur() {
+        return loginAuteur;
     }
 
-    public void setCodeAuteur(String codeAuteur) {
-        this.codeAuteur = codeAuteur;
+    public void setLoginAuteur(String loginAuteur) {
+        this.loginAuteur = loginAuteur;
     }
 
-    public String getMatriculeAdmin() {
-        return matriculeAdmin;
+    public String getLoginAdmin() {
+        return loginAdmin;
     }
 
-    public void setMatriculeAdmin(String matriculeAdmin) {
-        this.matriculeAdmin = matriculeAdmin;
+    public void setLoginAdmin(String loginAdmin) {
+        this.loginAdmin = loginAdmin;
     }
 
     public int getIdLivre() {
@@ -74,8 +74,8 @@ public class demandeGestion {
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", etatDemande='" + etatDemande + '\'' +
-                ", codeAuteur='" + codeAuteur + '\'' +
-                ", matriculeAdmin='" + matriculeAdmin + '\'' +
+                ", codeAuteur='" + loginAuteur + '\'' +
+                ", matriculeAdmin='" + loginAdmin + '\'' +
                 ", idLivre=" + idLivre +
                 '}';
     }

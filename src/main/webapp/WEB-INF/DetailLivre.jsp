@@ -117,6 +117,40 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:if test="${role=='auteur'}">
+                        <a href="" class="btn text-white btn-success" style="width: 97%;"
+                           data-toggle="modal" data-target="#modal3">
+                            <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png"
+                                 width="24">&nbsp;Demande gestion
+                        </a>
+                        <div class="modal fade" id="modal3" tabindex="-1" role="dialog"
+                             aria-labelledby="modal3Label"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title " id="modal3Label">Demander la gestion de :
+                                            <span class="itemAuteurDetail">&nbsp;${livreDetail.titre}</span></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="${pageContext.request.contextPath}/Auteur/DemandeGestion"
+                                              method="post">
+                                            <div class="input-group mb-3">
+                                            <textarea type="text" class="form-control" name="message"
+                                                      placeholder="Votre message" rows="6"></textarea>
+                                            </div>
+                                            <input type="hidden" name="loginAuteur" value="${login}">
+                                            <input type="hidden" name="idLivre" value="${livreDetail.id}">
+                                            <input type="submit" value="Envoyer" class="btn btn-primary">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
                     <br/>
                     <br/>
                     <table class="ml-2">
@@ -201,36 +235,37 @@
                     <p class="text-info">${avis.commentaire}</p>
                     <c:if test="${role=='auteur' || role=='membre'}">
                         <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
-                        <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal" data-target="#modal2">Signaler</a>
+                        <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal"
+                           data-target="#modal2">Signaler</a>
 
 
-                    <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
-                         aria-labelledby="modal2Label"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title " id="modal2Label">Signaler un commentaire :</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="${pageContext.request.contextPath}/Evaluation/Signaler/${avis.idLivre}"
-                                          method="post">
-                                        <div class="input-group mb-3">
+                        <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
+                             aria-labelledby="modal2Label"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title " id="modal2Label">Signaler un commentaire :</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="${pageContext.request.contextPath}/Evaluation/Signaler/${avis.idLivre}"
+                                              method="post">
+                                            <div class="input-group mb-3">
                                             <textarea type="text" class="form-control" name="message"
-                                                  placeholder="Votre message" rows="6"></textarea>
-                                        </div>
-                                        <input type="hidden" name="login" value="${login}">
-                                        <input type="hidden" name="idAvis" value="${avis.id}">
-                                        <input type="submit" value="Envoyer" class="btn btn-primary">
-                                    </form>
+                                                      placeholder="Votre message" rows="6"></textarea>
+                                            </div>
+                                            <input type="hidden" name="login" value="${login}">
+                                            <input type="hidden" name="idAvis" value="${avis.id}">
+                                            <input type="submit" value="Envoyer" class="btn btn-primary">
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <span class="itemAuteurDetail sDateAvis">
+                        <span class="itemAuteurDetail sDateAvis">
                             (${avis.nbLikes})
                         <img class="mb-1" src="${pageContext.request.contextPath}/resources/images/icones/like.png">
                     </span>

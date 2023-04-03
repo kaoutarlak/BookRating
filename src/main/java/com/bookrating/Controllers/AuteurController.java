@@ -48,7 +48,7 @@ public class AuteurController {
     }
 
     @RequestMapping(value = "/AddLivre", method = RequestMethod.POST)
-    public ModelAndView addLivre( livre newLivre)  {
+    public ModelAndView addLivre(livre newLivre) {
 
         IAuteurDAO auteurDAO = new AuteurDAO();
         String nomAuteur = auteurDAO.getNomCompletAuteur(newLivre.getAddBy());
@@ -58,8 +58,9 @@ public class AuteurController {
 
         return new ModelAndView("redirect:/Auteur/MesLivres");
     }
+
     @RequestMapping(value = "/AlterLivre", method = RequestMethod.POST)
-    public ModelAndView alterLivre( livre newLivre)  {
+    public ModelAndView alterLivre(livre newLivre) {
 
         ILivreDAO livreDAO = new LivreDAO();
         livreDAO.alterLivre(newLivre);
@@ -69,7 +70,7 @@ public class AuteurController {
 
 
     @RequestMapping(value = "/Livre/{idLivre}/Avis", method = RequestMethod.GET)
-    public ModelAndView avisLivre(@PathVariable int idLivre, HttpServletRequest request)  {
+    public ModelAndView avisLivre(@PathVariable int idLivre, HttpServletRequest request) {
 
         String login = "";
         String role = "";
@@ -119,4 +120,13 @@ public class AuteurController {
         return avisLivreView;
     }
 
+    @RequestMapping(value = "/DemandeGestion", method = RequestMethod.POST)
+    public ModelAndView DemandeGestionByAuteur(demandeGestion demande) {
+
+        IDemandeGestionDAO demandeGestionDAO = new DemandeGestionDAO();
+        demande.setEtatDemande("En cours");
+        demandeGestionDAO.faireDemande(demande);
+
+        return new ModelAndView("redirect:/Livres/Detail/" + demande.getIdLivre());
+    }
 }
