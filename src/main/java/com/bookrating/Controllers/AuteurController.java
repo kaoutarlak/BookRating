@@ -36,6 +36,8 @@ public class AuteurController {
 
         IAuteurDAO auteurDAO = new AuteurDAO();
         List<livre> livres = auteurDAO.getlivreAddByAuteur(login);
+        List<livre> livresAGerer = auteurDAO.getlivreGererByAuteur(login);
+
         IMembreDAO membreDAO = new MembreDAO();
         membre membre = membreDAO.getMembre(login);
 
@@ -43,6 +45,7 @@ public class AuteurController {
         viewMesLivres.addObject("catLivreList", catLivreList);
         viewMesLivres.addObject("login", login);
         viewMesLivres.addObject("livres", livres);
+        viewMesLivres.addObject("livresAGerer", livresAGerer);
 
         return viewMesLivres;
     }

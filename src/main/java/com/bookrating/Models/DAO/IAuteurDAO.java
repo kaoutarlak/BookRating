@@ -17,4 +17,5 @@ public interface IAuteurDAO {
 
     String getNomCompletAuteur(String login);
     List<AvisEvaluation> avisLivreAuteur(int idLivre);
+    List<livre> getlivreGererByAuteur(String auteur);
 }

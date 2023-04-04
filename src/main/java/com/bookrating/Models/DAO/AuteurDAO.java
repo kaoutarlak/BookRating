@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuteurDAO implements IAuteurDAO {
+
     public static final String URL = "jdbc:mysql://mysql-kaoutarlak.alwaysdata.net:3306/kaoutarlak_bookrating";
     public static final String USERNAME = "290054_admin";
     public static final String PASSWORD = "Admin@2022";
     Connection connection = null;
-
 
     @Override
     public void establichConnection() {
@@ -143,4 +143,32 @@ public class AuteurDAO implements IAuteurDAO {
         return avisEvaluations;
     }
 
+    @Override
+    public List<livre> getlivreGererByAuteur(String auteur) {
+        List<livre> livres = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT livre.* FROM livre JOIN demandeGestion " +
+                    "ON livre.id=demandeGestion.idLivre WHERE loginAuteur=? AND etatDemande='Accepter';");
+            ps.setString(1, auteur);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                livre l = new livre();
+                l.setId(rs.getInt("id"));
+                l.setIdCategorieLivre(rs.getInt("idCategorieLivre"));
+                l.setTitre(rs.getString("titre"));
+                l.setNomAuteur(rs.getString("nomAuteur"));
+                l.setDateParution(rs.getDate("dateParution").toLocalDate());
+                l.setImage(rs.getString("image"));
+                l.setDescription(rs.getString("description"));
+                l.setAddBy(rs.getString("addBy"));
+                livres.add(l);
+            }
+            return livres;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
 }

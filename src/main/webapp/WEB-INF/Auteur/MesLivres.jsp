@@ -30,11 +30,11 @@
         <c:forEach items="${livres}" var="element">
             <tr>
                 <td>
-                    <a href="" class="btn" data-toggle="modal" data-target="#modalModif">
+                    <a href="" class="btn" data-toggle="modal" data-target="#modalModif_${element.id}">
                         <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                     </a>
                         <%--Modal Modifier--%>
-                    <div class="modal fade" id="modalModif" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="modalModif_${element.id}" tabindex="-1" role="dialog"
                          aria-labelledby="modalModifLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
@@ -70,7 +70,8 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label itemAuteurBest">Date de parution :</label>
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Date de parution
+                                                :</label>
                                             <div class="col-sm-9">
                                                 <input type="date" class="form-control" name="dateParution"
                                                        value="${element.dateParution}" required>
@@ -113,6 +114,116 @@
                 </td>
                 <td><a href="${pageContext.request.contextPath}/Auteur/Livre/${element.id}/Avis"><img
                         src="${element.image}" width="40" height="50"></a></td>
+                <c:forEach items="${catLivreList}" var="c">
+                    <c:if test="${c.id==element.idCategorieLivre}">
+                        <td>${c.titre}</td>
+                    </c:if>
+                </c:forEach>
+                <td class="itemTitreBest">${element.titre}</td>
+                <td class="itemAuteurBest">${element.nomAuteur}</td>
+                <td class="h6 text-info">${element.dateParution}</td>
+                <td class="h6">${element.description}</td>
+            </tr>
+        </c:forEach>
+        <c:forEach items="${livresAGerer}" var="element">
+            <tr>
+                <td>
+                    <a href="" class="btn" data-toggle="modal" data-target="#modalModif_${element.id}">
+                        <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
+                    </a>
+                        <%--Modal Modifier--%>
+                    <div class="modal fade" id="modalModif_${element.id}" tabindex="-1" role="dialog"
+                         aria-labelledby="modalModifLabel2" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalModifLabel2">Modifier un livre</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="${pageContext.request.contextPath}/Auteur/AlterLivre" method="POST">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Titre :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="titre"
+                                                       value="${element.titre}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Catégorie :</label>
+                                            <div class="col-sm-9">
+                                                <select class="form-control" name="idCategorieLivre" required>
+                                                    <c:forEach items="${catLivreList}" var="c">
+                                                        <c:if test="${element.idCategorieLivre==c.id}">
+                                                            <option value="${c.id}" selected>${c.titre}</option>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:forEach items="${catLivreList}" var="c">
+                                                        <option value="${c.id}">${c.titre}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Date de parution
+                                                :</label>
+                                            <div class="col-sm-9">
+                                                <input type="date" class="form-control" name="dateParution"
+                                                       value="${element.dateParution}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">URL image :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="image"
+                                                       value="${element.image}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label itemAuteurBest">Description :</label>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12">
+                                                <textarea class="form-control" name="description" rows="4"
+                                                          required>${element.description}</textarea>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" value="${login}" name="addBy">
+                                        <input type="hidden" value="${element.id}" name="id">
+                                        <input type="hidden" value="${element.nomAuteur}" name="nomAuteur">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <input type="submit" value="Enregistrer" class="btn btn-danger">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Annuler
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <c:if test='${(element.image).contains("/resources/images/")}'>
+                        <a href="${pageContext.request.contextPath}/Auteur/Livre/${element.id}/Avis">
+                            <img src="${pageContext.request.contextPath}${element.image}"
+                                 width="40"
+                                 height="50"></a>
+                    </c:if>
+                    <c:if test='${not (element.image).contains("/resources/images/")}'>
+                        <a href="${pageContext.request.contextPath}/Auteur/Livre/${element.id}/Avis">
+                            <img src="${element.image}"
+                                 width="40"
+                                 height="50"></a>
+                    </c:if>
+                </td>
                 <c:forEach items="${catLivreList}" var="c">
                     <c:if test="${c.id==element.idCategorieLivre}">
                         <td>${c.titre}</td>

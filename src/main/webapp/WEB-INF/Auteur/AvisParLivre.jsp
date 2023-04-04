@@ -10,12 +10,10 @@
             <div>
                 <div class="itemProduitDetail">
                     <c:if test='${(element.image).contains("/resources/images/")}'>
-                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img
-                                class="itemImgDetail" src="${pageContext.request.contextPath}${livreDetail.image}"></a>
+                        <img class="itemImgDetail" src="/BookRating_war_exploded/${livreDetail.image}">
                     </c:if>
                     <c:if test='${not (element.image).contains("/resources/images/")}'>
-                        <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img
-                                class="itemImgDetail" src="${livreDetail.image}"></a>
+                        <img class="itemImgDetail" src="${livreDetail.image}">
                     </c:if>
                     <p class="itemTitreDetail">&nbsp;${livreDetail.titre}</p>
                     <p class="itemAuteurDetail">&nbsp;${livreDetail.nomAuteur}</p>
