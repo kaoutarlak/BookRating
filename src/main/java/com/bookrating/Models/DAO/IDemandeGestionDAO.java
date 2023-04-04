@@ -14,6 +14,6 @@ public interface IDemandeGestionDAO {
 
     void faireDemande(demandeGestion demande);
 
-    void repondreDemande(int idDemande, String etatDemande);
+    void repondreDemande(int idDemande, String etatDemande,String Admin);
 
 }

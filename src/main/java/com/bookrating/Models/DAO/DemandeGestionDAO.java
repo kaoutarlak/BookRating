@@ -80,12 +80,13 @@ public class DemandeGestionDAO implements IDemandeGestionDAO {
     }
 
     @Override
-    public void repondreDemande(int idDemande, String etatDemande) {
+    public void repondreDemande(int idDemande, String etatDemande, String Admin) {
         try {
             establichConnection();
-            PreparedStatement ps = connection.prepareStatement("UPDATE `demandeGestion` SET `etatDemande`=? WHERE `id`=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE `demandeGestion` SET `etatDemande`=? ,`loginAdmin`=? WHERE `id`=?");
             ps.setString(1, etatDemande);
-            ps.setInt(2, idDemande);
+            ps.setString(2, Admin);
+            ps.setInt(3, idDemande);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

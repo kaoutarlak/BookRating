@@ -286,4 +286,42 @@ public class AdminController {
         return new ModelAndView("redirect:/Admin/Evaluations");
 
     }
+
+    @RequestMapping(value = "/DemandeGestion", method = RequestMethod.GET)
+    public ModelAndView demandeGestionList(HttpServletRequest request) {
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeDemandeGestion");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        IDemandeGestionDAO demandeGestionDAO = new DemandeGestionDAO();
+        List<demandeGestion> demandeList = demandeGestionDAO.getAllDemande();
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("demandeList", demandeList);
+
+        return viewMesLivres;
+    }
+
+    @RequestMapping(value = "/DemandeGestion/{idDemande}/{etat}/{admin}", method = RequestMethod.GET)
+    public ModelAndView demandeGestionReponse(@PathVariable int idDemande, @PathVariable String etat, @PathVariable String admin) {
+
+        IDemandeGestionDAO demandeGestionDAO = new DemandeGestionDAO();
+        demandeGestionDAO.repondreDemande(idDemande,etat,admin);
+        return new ModelAndView("redirect:/Admin/DemandeGestion");
+
+    }
 }
