@@ -234,7 +234,7 @@
                     <br>
                     <p class="text-info">${avis.commentaire}</p>
                     <c:if test="${role=='auteur' || role=='membre'}">
-                        <a class="btn btn-primary sbtnLikeSignal">Aimer</a>
+                        <a href="${pageContext.request.contextPath}/Livres/like/${avis.id}/${avis.idLivre}" class="btn btn-primary sbtnLikeSignal">Aimer</a>
                         <a class="btn btn-secondary sbtnLikeSignal" data-toggle="modal"
                            data-target="#modal2">Signaler</a>
 

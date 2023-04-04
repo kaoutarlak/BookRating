@@ -350,4 +350,12 @@ public class LivreController {
         listeLivresModel.addObject("membre", membre);
         return listeLivresModel;
     }
+
+    @RequestMapping(value = "/like/{idAvis}/{idLivre}", method = RequestMethod.GET)
+    public ModelAndView addLivreLu(@PathVariable int idAvis,@PathVariable int idLivre) {
+
+        IEvaluationDAO evaluationDAO = new EvaluationDAO();
+        evaluationDAO.likeCommentaire(idAvis);
+        return new ModelAndView("redirect:/Livres/Detail/" + idLivre);
+    }
 }

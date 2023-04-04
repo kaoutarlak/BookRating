@@ -391,4 +391,18 @@ public class EvaluationDAO implements IEvaluationDAO {
         return avisList;
     }
 
+    @Override
+    public void likeCommentaire(int idAvis) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `avis` SET `nbLikes`=`nbLikes`+1 WHERE `id`=? ;");
+            ps.setInt(1, idAvis);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
 }

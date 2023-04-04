@@ -44,4 +44,6 @@ public interface IEvaluationDAO {
 
     List<avis> getAllAvis();
 
+    void likeCommentaire(int idAvis);
+
 }
