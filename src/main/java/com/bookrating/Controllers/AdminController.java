@@ -320,8 +320,61 @@ public class AdminController {
     public ModelAndView demandeGestionReponse(@PathVariable int idDemande, @PathVariable String etat, @PathVariable String admin) {
 
         IDemandeGestionDAO demandeGestionDAO = new DemandeGestionDAO();
-        demandeGestionDAO.repondreDemande(idDemande,etat,admin);
+        demandeGestionDAO.repondreDemande(idDemande, etat, admin);
         return new ModelAndView("redirect:/Admin/DemandeGestion");
+
+    }
+
+    @RequestMapping(value = "/Membres", method = RequestMethod.GET)
+    public ModelAndView membresList(HttpServletRequest request) {
+        String login = "";
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if (c.getName().equals("login")) {
+                login = c.getValue();
+            }
+        }
+        ModelAndView viewMesLivres = new ModelAndView("Admin/ListeMembre");
+
+        ICatLivresDAO catLivresDAO = new CatLivresDAO();
+        List<categorieLivre> catLivreList = catLivresDAO.listCatLivres();
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membre membre = membreDAO.getMembre(login);
+
+        List<membre> membreList = membreDAO.allUtilisateur();
+
+        viewMesLivres.addObject("membre", membre);
+        viewMesLivres.addObject("catLivreList", catLivreList);
+        viewMesLivres.addObject("login", login);
+        viewMesLivres.addObject("membreList", membreList);
+
+        return viewMesLivres;
+    }
+
+    @RequestMapping(value = "/Membre/Desactiver/{login}", method = RequestMethod.GET)
+    public ModelAndView desactiverMembre(@PathVariable String login) {
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membreDAO.desactiverCompte(login);
+        return new ModelAndView("redirect:/Admin/Membres");
+
+    }
+    @RequestMapping(value = "/Membre/Activer/{login}", method = RequestMethod.GET)
+    public ModelAndView activerMembre(@PathVariable String login) {
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membreDAO.activerCompte(login);
+        return new ModelAndView("redirect:/Admin/Membres");
+
+    }
+    @RequestMapping(value = "/Membre/Supprimer/{login}", method = RequestMethod.GET)
+    public ModelAndView supprimerMembre(@PathVariable String login) {
+
+        IMembreDAO membreDAO = new MembreDAO();
+        membreDAO.deleteCompte(login);
+        return new ModelAndView("redirect:/Admin/Membres");
 
     }
 }

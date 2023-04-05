@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MembreDAO implements IMembreDAO {
+
     public static final String URL = "jdbc:mysql://mysql-kaoutarlak.alwaysdata.net:3306/kaoutarlak_bookrating";
     public static final String USERNAME = "290054_admin";
     public static final String PASSWORD = "Admin@2022";
     Connection connection = null;
-
 
     @Override
     public void establichConnection() {
@@ -140,7 +140,31 @@ public class MembreDAO implements IMembreDAO {
 
     @Override
     public List<membre> allUtilisateur() {
-        return null;
+        List<membre> membres = new ArrayList<>();
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM membre;");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                membre m = new membre();
+                m.setLogin(rs.getString("login"));
+                m.setPassword(rs.getString("password"));
+                m.setNom(rs.getString("nom"));
+                m.setPrenom(rs.getString("prenom"));
+                m.setTelephone(rs.getString("telephone"));
+                m.setAdresse(rs.getString("adresse"));
+                m.setPhoto(rs.getString("photo"));
+                m.setDateNaissance(rs.getDate("dateNaissance").toLocalDate());
+                m.setDateInsscription(rs.getDate("dateInsscription").toLocalDate());
+                m.setActive(rs.getByte("active"));
+                membres.add(m);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return membres;
     }
 
     @Override
@@ -220,6 +244,34 @@ public class MembreDAO implements IMembreDAO {
         try {
             establichConnection();
             PreparedStatement ps = connection.prepareStatement("UPDATE `membre` SET `active`=0 WHERE `login`=?;");
+            ps.setString(1, login);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public void activerCompte(String login) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE `membre` SET `active`=1 WHERE `login`=?;");
+            ps.setString(1, login);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public void deleteCompte(String login) {
+        try {
+            establichConnection();
+            PreparedStatement ps = connection.prepareStatement("DELETE  FROM `membre` WHERE `login`=?;");
             ps.setString(1, login);
             ps.executeUpdate();
         } catch (SQLException e) {

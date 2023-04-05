@@ -85,7 +85,8 @@
             </div>
         </div>
         <div class="col-2 mt-5">
-            <form action="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1" method="post" id="myFormFiltre">
+            <form action="${pageContext.request.contextPath}/Livres/Liste/${categorie}/1" method="post"
+                  id="myFormFiltre">
                 <div class="form-group d-flex align-items-center">
                     <select class="form-control text-lg flex-grow-1" name="numFiltre" onchange="submitForm()">
                         <option disabled selected>Trier par</option>
@@ -107,22 +108,21 @@
                    end="${idLivreEnd}">
             <div class="itemProduit">
                 <c:if test='${(element.image).contains("/resources/images/")}'>
-                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${pageContext.request.contextPath}${element.image}"></a>
+                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg"
+                                                                                                  src="${pageContext.request.contextPath}${element.image}"></a>
                 </c:if>
                 <c:if test='${not (element.image).contains("/resources/images/")}'>
-                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg" src="${element.image}"></a>
+                    <a href="${pageContext.request.contextPath}/Livres/Detail/${element.id}"><img class="itemImg"
+                                                                                                  src="${element.image}"></a>
                 </c:if>
                 <div class="itemTitre">${element.titre}</div>
                 <div class="itemAuteur">${element.nomAuteur}</div>
-                <c:if test="${role=='auteur' || role=='membre'}">
-                    <c:if test="${role=='membre'}">
-                        <a href="" class="btn text-white itemBtn"
-                           onclick="addLivreLu('${login}', '${element.id}')">&nbsp;Livre lu
-                            <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"
-                                 width="24">
-                        </a>
-                    </c:if>
-
+                <c:if test="${role=='membre'}">
+                    <a href="" class="btn text-white itemBtn"
+                       onclick="addLivreLu('${login}', '${element.id}')">&nbsp;Livre lu
+                        <img src="${pageContext.request.contextPath}/resources/images/icones/livre-lu.png"
+                             width="24">
+                    </a>
                     <a href="#" class="btn text-white itemBtn" data-toggle="modal"
                        data-target="#modal_${loopStatus.index}">&nbsp;Évaluer
                         <img src="${pageContext.request.contextPath}/resources/images/icones/review.png"
@@ -188,6 +188,40 @@
                                     </form>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${role=='auteur'}">
+                    <a href="" class="btn text-white btn-success" style="width: 97%;"
+                       data-toggle="modal" data-target="#modal3_${loopStatus.index}">
+                        <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png"
+                             width="24">&nbsp;Demande gestion
+                    </a>
+                    <div class="modal fade" id="modal3_${loopStatus.index}" tabindex="-1" role="dialog"
+                         aria-labelledby="modal3Label"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title " id="modal3Label">Demander la gestion de :
+                                        <span class="itemAuteurDetail">&nbsp;${element.titre}</span></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="${pageContext.request.contextPath}/Auteur/DemandeGestion"
+                                          method="post">
+                                        <div class="input-group mb-3">
+                                            <textarea type="text" class="form-control" name="message"
+                                                      placeholder="Votre message" rows="6"></textarea>
+                                        </div>
+                                        <input type="hidden" name="loginAuteur" value="${login}">
+                                        <input type="hidden" name="idLivre" value="${element.id}">
+                                        <input type="submit" value="Envoyer" class="btn btn-primary">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
             <div>
                 <div class="itemProduitDetail">
                     <c:if test='${(element.image).contains("/resources/images/")}'>
-                        <img class="itemImgDetail" src="/BookRating_war_exploded/${livreDetail.image}">
+                        <img class="itemImgDetail" src="http://localhost:8080/BookRating_war_exploded${livreDetail.image}">
                     </c:if>
                     <c:if test='${not (element.image).contains("/resources/images/")}'>
                         <img class="itemImgDetail" src="${livreDetail.image}">

@@ -94,7 +94,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}">Membres</a>
+                                <a class="nav-link" href="${pageContext.request.contextPath}/Admin/Membres">Membres</a>
                             </li>
 
                             <li class="nav-item">

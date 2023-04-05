@@ -26,5 +26,7 @@ public interface IMembreDAO {
     membre getMembre(String login);
     void alterMember(membre membre);
     void desactiverCompte(String login);
+    void activerCompte(String login);
+    void deleteCompte(String login);
 
 }
