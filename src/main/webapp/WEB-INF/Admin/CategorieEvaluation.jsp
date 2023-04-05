@@ -56,8 +56,8 @@
                     <c:forEach items="${categorieEvaluationList}" var="element">
                         <tr>
 
-                            <td>${element.id}</td>
-                            <td>${element.description}</td>
+                            <td class="h6 text-info">${element.id}</td>
+                            <td class="itemTitreBest">${element.description}</td>
                             <td><a href="" class="btn" data-toggle="modal" data-target="#modal2">
                                 <img src="${pageContext.request.contextPath}/resources/images/icones/icons8-pencil-24.png">
                             </a>
